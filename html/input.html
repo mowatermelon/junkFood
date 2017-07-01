@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>input——guest</title>
+		<script type="text/javascript" >
+			window.onload=function(){
+				console.log("今天你开心么");
+				var subM =document.getElementById("sumbit");
+				var subG =document.getElementById("try");
+				subG.onclick=function(){
+					var charA1 =document.getElementById("inputS");
+					var charA2 =document.getElementById("char");
+					var charA3 =document.getElementById("inputAll");					
+					var charA4 =document.getElementById("try");
+					if(charA4.value=="计算结果"){						
+						charA2.style.display ="block";
+						var a=charA3.value;
+						var b=charA1.value;
+						charA1.value =guest02(a);
+						charA4.value="重新输入数值";
+					}
+					else{
+						charA2.style.display ="none";
+						charA1.value =" ";
+						charA3.value =" ";
+						charA4.value="计算结果";						
+					}
+
+				};
+				subM.onclick=function(){
+					var inP =document.getElementById("inputAll").value;
+					var shoW =document.getElementById("show");
+					
+					var inC=count(inP);
+					
+					shoW.style.display ="block";
+					shoW.innerHTML=inC;
+				};
+				
+				subM.ondblclick=function(){
+					var inP =document.getElementById("inputAll");
+					inP.value=" ";
+					var shoW =document.getElementById("show");					
+					shoW.style.display ="none";
+				};
+			}
+			
+			function count(inpp){
+				var inA=parseInt(inpp);
+				inA *=inA;
+				return inA;
+			}
+			
+			function guest(a){
+				var a1=parseInt(a);
+				var c=" ";
+				for(var i=1;i<a1;i++){
+					if(a1%i==0){
+						c+=i+" ";
+					}
+				}
+				return c;
+			}
+			
+			function guest02(a){
+				var b=" ";
+				var i2= new Array();
+				var count=0;
+				if(a.length>0){
+					console.log("a.length is "+a.length);
+					for(var i=0;i<a.length-1;i++){
+						if(a[i]==" "){
+							i2[count]=i+" ";
+							count++;
+						}
+						
+					}			
+				}
+				console.log("count is "+count);
+				console.log("i2 is "+i2);
+				console.log("i2[count-1] is "+i2[count-1]);
+				b +="last word is"+a.substring(i2[count-1],a.length)+"    "+"count is ";
+				b +=a.length-i2[count-1]-1
+				return b;
+			}
+			
+			function guest03(){
+				
+			}
+		</script>
+	</head>
+	<body>
+	<div >
+		<ul>
+			<li>
+				<input type="text" id="inputAll"/>
+			</li>
+			<li id="show" style="display:none;">
+				
+			</li>
+			<li id="char" style="display:none;">
+				<input type="text" id="inputS"/>
+			</li>
+			<li>
+				<input type="button" value="提交" id="sumbit"/>
+				<input type="button" value="计算结果" id="try"/>
+			</li>			
+		</ul>
+		
+	</div>
+	</body>
+</html>
