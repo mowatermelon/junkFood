@@ -1,0 +1,10 @@
+﻿
+.DataList /* 界面页里class声明为DataList的HTML标签都是如下的style */
+{
+float:left;
+height:30px;
+width:100px;
+text-align:center;
+font-size:14px;
+border:1px solid #F00;
+}

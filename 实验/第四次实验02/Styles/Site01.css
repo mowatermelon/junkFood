@@ -1,0 +1,422 @@
+﻿/* BODY
+----------------------------------------------------------*/
+*
+{
+    margin:0px 0px 0px 0px;
+    padding:0px 0px 0px 0px;
+    }
+
+body   
+{
+    font-size: 15px;
+    font-family:"楷体","Yu Gothic";
+    margin: 0px;
+    padding: 0px;
+    color: #000;
+    cursor:url(../img/cursor02.png),auto;
+    overflow-x:hidden;
+    text-decoration:none;
+}
+
+
+a:link, a:visited
+{
+    color: #000;
+    cursor:url(../img/cursor02.png),auto;
+}
+
+a:hover
+{
+    color: #F4A460;
+    text-decoration: none;
+    cursor:url(../img/cursor.png),auto;
+}
+
+a:active
+{
+    cursor:url(../img/cursor02.png),auto;
+    color: #fff;
+}
+
+p
+{
+    letter-spacing:2px;
+    text-indent:2em; 
+    margin-bottom: 10px;
+    line-height: 1.6em;
+    cursor:url(../img/cursor02.png),auto;
+}
+
+
+
+
+/* TOP
+----------------------------------------------------------*/
+#TOP 
+{
+    margin-top:0px;
+    position:fixed;
+    width: 100%;
+    height: 150px;
+    z-index:999;
+    background-color: #D2691E;
+    /*line-height:20%;*/
+    }
+
+    
+/* TOP LEFT
+----------------------------------------------------------*/    
+#TOP_IMG
+{
+    position:fixed;
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    margin-top:45px;
+    background-image:url(../img/init_img0106.png);
+    background-size:100% 100%;
+    z-index:999;
+    margin-left:43.5%;
+    float: left;
+    overflow: hidden;
+}
+
+
+
+  
+ /* TOP RIGHT 
+----------------------------------------------------------*/            
+#Top_Right
+{
+    width: 80%;
+    height: 200px; 
+    float: left;
+    z-index:111;
+    margin-left:20%;
+    }
+    
+.btnHd
+{
+    text-align:center;
+    vertical-align:middle;
+    margin-top:5%;
+    border-radius:20px;  
+    float:left;
+    background-color:#F4A460;
+    width:150px;
+    height:50px;
+    color:#000;
+    font-size:35px;
+    cursor:url(../img/cursor.png),pointer;
+ 
+    }
+  
+ .btnHd:hover,.btnCenter:hover
+ {
+    text-shadow:0px 5px 2px #fff; 
+    box-shadow:0px 5px 5px #121;      
+     } 
+  
+ 
+.btnOver
+{
+    background-color:#fff;
+    }
+    
+.btnCenter
+{
+    margin-top:1.5%;
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    }
+
+ /* MAIN ALL
+----------------------------------------------------------*/           
+#mid
+{
+    margin-left:0px;
+    position:absolute;
+    margin-top:150px;
+    width: 100%; 
+    height: 500px;
+    overflow:hidden;
+    z-index:1;
+    }
+ 
+   
+#Tran,#Kind,#Prod,#Cont
+{
+    display:none;
+    }
+
+ /* MAIN DATA
+----------------------------------------------------------*/ 
+.View_L
+{
+	border: 1px solid #bbb; 
+	width: 10%; 
+	height: 36px;
+	float:left;
+	color:#000;
+	vertical-align: middle; 
+	text-align: center;
+}
+
+.View_C
+{
+	border: 1px solid #bbb; 
+	width:  10%; 
+	height: 36px; 
+	float:left;
+	color:#000;
+	vertical-align: middle; 
+	text-align: center;
+}
+
+.View_R
+{
+	border: 1px solid #bbb; 
+	width:  78%; 
+	height: 36px;
+	color:#000; 
+	float:left;
+	vertical-align: middle; 
+	text-align: center;
+}
+
+ /* MAIN DATA
+----------------------------------------------------------*/ 
+.DataList /* 界面页里class声明为DataList的HTML标签都是如下的style */
+{
+    float:left;
+    height:25%;
+    width:25%;
+}
+
+.DataList img
+{
+    display:inline-block;
+    margin-left:10%;
+    margin-top:10%;
+    width:80%;
+    height:70%;
+    }
+    
+#mo
+{
+    margin-top:-3%;
+    display:inline-block;
+    text-align:center;
+    font-size:20px;
+    line-height:15px;
+    color:Black;    
+    }
+
+#second_mid
+{
+    position:absolute;
+    margin-top:25%;
+    margin-left:2%;
+    float:left;
+    }
+
+.Img_L
+{
+	border: 1px solid #bbb; 
+	width: 50%; 
+	height: 200px;
+	float:left;
+	color:#000;
+	vertical-align: middle; 
+	text-align: center;
+}
+
+.Img
+{
+    position:relative;
+    
+    }
+
+.Img_C
+{
+	border: 1px solid #bbb; 
+	width:  50%; 
+	height: 200px; 
+	float:left;
+	color:#000;
+	vertical-align: middle; 
+	text-align: center;
+}
+
+.Img_P
+{
+	border: 1px solid #bbb; 
+	width:  78%; 
+	height: 36px;
+	color:#000; 
+	float:left;
+	vertical-align: middle; 
+	text-align: center;
+}
+
+  
+
+
+
+  /* MAIN BD
+----------------------------------------------------------*/ 
+#Cont
+{
+    background-image:url(../img/init_img0109.png);
+    background-repeat:repeat-x repeat-y;
+    width:100%;
+    height:480px;
+    }
+
+.smid
+{   
+    width:30%;
+    height:400px;
+    margin-top:2%;
+    margin-left:35%;
+    background-color:#CD853F;
+    float:left;
+    border-radius:15px;
+    opacity:1;
+    cursor:url(../img/cursor02.png),pointer;
+    box-shadow:1px 5px 1px #D2691E;
+    z-index:222;
+    }
+ 
+ .mo
+{
+    width:1100px;
+   	margin-top:0.3%;
+   	margin-left:0%;
+   	font-size:24px;
+   	display:inline-block;
+    }  
+  
+    
+    
+ .mo1
+ {
+    text-indent:0em; 
+	height: 75px;
+	font-size: 70px;
+	font-family:"宋体";
+	color:#fff;
+	text-align:center;
+	}
+	
+
+.mo2
+   {
+       vertical-align:middle;
+       color:#fff;
+       }
+       
+.all_border
+{
+    border-color:#fff;
+    border-style:solid;
+    border-width:1px;  
+    }
+
+.inp
+{
+    height:30px;
+    width:200px;
+    border-radius:5px;  
+    cursor:url(../img/cursor03.png),pointer;
+    }
+    
+.btn
+{
+    margin-left:35%;
+    border-radius:17px;  
+    float:left;
+    background-color:#fff;
+    width:100px;
+    height:50px;
+    color:#D2691E;
+    font-size:20px;
+    cursor:url(../img/cursor.png),pointer;  
+    }
+
+.btn:hover
+{
+    background-color:#D2691E;
+    color:#fff;
+    } 
+    
+ 
+ #TextBox2
+ {
+     height:180px;
+     }
+     
+      
+ /*bottom
+----------------------------------------------------------*/
+#BOM
+{
+    margin-top:620px;
+    position:fixed;
+    width: 100%; 
+    height: 60px; 
+    background-color: #D2691E;
+    z-index:999;
+}
+
+ .bom_p
+{
+    display:inline;
+    margin-top:1%;
+    letter-spacing:10px;
+    float:left;
+    text-decoration:none;
+    list-style:none;
+    font-family:"幼圆";
+    font-size:24px;
+    color:Black;
+    }
+
+
+.bom_p:hover
+{
+    text-shadow:0px 3px 2px #37d796;
+    font-size:25px;
+    }
+    
+    
+.bom_p_f_i
+{
+    margin-left:13%;
+    }
+    
+.bom_p_x
+{
+    display:inline-block;
+    float:left;
+    font-size:50px;
+    color:#fff;
+    letter-spacing:5px;
+    }	
+     
+.bom_p_a
+{
+    letter-spacing:5px;
+    display:inline-block;
+    margin-left:0%;
+    float:left;
+    font-size:50px;
+    color:#fff;
+    }
+    
+    
+ .bom_p_f_a
+{
+    margin-left:20%;
+    }			

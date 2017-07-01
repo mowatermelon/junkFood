@@ -1,0 +1,661 @@
+﻿/*--------------------------------------------------------------------------------
+            BODY STYLES
+--------------------------------------------------------------------------------*/
+body{
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+    cursor:url(../img/cursor02.png),auto;
+    font-family: "Microsoft New Tai Lue","迷你简细行楷","等线 Light","楷体";
+    line-height: 33px;
+    letter-spacing: 2px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+	scrollbar-arrow-color: #9ad546; /*三角箭头的颜色*/
+	scrollbar-face-color: #17d796; /*立体滚动条的颜色*/
+	scrollbar-3dlight-color: #666; /*立体滚动条亮边的颜色*/
+	scrollbar-highlight-color:#FFFFEE; /*滚动条空白部分的颜色*/
+	scrollbar-shadow-color: #EEEEEE; /*立体滚动条阴影的颜色*/
+	scrollbar-darkshadow-color:grey; /*立体滚动条强阴影的颜色*/
+	scrollbar-track-color:#FFFFEE; /*立体滚动条背景颜色*/
+	scrollbar-base-color:#17d796; /*滚动条的基本颜色*/
+}
+
+a{
+	    text-decoration: none;
+	}
+li{
+		list-style-type: none;
+	}
+	
+@font-face {
+	font-family:'迷你简细行楷';
+	src: url('../fonts/简细行楷.TTF') format('truetype');
+}
+@font-face {
+	font-family:'等线 Light';
+	src: url('../fonts/简特细等线.ttf')  format('truetype');
+}
+
+@font-face {
+	font-family:'Microsoft New Tai Lue';
+	src: url('../fonts/ntailu_1.ttf')  format('truetype');
+	src: url('../fonts/ntailub_1.ttf')  format('truetype');	
+}
+p{
+	text-indent:2em;
+}
+/*--------------------------------------------------------------------------------
+            HEADER STYLES
+--------------------------------------------------------------------------------*/
+#header{
+	width: 100%;
+	height: 150px;
+	float: left;
+	overflow: hidden;
+	position: fixed;
+	z-index: 20;
+	background-color:white;
+	box-shadow:0px 1px 5px #eee;
+}
+/*-----------------------------------------
+            LO_HEAD STYLES
+--------------------------------------------*/
+#lo_head{
+		width: 100px;
+		height: 100px;
+		float: left;
+		position: absolute;
+		opacity: 0.6;
+		border-radius: 50px;
+		margin-top: 2%;
+		background-size:95% 95%;
+		background-repeat: no-repeat;
+		cursor:url(../img/cursor.png),auto;
+		background-image:url(../img/logo.png);
+		margin-left: 25%;
+	}
+	
+#lo_head:hover{		
+		opacity: 1;
+	}
+
+/*-----------------------------------------
+            LI_HEAD STYLES
+--------------------------------------------*/
+#li_head{
+		margin-left: 30%;
+		position: absolute;
+		margin-top: 2%;
+	}
+
+#li_head li{
+	float: left;
+	opacity: 0.5;
+	width: 100px;
+	height: 80px;
+	text-align: center;
+}
+.top_li_a{
+	writing-mode:tb-rl;
+	font-family: "迷你简细行楷","楷体";
+	font-size:24px;
+	font-variant: small-caps;
+	color:#17d796;
+    cursor:url(../img/cursor.png),auto;
+}
+.top_li_a:hover{
+	color: #0366FB;
+	opacity: 1;
+}
+
+/*-----------------------------------------
+            PH_HEAD STYLES
+--------------------------------------------*/
+#ph_head{
+	border-radius:20px;
+	width: 300px;
+	height: inherit;
+	overflow: hidden;
+	margin-left: 63%;
+	}
+
+.top_p{
+	font-size: 24px;
+	display: inline-block;
+	color:#17d796;
+	opacity: 0.5;
+	height: 20px;
+	font-size:18px;
+	letter-spacing: 0.5px;
+	margin-left: 0%;
+	line-height: 15px;
+	font-variant:unicase;
+	font-family: "等线 Light";
+	}
+	
+
+.top_lookup{
+	border-radius: 5px;
+	margin-top: 1%;
+	position:relative;
+	height: 30px;
+}
+
+.top_put{
+	z-index: 20;
+	width: 256px;
+	opacity: 0.5;
+	border-style: solid;
+	border-color: #17d796;
+	border-width: 1px;
+	font-family: "楷体";
+    cursor:url(../img/cursor02.png),pointer;
+	}
+
+.top_put:focus{
+	color: #999999;
+	cursor:url(../img/cursor03.png),pointer;
+	opacity: 1;		
+}
+
+.top_put:empty{
+	background-color:#F8F8F8;
+	}
+	
+.top_look{
+	z-index: 10;
+	margin-top: 0.5%;
+	position: absolute;
+	margin-left: -31px;
+	width: 30px;
+	opacity: 0.6;
+	display: inline-block;
+	background-image: url(../img/look.jpg);
+	}
+
+.top_look:hover{
+	cursor:url(../img/cursor02.png),pointer;
+	border-radius: 15px;
+	box-shadow:1px 0px 1px #17d796;	
+	opacity: 1;	
+}
+
+
+/*--------------------------------------------------------------------------------
+            MAIN STYLES
+--------------------------------------------------------------------------------*/
+#main{
+	display: inline-block;
+	margin-top: 11%;
+	}
+
+
+
+/*--------------------------------------------------------------------------------
+            MAIN STORY STYLES
+--------------------------------------------------------------------------------*/
+#st_main{
+	overflow-x: hidden;
+	overflow-y: auto;
+	height:400px;
+	width: 100%;
+	align-content: center;
+	background-color:#9FFFFF;
+	position:absolute;
+	float: left;
+	margin-top: 0%;
+	box-shadow:0px 1px 5px silver;/*盒阴影的结构和 text-shadow 相同，x 轴偏移，y 轴偏移，模糊，颜色。*/
+}
+
+/*-----------------------------------------
+            WO_ST STYLES
+--------------------------------------------*/
+#wo_st{
+	margin-left: 8%;
+	position:absolute;
+	float: left;
+	}
+
+#st{
+	width: 500px;
+	height: 300px;
+	padding-top: 50px;
+	cursor: url(../img/cursor03.png),pointer;
+	}
+
+.st_han,.st_eng{
+	padding-left: 10%;
+	font-size: 20px;
+	text-align:Justify;/*火狐*/
+	text-justify:inter-ideograph;/*IE*/
+	text-indent: 2em;
+	color:#000;
+	display: inline-block;
+	line-height: 30px;
+	font-family: "等线 Light";	
+}
+
+.st_han{
+		letter-spacing: 0.3px;
+}
+
+.st_eng{
+		letter-spacing: 0.99px;
+}
+/*-----------------------------------------
+            PO_ST STYLES
+--------------------------------------------*/
+#ph_st{
+	float: left;
+	margin-left: 55%;
+	position:absolute;
+	margin-top: 2%;
+	height: 300px;
+	opacity: 0.8;
+}
+
+#ph{
+	cursor: url(../img/cursor.png),pointer;	
+	border-radius: 5px;
+	height: 100%;
+	width: 400px;
+	z-index: 6;
+	overflow: hidden;
+	}
+
+#ph_st:hover{
+	opacity: 1;
+}
+
+.ph_0{
+	border-radius: 15px;
+	position: absolute;
+	float: left;
+	background-size: 100% 100%;
+	transition: width 1s;
+	transition-timing-function:ease-out;
+	-moz-transition-timing-function:ease-out; /* Firefox 4 */
+	-webkit-transition-timing-function:ease-out;/* Safari 和 Chrome */
+	-o-transition-timing-function:ease-out; /* Opera */
+}
+
+#ph_01:hover,#ph_02:hover,#ph_03:hover{
+	width: 400px;
+	z-index: 4;
+	}
+
+
+#ph_01{
+ 	background-image: url(../img/CLOVER01.jpg);
+ 	width: 150px;
+ 	height: inherit;
+ 	z-index: 4;
+	}
+
+
+#ph_02{
+ 	z-index: 3;
+ 	background-image: url(../img/CLOVER02.jpg);
+  	width: 250px;
+ 	height: inherit;
+}
+
+#ph_03{
+	float: left;
+ 	z-index: 2;
+	display: block;
+ 	background-image: url(../img/CLOVER03.jpg);
+  	width: 350px;
+ 	height: inherit;
+ 	background-size: 100% 100%;
+}
+/*--------------------------------------------------------------------------------
+            MAIN PHOTO STYLES
+--------------------------------------------------------------------------------*/
+#ph_main{
+	height:640px;
+	width: 100%;
+	position:absolute;
+	background-color:ghostwhite;
+	margin-top:30%;
+	box-shadow:0px 1px 0px #999999;/*盒阴影的结构和 text-shadow 相同，x 轴偏移，y 轴偏移，模糊，颜色。*/
+	overflow-x: hidden;
+}
+ 
+  .hd{
+  	position:absolute;
+	height:auto;
+	font-size: 25px;
+	color:#17d796; 
+	font-size: 20px;
+	margin-top: 2%;
+	text-align:center;
+ 	margin-left: 15%;
+ 	font-family: "楷体";
+	}
+
+.s
+{
+	width: 200px;
+	border-bottom:1px solid #17d796;
+	float: left; 
+    }
+
+.s:hover
+{
+    color:white;
+    background-color:#17d796;
+    }
+    
+
+.bd{
+	height: 400px;
+	width: 100%;
+	position: absolute;
+	margin-top: 4.6%;
+	margin-left: 15%;
+	}  	
+		
+.bd ul{
+	list-style: none;
+	}
+       
+ #scene,#movie
+  {
+	display: none;
+	}
+	
+	
+
+.l_ph,.r_ph{
+	height: 500px;
+	float: left;
+	position: absolute;	
+	cursor: url(../img/cursor03.png),pointer;		
+}
+
+.l_ph{	
+	padding-left: 3%;
+	padding-right: 3%;
+	text-indent: 2em;
+	background-color:#97d796;
+	width: 240px;
+	color: white;
+	display: inline-block;
+	font-family: "迷你简细行楷","楷体";
+}
+
+#ma{
+	cursor: url(../img/cursor.png),pointer;	
+}
+
+.r_ph{
+	margin-left: 30%;
+	height: 80%;
+	float: left;
+	width: 50%;
+	background-color:#F8F8FF;
+}
+
+.mo01,.mo02,.mo03,.mo04{
+	position: absolute;
+	height: 240px;
+	width: 40%;
+	float: left;	
+	background-size: 100% 100%;
+}
+
+.mo01,.mo02{
+	margin-top:-2.5%;
+}
+
+.mo03,.mo04{
+	margin-top: 36%;	
+}
+
+.mo01,.mo03{
+	margin-left:-18%;
+}
+
+.mo02,.mo04{
+	margin-left:25%;	
+}
+
+
+/*-----------------------------------------
+            DO_PH STYLES
+--------------------------------------------*/
+.m1{
+	background-image:url(../img/comic/2_1.jpg);
+}
+
+.m2{
+	background-image:url(../img/comic/1_1.jpg);
+}
+
+.m3{
+	background-image:url(../img/comic/1_2.jpg);
+}
+
+.m4{
+	background-image:url(../img/comic/3_1.jpg);
+}
+/*-----------------------------------------
+            SC_PH STYLES
+--------------------------------------------*/
+.m5{
+	background-image:url(../img/scene/1-1.jpg);
+}
+
+.m6{
+	background-image:url(../img/scene/1-2.jpg);
+}
+
+.m7{
+	background-image:url(../img/scene/1-3.jpg);
+}
+
+.m8{
+	background-image:url(../img/scene/1-4.jpg);
+}
+/*-----------------------------------------
+            EA_PH STYLES
+--------------------------------------------*/
+.m9{
+	background-image:url(../img/movie/1-1.jpg);
+}
+
+.m10{
+	background-image:url(../img/movie/1-3.jpg);
+}
+
+.m11{
+	background-image:url(../img/movie/2-1.jpg);
+}
+
+.m12{
+	background-image:url(../img/movie/3-6.jpg);
+}
+
+/*--------------------------------------------------------------------------------
+            MAIN TALK STYLES
+--------------------------------------------------------------------------------*/
+#ta_main{
+	margin-top: 77.5%;
+	height:1500px;
+	width: 100%;
+	overflow-x: hidden;
+	position: absolute;
+	background-color:ghostwhite;
+	box-shadow:0px 1px 5px silver;/*盒阴影的结构和 text-shadow 相同，x 轴偏移，y 轴偏移，模糊，颜色。*/
+	text-indent: 2em;
+	color: #17d796;
+	font-size: 20px;
+	font-family: "迷你简细行楷","楷体";	
+	}
+
+.ph_talk,.ti_talk{
+	height: 300px;
+	padding-bottom: 2%;
+	float: left;
+	padding-left: 2%;	
+	display: inline-block;
+	cursor: url(../img/cursor03.png),pointer;		
+}
+
+.ph_talk{
+	width: 30%;
+	margin-left: 10%;
+}
+
+.ti_talk{
+	width: 30%;
+}
+
+#ta_01,#ta_02,#ta_03{
+		position: absolute;	
+		margin-left: 10%;
+		width: 100%;	
+}
+
+. p1,. p2,. p3{
+
+}
+/*-----------------------------------------
+            TA_01 STYLES
+--------------------------------------------*/
+#ta_01{
+		margin-top:5%;
+}
+
+.p1{
+	border-radius: 10px;	
+	background-size: 100% 100%;
+}
+/*-----------------------------------------
+             TA_02 STYLES
+--------------------------------------------*/
+#ta_02{
+		margin-top:37%;	
+}
+
+.p2{
+	border-radius: 10px;	
+	background-size: 100% 100%;
+	
+}
+/*-----------------------------------------
+             TA_03 STYLES
+--------------------------------------------*/
+
+#ta_03{
+	margin-top:69%;			
+}
+
+.p3{
+	border-radius: 10px;	
+	background-size: 100% 100%;
+}
+/*--------------------------------------------------------------------------------
+            BOTTOM STYLES
+--------------------------------------------------------------------------------*/
+#bottom{
+	background-color: #9FFFFF;
+	opacity: 0.5;
+	height: 500px;
+	width: 100%;
+	float: left;
+	position:absolute;
+	margin-top:188%;
+	overflow: hidden;
+	color:#000;
+	font-family: "迷你简细行楷","楷体";	
+}
+
+#m_bottom,#fo_bottom{
+	height: 60%;
+	margin-top:3%;
+	margin-left: 10%;
+	float: left;
+	font-family: "等线 Light";
+}
+
+#m_bottom,#bo_bottom{
+	cursor: url(../img/cursor03.png),pointer;		
+}
+
+#m_bottom{
+	font-size: 30px;
+	width: 30%;
+	display: inline-block;
+}
+
+#fo_bottom{
+	width: 40%;
+
+}
+
+#bo_bottom{
+	width:60%;
+	position:absolute;
+	margin-left:30%;
+	margin-top:30%;
+	font-size: 20px;
+}
+
+.p_w{
+	margin-top: -3%;
+	margin-left: 3%;
+	font-size: 30px;	
+}
+
+.f_w{
+	border-style: solid;
+	border-color: #17d796;
+	border-width: 1px;
+	margin-left: 24%;
+	width: 60%;
+	border-radius: 5px;
+}
+
+#p_w01{
+	height: 30px;	
+}
+
+#p_w02{
+	height: 150px;	
+}
+.f_b{
+	border-style: solid;
+	border-color: #17d796;
+	border-width: 1px;
+	margin-left: 45%;
+	margin-top: -20%;
+	width: 100px;
+	height: 50px;
+	border-radius: 5px;	
+	color:#17d796 ;
+}
+
+.f_b:hover{
+	color:white;
+	background-color: #17d796;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

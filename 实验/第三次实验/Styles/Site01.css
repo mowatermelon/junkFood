@@ -1,0 +1,277 @@
+﻿/* BODY
+----------------------------------------------------------*/
+*
+{
+    margin:0px 0px 0px 0px;
+    padding:0px 0px 0px 0px;
+    }
+
+#MainArea
+{
+    width: 100%;
+    height: 1000px;
+    margin-top:0px;
+    text-decoration:none;
+    }
+    
+#TOP 
+{
+    margin-top:0px;
+    position:fixed;
+    width: 100%;
+    height: 200px;
+    z-index:999;
+    }
+    
+.top
+{
+    width: 30%; 
+    height: 25px;
+    color :White;
+    font-family:'楷体'; 
+    font-size:20px;
+    overflow: hidden;
+    line-height:150%; 
+    }
+    
+ #top_l01
+{
+    margin-top:25px;
+}
+#top_l02
+{ 
+   margin-top:75px;
+    }
+/* TOP LEFT
+----------------------------------------------------------*/    
+#Top_Left
+{
+    margin-left:0%;
+    width: 30%; 
+    height: 200px; 
+    background-color:#37d796; 
+    float: left;
+    overflow: hidden;
+}
+
+.top_L
+{
+    width:200px;
+    line-height:25px;
+    margin-left:50px;
+    border-radius:2px;
+    color:WindowText;
+    }
+
+
+
+/* TOP CENTER
+----------------------------------------------------------*/    
+#Top_Center
+{
+    width: 30%; 
+    height: 200px; 
+    float: left; 
+    background-color:#17d796; 
+    overflow: hidden;
+    }
+    
+ .TC
+ {
+    margin-left:10%;
+    margin-top:5%;
+    color :White;
+    font-family:'楷体'; 
+    font-size:40px;
+    overflow: hidden;
+     } 
+     
+     
+
+
+  
+ /* TOP RIGHT
+----------------------------------------------------------*/
+.Top_R
+{
+    margin-left:80%;
+    }
+   
+#top_R01,#top_R02
+{
+    margin-top:10%;
+    height:200px;
+    float:left;
+    }            
+#Top_Right
+{
+    width: 40%; 
+    height: 200px; 
+    float: left;
+    background-color:#37d796; 
+    }
+
+ /* main
+----------------------------------------------------------*/           
+#mid
+{
+    position:absolute;
+    margin-top:15%;
+    width: 1024px; 
+    height: 700px;
+    background-color:Window;
+    margin-left:10%;
+    border-width:1px;
+    border-color:#17d796;
+    border-style:solid;
+    overflow:hidden;
+    z-index:1;
+    }
+#mo
+{
+    margin-top:-3%;
+    display:inline-block;
+    text-align:center;
+    font-size:16px;
+    color:Black;    
+    }
+
+.View_L
+{
+	border: 1px solid #bbb; 
+	width: 10%; 
+	height: 36px;
+	float:left;
+	color:#000;
+	vertical-align: middle; 
+	text-align: center;
+}
+
+.View_C
+{
+	border: 1px solid #bbb; 
+	width:  10%; 
+	height: 36px; 
+	float:left;
+	color:#000;
+	vertical-align: middle; 
+	text-align: center;
+}
+
+.View_R
+{
+	border: 1px solid #bbb; 
+	width:  78%; 
+	height: 36px;
+	color:#000; 
+	float:left;
+	vertical-align: middle; 
+	text-align: center;
+}
+
+ .smid
+{
+    margin-top:2%;
+    margin-left:30%;
+    width:40%;
+    height:300px;
+    background:#44BB55;
+    float:left;
+    border-radius:15px;
+    opacity:0.5;
+    cursor:url(../img/cursor02.png),pointer;
+    box-shadow:1px 5px 0 #11BB55;
+    }    
+    
+ .smid:hover
+ {
+    opacity:1;
+    border-radius:30px;
+    box-shadow:1px 5px 0 #2E8;
+     }
+
+.mo3
+   {
+       margin-left:5%;
+   	   margin-top:20px;
+       font-family:方正胖娃_GBK;
+       font-size:34px;
+       color:#222222;
+       letter-spacing:2px;
+       }
+       
+.mo3:hover
+{
+    color:white;
+    }
+ 
+#TextBox1
+{
+    height:30px;
+    width:200px;
+    }   
+    
+#TextBox2
+{
+    height:100px;
+    width:200px;
+    }
+
+
+#Button1
+{
+    margin-left:40%;
+    width:100px;
+    height:40px;
+    color:White;
+    font-family:'楷体';
+    font-size:30px;
+    background-color:#17d796;
+    margin-top:10px; 
+    box-shadow:0px 0px 0px #17d796;      
+    }   
+ 
+ #Button1:hover
+ {
+     background-color:White;
+     color:#17d796;
+     border-radius:2px;
+     } 
+     
+     
+ .mo4
+{
+    margin-left:30%;
+    width:100%;
+    letter-spacing:5px;
+    float:left;
+    text-decoration:none;
+    list-style:none;
+    font-family:"幼圆";
+    font-size:24px;
+    cursor:pointer;
+    }
+
+ .mo5
+{
+    border-width:0px;
+    float:left;
+    }
+
+
+.mo4:hover
+{
+    text-shadow:0px 3px 10px #37d796;
+    font-size:25px;
+    }	      
+ /*bottom
+----------------------------------------------------------*/
+#BOM
+{
+    margin-top:510px;
+    position:fixed;
+    width: 100%; 
+    height: 164px; 
+    background-color: #9ee;
+    z-index:999;
+}

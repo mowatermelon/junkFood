@@ -1,0 +1,62 @@
+﻿/* BODY
+----------------------------------------------------------*/
+*
+{
+    margin:0px 0px 0px 0px;
+    padding:0px 0px 0px 0px;
+    }
+
+#main
+{
+    width: 200px; 
+    height: 20px; 
+    overflow: hidden; 
+    line-height: 20px;
+    }
+ 
+ #p1
+ {
+    width: 200px; 
+    height: 25px; 
+    overflow: hidden; 
+    line-height: 100px;
+    font-size: small;
+    font-family:'楷体';
+    font-size:50px;
+     }
+     
+ #p2
+ {
+     width: 200px; 
+     height: 25px; 
+     overflow: hidden;
+     font-size: 50px;
+     line-height:100px;
+     float:left;
+     border-style:dotted;
+     border-color:Blue;
+     border-width:5px;
+    }   
+    
+  #p3
+ {
+    width: 200px; 
+    height: 25px; 
+    overflow: hidden;
+    font-size:50px;
+    line-height:200px;
+    float:left;
+     border-style:dotted;
+     border-color:Blue;
+     border-width:5px;
+    }
+ 
+ #Button1
+ {
+     width:200px;
+     height:100px;
+     margin-left:20%;
+     font-family:'楷体';
+     font-size:50px;
+     border-radius:10px;
+     }

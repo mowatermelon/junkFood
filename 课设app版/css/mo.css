@@ -1,0 +1,533 @@
+/* ALL
+-------------------------------------------------------------------------------------------------*/
+*
+{
+    margin:0px 0px 0px 0px;
+    padding:0px 0px 0px 0px;
+    }
+ body
+ {
+     font-size:12px;
+     }     
+@font-face {
+	font-family:'�����ϸ�п�';
+	src: url('../fonts/��ϸ�п�.TTF') format('truetype');
+}
+@font-face {
+	font-family:'���� Light';
+	src: url('../fonts/����ϸ����.ttf')  format('truetype');
+}
+
+@font-face {
+	font-family:'Microsoft New Tai Lue';
+	src: url('../fonts/ntailu_1.ttf')  format('truetype');
+	src: url('../fonts/ntailub_1.ttf')  format('truetype');	
+}
+p
+{
+    font-family:"���� Light";
+    color:Black;     
+    cursor:url(../img/cursor02.png),auto;
+    vertical-align:middle;
+}
+    
+ul,li
+{
+    font-family:"���� Light";
+    list-style:none;
+    color:Black;
+    font-size:25px;
+    }
+a
+{
+    color:#000;
+    text-decoration:none;
+    } 
+    
+    
+.showFlew
+{
+    color:#0366fb;
+    background-image:url(img/glyphicons-halflings-white.png);
+    background-color:#0366fb;    
+    }
+.notShowFlew
+{
+    color:#000;
+    background-image:url(img/glyphicons-halflings.png);
+    background-color:transparent;    
+    }       
+/* PAGE01
+------------------------------------------------------------------------------------------------------------------------------------------*/       
+/* HEADER
+-------------------------------------------------------------------------------------------------*/
+
+/* CONTENT
+-------------------------------------------------------------------------------------------------*/
+/* CONTENT  BANNER
+-------------------------------------------------------*/ 
+.banner
+{
+    width:100%;
+    height:150px;
+    }
+.banner li
+{
+    position:absolute;
+    width:inherit;
+    height:inherit;
+    background-size:100% 100%;    
+	background-image:url(../img/banner01.png);
+    }
+/* CONTENT  LIST
+-------------------------------------------------------*/ 
+.list
+{
+    width:100%;
+    height:70px;
+    background-color:White;
+    overflow:hidden;
+    }
+.list li
+{
+    opacity:0.5;
+    height:43%;
+    float:left;
+    border-radius:100%;
+    width:12%;
+    margin:6% 4% 2% 8%;
+	background-image:url(../img/glyphicons-halflings-white.png);
+	background-size:2200% 480%;   	
+	background-repeat:no-repeat;
+	cursor:pointer;      
+    }
+ .list li p
+ {
+     text-indent:1px;
+     margin-top:113%;
+     letter-spacing:0.5px;
+     font-size:0.3em;
+     }   
+.list li:nth-child(1)
+{
+    background-color:#17d796;
+	background-position:-560px -13px;      
+    }  
+.list li:nth-child(2)
+{
+    background-color:#fd415c;    
+	background-position:-34px -100px;      
+    }  
+.list li:nth-child(3)
+{
+    background-color:#FFA509;    
+	background-position:-240px 9px;      
+    } 
+.list li:nth-child(4)
+{
+    background-color:#39CDCD;    
+	background-position:6px -57px;	   
+    }                
+/* CONTENT  STORY
+-------------------------------------------------------*/ 
+.play
+{
+    width:100%;    
+    }
+.play li
+{
+    height:150px;
+    float:left;
+    background-color:White;
+    width:48%;
+    margin:1% 1% 1% 1%;
+    background-repeat:no-repeat;
+    background-size:90% 80%;
+    background-position:center top;
+    }
+.play li p
+{
+    margin-left:12%;
+    font-size:0.4em;
+    margin-top:95%;
+    }
+    
+.play li:nth-child(odd)
+{
+	background-image: url(../img/story04.png);
+    }  
+ .play li:nth-child(even)
+{
+	background-image: url(../img/story08.png);
+    }           
+/* FOOTER
+-------------------------------------------------------------------------------------------------*/
+.flexImg,.flexWord
+{
+    margin-left:7%;
+    }
+/* FOOTER  IMG
+-------------------------------------------------------*/ 
+.flexImg
+ {
+     width:90%;
+     }
+.flexImg li
+{
+    margin:1% 8% 1% 8%;
+    width:10%;
+    float:left;	 
+    height:20px;    
+	border:solid #eee 1px;
+	border-radius:100%;    
+ 	background-repeat:no-repeat; 
+	background-size:2000% 800%;  
+	background-image:url(../img/glyphicons-halflings.png);    		
+}    
+.flexImg li:nth-child(1)
+{
+	background-position:5px -68px;		
+}   
+.flexImg li:nth-child(2)
+{
+	background-position:-50px -45px;		
+} 
+.flexImg li:nth-child(3)
+{
+	background-position:-200px 3px;		
+}
+
+/* FOOTER  WORD
+-------------------------------------------------------*/ 
+ #page01 .flexWord li��nth-child(1)
+{
+    color:#0366fb;
+    background-color:transparent     	
+}
+
+ .flexWord
+ {     
+     width:90%;
+     }
+ .flexWord li
+{
+    color:#000;     
+    margin:1% 8.5% 1% 8.5%;
+    width:10%;  
+    line-height:30%;
+    text-align:center;
+    vertical-align:bottom;	    
+    font-size:0.3em;    
+    float:left;
+    height:10px;    
+    background-color:#eee;
+    cursor:pointer;		
+}
+
+/* PAGE02
+------------------------------------------------------------------------------------------------------------------------------------------*/
+/* HEADER
+-------------------------------------------------------------------------------------------------*/
+
+/* CONTENT
+-------------------------------------------------------------------------------------------------*/
+.forLogin
+{
+    width:100%;
+    height:400px;   
+    }
+.forLogin li,.forLogin li a
+{
+
+    }
+.forLogin li:nth-child(1)
+{
+  height:35%;
+  margin:40% 28% 5% 23%;
+  border-radius:100%;
+  background-color:#eee;
+  background-image:url(../img/glyphicons-halflings.png);
+  background-size:2000% 800%;
+  background-position:-1090px 14px;    
+    } 
+.forLogin li:nth-child(2)
+{
+    font-size:0.5em;    
+    text-align:center;
+    color:#A9A9A9;
+   height:6%;   
+    } 
+.forLogin li:nth-child(3)
+{
+   height :30%;    
+    background-color:transparent;    
+    }
+#goLogin
+{
+    font-weight:lighter;
+   font-size:0.45em;     
+    height:25px;
+    width:80px;
+    margin:0% 0% 0% 29%;
+    color:#0366fb;
+    line-height:200%;
+    background-color:transparent;
+    border:1px solid #0366fb;
+    border-radius:10%;
+    }             
+/* FOOTER
+-------------------------------------------------------------------------------------------------*/
+
+/* FOOTER  IMG
+-------------------------------------------------------*/ 
+
+/* FOOTER  WORD
+-------------------------------------------------------*/ 
+
+ 
+/* PAGE03
+------------------------------------------------------------------------------------------------------------------------------------------*/
+/* HEADER
+-------------------------------------------------------------------------------------------------*/
+#forDialog
+{
+    text-align:right;
+    height:20%;
+    background-color:transparent;
+    margin:0% 0% 0% 80%;
+    background-image:url(../img/glyphicons-halflings-white.png);
+    background-size:2000% 800%;  
+    background-position:-44px -170px;           
+    } 
+/* CONTENT
+-------------------------------------------------------------------------------------------------*/
+
+.myHtml01
+{
+    margin-top:50px;
+    width:100%;
+    height:70px;
+    background-color:White; 
+    }
+.myHtml01 li
+{
+    float:left;            
+    }
+
+
+.myHtml01 li:nth-child(1)
+{
+    margin-top:3%;   
+    height:70%;
+    background-image:url(../img/icon03.png);
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+    border-radius:100%;
+    background-position:center bottom;
+    width:20%;
+    margin-left:10%;    
+    }
+
+
+.myHtml01 li:nth-child(2),.myHtml01 li:nth-child(3)
+{
+    margin-left:2%;
+    width:50%;
+    margin-top:3%;
+    letter-spacing:1px;      
+    }
+    
+ .myHtml01 li:nth-child(2)
+{
+    height:27%;
+    font-size:0.5em;   
+    }
+    
+.myHtml01 li:nth-child(3)
+{
+    height:20%;    
+    text-align:center;
+    background-color:transparent;
+    font-size:0.3em;
+    border:1px solid #eee;
+    border-radius:5%;       
+    } 
+    
+.forSlide
+{
+    width:30px;
+    height:47px;    
+    margin-top:-20px;
+    background-color:transparent;
+    background-image:url(../img/glyphicons-halflings.png);
+    background-size:2000% 800%;  
+    background-position:-571px -169px;                  
+    } 
+ .myHtmlAll
+{
+    margin-top: 15px;
+    padding-top: 21px;
+    padding-bottom: 60px;
+    }
+                     
+.myHtmlAll li
+{
+    background-color:White;     
+    letter-spacing:1px;
+    font-size:0.5em;
+    height:25px;
+    float:left;
+    }
+.myHtmlAll li:nth-child(3n-2)
+{
+   width:18%;
+    }    
+.myHtmlAll li:nth-child(3n-1)
+{
+   width:69%; 
+   border-bottom:1px solid #000;   
+    }
+.myHtmlAll li:nth-child(3n)
+{
+   margin-top:0px;    
+   width:10%;
+   background-color:White;
+   border-bottom:1px solid #000;
+    background-image:url(../img/glyphicons-halflings.png);
+    background-size:2000% 800%;  
+    background-position:-590px -82px;
+    cursor:pointer;           
+    }
+
+    
+.myHtml02 li:nth-child(1),.myHtml02 li:nth-child(4),.myHtml03 li:nth-child(1),.myHtml03 li:nth-child(4),.myHtml04 li:nth-child(1), .myHtml04 li:nth-child(4),.myHtml04 li:nth-child(7),.myHtml05 li:nth-child(1)
+{
+    background-image:url(../img/glyphicons-halflings.png);
+    background-size:2000% 800%;
+    background-repeat:no-repeat;  
+    } 
+      
+ .myHtml02 li:nth-child(1)
+ {
+    background-position:-800px -177px;        
+     }
+
+ .myHtml02 li:nth-child(4)
+ {
+    background-position:-275px 2px;        
+     }
+
+.myHtml03 li:nth-child(1)
+ {
+    background-position:-220px 2px;        
+     }
+.myHtml03 li:nth-child(4)
+ {
+    background-position:-223px -87px;        
+     }
+.myHtml04 li:nth-child(1)     
+ {
+    background-position:-223px -118px;        
+     }
+
+.myHtml04 li:nth-child(4)     
+ {
+    background-position:-396px -27px;        
+     }
+.myHtml04 li:nth-child(7)     
+ {
+    background-position:13px -55px;        
+     }     
+.myHtml05 li:nth-child(1)     
+ {
+    background-position:-1035px 2px;        
+     }
+   
+/* FOOTER
+-------------------------------------------------------------------------------------------------*/
+
+/* FOOTER  IMG
+-------------------------------------------------------*/ 
+
+   
+/* FOOTER  WORD
+-------------------------------------------------------*/ 
+
+ 
+/* PAGE04
+------------------------------------------------------------------------------------------------------------------------------------------*/
+/* HEADER
+-------------------------------------------------------------------------------------------------*/
+
+/* CONTENT
+-------------------------------------------------------------------------------------------------*/
+.loginList li
+{
+   text-align:center;
+   margin-top:50px;
+   width:50%;
+   border-bottom:0px solid #0366fb;
+   float:left;
+   font-size:0.5em;
+   color:#000;
+   }
+.login_button
+{
+
+    }
+ 
+.loginContent li
+{
+
+    height:40px;
+   font-size:0.5em;
+   padding-top:10px;    
+    }
+        
+.loginContent li:nth-child(1)
+{
+    margin-top:80px;
+    background-position:0px 0px;     
+    }   
+.loginContent li:nth-child(2)
+{
+    z-index:222;
+    position:absolute;
+    margin:-58px 0px 0px 170px;  
+    font-size:0.3em;         
+    }      
+.loginContent li:nth-child(4)
+{
+    font-size:0.5em;
+    text-indent:10px; 
+    color:#eee; 
+    text-align:left;   
+    }  
+.loginContent li:nth-child(5)
+{
+    color:#fff;
+    font-size:0.3em;   
+    margin-left:5%;
+    width:90%;  
+    }      
+.loginContent li:nth-child(6)
+{
+    margin-top:30px;
+    width:100%;
+    text-decoration:overline;
+    text-align:center;   
+    }
+
+#loginContent02
+{
+   display:none; 
+    }
+/* FOOTER
+-------------------------------------------------------------------------------------------------*/
+
+/* FOOTER  IMG
+-------------------------------------------------------*/ 
+
+/* FOOTER  WORD
+-------------------------------------------------------*/ 
+ 

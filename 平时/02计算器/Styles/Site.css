@@ -1,0 +1,199 @@
+﻿/* BODY
+----------------------------------------------------------*/
+body   
+{
+    background: #8E5;
+    font-size: .80em;
+    font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    color: #888;
+    cursor:url(../img/cursor02.png),auto;
+}
+
+.mo1:hover
+{
+    color:White;
+    } 
+
+a:link, a:visited
+{
+    color: #034af3;
+}
+
+a:hover
+{
+    color: #1d60ff;
+    text-decoration: none;
+}
+
+a:active
+{
+    color: #034af3;
+}
+
+p
+{
+    margin-bottom: 10px;
+    line-height: 1.6em;
+}
+.mo
+{
+    width:900px;
+   	text-shadow:0 2px 0 #333; 
+   	margin-top:0.3%;
+   	margin-left:20%;
+   	font-size:24px;
+   	display:inline-block;
+   	font-family:"幼圆","Yu Gothic";
+    }  
+    
+.atop
+{
+    width:1024px;
+    height:300px;
+    margin-left:15%;
+    margin-top:0.5%;
+    border-radius:10px;
+	text-shadow:0 1px 0 #fff;
+}
+
+/* LEFT TOP
+----------------------------------------------------------*/
+.ltop
+{
+    width:480px;
+    height:600px;
+    background:#4D7;
+    float:left;
+    border-radius:15px;
+    opacity:0.9;
+    cursor:url(../img/cursor02.png),auto;
+	box-shadow:0 5px 0 #3D1;
+    }
+
+.ltop:hover
+{
+    box-shadow:1px 5px 3px #1D8;
+    border-radius:35px;
+    }
+    
+.ltop P
+{
+    margin-top:50px;
+    font-family:华文新魏;
+    font-size:20px;
+    }
+    
+#TextBox1, #TextBox2
+{
+    width:200px;
+    height:30px;
+    margin-left:20%;
+    margin-top:15px;
+    cursor:url(../img/cursor03.png),auto;
+    border-radius:5px; 
+    font-family:方正静蕾简体;
+    font-weight:bolder;
+    font-size:20px;
+    }  
+
+#TextBox1:hover, #TextBox2:hover
+{
+    border-radius:10px;
+    background-color:ButtonHighlight;  
+    }     
+.Butt 
+{
+    width:60px;
+    height:40px;
+    margin-left:2%;
+    margin-top:2%;
+    padding-bottom:5px;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:5px;
+    background-color:#CC2233;
+    font-family:方正少儿_GBK;
+    color:Orange;
+    cursor:url(../img/cursor.png),auto;
+    border-radius:5px;
+    box-shadow:1px 5px 0 #CC1111;
+    } 
+    
+.Butt:hover
+{
+    margin-left:110px;
+    margin-top:15px;
+    width:80px;
+    height:50px;
+    background-color:#11BB33;
+    border-radius:10px;
+    box-shadow:1px 5px 0 #11BB11;
+    }
+    
+ #BuHome
+ {
+     float:left;
+     }
+ 
+/* CENTER TOP
+----------------------------------------------------------*/
+ .ctop
+{
+    width:350px;
+    height:300px;
+    background:#44BB55;
+    float:left;
+    background-image:url(../img/init_img01.jpg);
+    background-size:100% 100%;
+    border-radius:15px;
+    opacity:0.8;
+    cursor:url(../img/cursor02.png),pointer;
+    box-shadow:1px 5px 0 #11BB55;
+    }    
+    
+ .ctop:hover
+ {
+    background-image:url(../img/init_img02.jpg);
+    border-radius:30px;
+    box-shadow:1px 5px 0 #2E8;
+     }
+           
+/* RIGHT TOP
+----------------------------------------------------------*/    
+.rtop
+{
+    width:350px;
+    height:300px;
+    background:#59D;
+    float:left;
+    border-radius:15px;
+    opacity:0.9;
+    cursor:url(../img/cursor02.png),pointer;
+    box-shadow:1px 5px 0 #27D;
+    }
+.rtop:hover
+{
+   box-shadow:0 5px 0 #57D;
+   border-radius:35px;
+    }
+
+#right2_top,#right4_top
+{
+    margin-top:20%;
+    }
+    
+    
+   #right2_top p,#right4_top p
+   {
+       font-family:方正胖娃_GBK;
+       font-size:24px;
+       color:#222222;
+       }
+   
+ #right2_top p:hover,  #right4_top p:hover
+ {
+     color:ThreeDDarkShadow;
+     } 
+   

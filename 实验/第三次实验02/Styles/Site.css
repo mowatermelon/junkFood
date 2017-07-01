@@ -1,0 +1,200 @@
+﻿/* BODY
+----------------------------------------------------------*/
+body   
+{
+    background: #8E5;
+    font-size: 15px;
+    font-family:"幼圆";
+    margin: 0px;
+    padding: 0px;
+    color: #888;
+    cursor:url(../img/cursor02.png),auto;
+}
+
+.mo1:hover
+{
+    color:White;
+    } 
+
+a:link, a:visited
+{
+    color: #034af3;
+}
+
+a:hover
+{
+    color: #1d60ff;
+    text-decoration: none;
+}
+
+a:active
+{
+    color: #034af3;
+}
+
+p
+{
+    margin-bottom: 10px;
+    line-height: 1.6em;
+}
+.mo
+{
+    width:900px;
+   	text-shadow:0 2px 0 #333; 
+   	margin-top:0.3%;
+   	margin-left:20%;
+   	font-size:24px;
+   	display:inline-block;
+   	font-family:"幼圆","Yu Gothic";
+    }  
+    
+.atop
+{
+    width:1024px;
+    height:300px;
+    margin-left:15%;
+    margin-top:0.5%;
+    border-radius:10px;
+	text-shadow:0 1px 0 #fff;
+}
+
+/* LEFT TOP
+----------------------------------------------------------*/
+.ltop
+{
+    width:324px;
+    height:300px;
+    background-image:url(../img/init_img01.jpg);
+    background-size:100% 100%;
+    float:left;
+    border-radius:15px;
+    opacity:0.5;
+    cursor:url(../img/cursor02.png),auto;
+	box-shadow:0 5px 0 #3D1;
+    }
+
+.ltop:hover
+{
+    box-shadow:1px 5px 3px #1D8;
+    border-radius:35px;
+    opacity:1;
+    }
+    
+ 
+/* CENTER TOP
+----------------------------------------------------------*/
+.ctop
+{
+    width:350px;
+    height:300px;
+    background:#59D;
+    float:left;
+    border-radius:5px;
+    opacity:0.9;
+    cursor:url(../img/cursor02.png),pointer;
+    box-shadow:1px 5px 0 #27D;
+    }
+    
+ .mo02{
+	height: 30px;
+	border-top: 3px solid #900;
+	font-size: 25px;
+	color:Purple; 
+	font-family:"宋体";
+	text-align:center;
+	}
+	
+
+.mo3
+   {
+   	   margin-top:20px;
+       font-family:方正胖娃_GBK;
+       font-size:34px;
+       color:#222222;
+       letter-spacing:2px;
+       }
+       
+.mo3:hover
+{
+    color:white;
+    }
+
+
+#Button1
+{
+    background-color:#eee;
+    margin-left:30%;
+    width:100px;
+    height:50px;
+    font-size:20px;
+    cursor:url(../img/cursor02.png),pointer;
+    border-radius:50%;
+    opacity:0.5;
+    margin-top:5%;
+    
+    }
+
+#Button1:hover
+{
+    color:Lime;
+    opacity:1;   
+    }
+
+.View_L
+{
+	border: 1px solid #bbb; 
+	width: 100px; 
+	height: 30px;
+	float:left;
+	color:#000;
+	vertical-align: middle; 
+	text-align: center;
+}
+
+.View_C
+{
+	border: 1px solid #bbb; 
+	width: 300px; 
+	height: 30px; 
+	float:left;
+	color:#000;
+	vertical-align: middle; 
+	text-align: center;
+}
+
+.View_R
+{
+	border: 1px solid #bbb; 
+	width: 150px; 
+	height: 30px;
+	color:#000; 
+	float:left;
+	vertical-align: middle; 
+	text-align: center;
+}
+	
+/* RIGHT TOP
+----------------------------------------------------------*/    
+ .rtop
+{
+    width:350px;
+    height:300px;
+    background:#44BB55;
+    float:left;
+    background-image:url(../img/init_img02.jpg);
+    background-size:100% 100%;
+    border-radius:15px;
+    opacity:0.5;
+    cursor:url(../img/cursor02.png),pointer;
+    box-shadow:1px 5px 0 #11BB55;
+    }    
+    
+ .rtop:hover
+ {
+    opacity:1;
+    border-radius:30px;
+    box-shadow:1px 5px 0 #2E8;
+     }
+
+
+   

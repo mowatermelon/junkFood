@@ -1,0 +1,165 @@
+﻿/* BODY
+----------------------------------------------------------*/
+*
+{
+    margin:0px 0px 0px 0px;
+    padding:0px 0px 0px 0px;
+    }
+
+#MainArea
+{
+    width: 100%;
+    height: 825px;
+    margin-top:0;
+    }
+    
+#TOP{ 
+    width: 100%;
+    height: 200px;
+    }
+    
+.top
+{
+    width: 30%; 
+    height: 25px;
+    color :White;
+    position:absolute;
+    font-family:'楷体'; 
+    font-size:20px;
+    overflow: hidden;
+    line-height:150%; 
+    text-align: center; 
+    vertical-align: middle;   
+    }
+    
+ #top_l01,#top_R01
+{
+    margin-top:25px;
+}
+#top_l02,#top_R02
+{ 
+   margin-top:75px;
+    }
+/* TOP LEFT
+----------------------------------------------------------*/    
+#Top_Left
+{
+    margin-left:0%;
+    width: 40%; 
+    height: 200px; 
+    background-color:#37d796; 
+    float: left;
+    overflow: hidden;
+}
+
+.top_L
+{
+    width:200px;
+    line-height:25px;
+    margin-left:50px;
+    border-radius:2px;
+    color:WindowText;
+    }
+
+#Button1
+{
+    margin-left:30%;
+    width:100px;
+    height:40px;
+    color:White;
+    font-family:'楷体';
+    font-size:30px;
+    background-color:#17d796;
+    margin-top:10px; 
+    box-shadow:0px 0px 0px #17d796;      
+    }   
+ 
+ #Button1:hover
+ {
+     background-color:White;
+     color:#17d796;
+     border-radius:2px;
+     }
+
+/* TOP CENTER
+----------------------------------------------------------*/    
+#Top_Center
+{
+    width: 20%; 
+    height: 200px; 
+    float: left; 
+    background-color:#17d796; 
+    overflow: hidden;
+    }
+ 
+  #TC
+ {
+    margin-left:10%;
+    margin-top:30%;
+    color :White;
+    font-family:'楷体'; 
+    font-size:24px;
+     }   
+ /* TOP RIGHT
+----------------------------------------------------------*/
+.Top_R
+{
+    margin-left:80%;
+    }           
+#Top_Right
+{
+    width: 40%; 
+    height: 200px; 
+    float: left;
+    background-color:#37d796; 
+    }
+
+ /* main
+----------------------------------------------------------*/           
+#mid
+{
+    width: 1024px; 
+    height: 600px;
+    background-color:Window;
+    margin-left:10%;
+    border-width:1px;
+    border-color:#17d796;
+    border-style:solid;
+    overflow:hidden;
+    }
+
+    
+
+.DataList /* 界面页里class声明为DataList的HTML标签都是如下的style */
+{
+    float:left;
+    height:100px;
+    width:100px;
+    border:1px solid #1ee;
+}
+
+.DataList img
+{
+    display:inline-block;
+    margin-left:10%;
+    margin-top:10%;
+    width:80%;
+    height:70%;
+    }
+    
+#mo
+{
+    margin-top:-3%;
+    display:inline-block;
+    text-align:center;
+    font-size:16px;
+    color:Black;    
+    }
+
+ /*bottom
+----------------------------------------------------------*/
+#BOM
+{
+    width: 100%; 
+    height: 100px; 
+    background-color: #9ee;

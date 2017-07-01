@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "页面间传递数据", ".", "{4AD8B870-C2AD-4889-8CE2-57E4FDF1021E}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/页面间传递数据"
+		Debug.AspNetCompiler.PhysicalPath = "..\页面间传递数据\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\页面间传递数据\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/页面间传递数据"
+		Release.AspNetCompiler.PhysicalPath = "..\页面间传递数据\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\页面间传递数据\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "49734"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4AD8B870-C2AD-4889-8CE2-57E4FDF1021E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AD8B870-C2AD-4889-8CE2-57E4FDF1021E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
