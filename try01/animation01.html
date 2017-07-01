@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+#testImg{
+	width:100%;
+	height:100%;
+	background-image:url(images/1.jpg);
+	background-repeat:no-repeat;
+	position:fixed;
+	}
+
+.play{
+	animation-play-state: play;
+	animation:myfirst 10s infinite;
+	animation-direction:alternate;
+/* Safari and Chrome */
+	-webkit-animation:myfirst 10s infinite;
+	-webkit-animation-direction:alternate;
+	-webkit-animation-play-state:play;
+}
+
+.paused{
+	animation-play-state: paused;
+	animation:myfirst 10s infinite;
+	animation-direction:alternate;
+/* Safari and Chrome */
+	-webkit-animation:myfirst 10s infinite;
+	-webkit-animation-direction:alternate;
+	-webkit-animation-play-state:paused;
+}
+
+
+
+@keyframes myfirst
+{
+0%   {
+	background-size:100% 100%;
+	left:0px; 
+	top:0px;
+	} 
+50%  {
+	background-size:100% 105%;
+	background-image:url(images/2.jpg);
+	left:0px; 
+	top:0px;
+	filter:alpha(opacity=50); /*IE滤镜，透明度50%*/
+	-moz-opacity:0.5; /*Firefox私有，透明度50%*/
+	opacity:0.5;/*其他，透明度50%*/	
+	}
+100% {
+	background-size:100% 100%; 
+	left:0px; 
+	top:0px;
+	}
+}
+
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+0%   {
+	background-size:100% 100%;
+	left:0px; 
+	top:0px;
+	} 
+50%  {
+	background-size:100% 105%;
+	background-image:url(images/2.jpg);
+	left:0px; 
+	top:0px;
+	filter:alpha(opacity=50); /*IE滤镜，透明度50%*/
+	-moz-opacity:0.5; /*Firefox私有，透明度50%*/
+	opacity:0.5;/*其他，透明度50%*/	
+	}
+100% {
+	background-size:100% 100%; 
+	left:0px; 
+	top:0px;
+	}
+}
+
+
+
+</style>
+
+<script type="text/javascript">
+
+        function overplay() {
+            document.getElementById("testImg").className="play";
+        }
+
+
+        function outpaused() {
+            document.getElementById("testImg").className="paused";
+        }
+</script>
+
+</head>
+<body>
+<div>
+<image id="testImg" class="paused" onmouseover="overplay()" onmouseout="outpaused"></image>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+.flextry{
+	width: 80%;
+	height: 50px;
+	word-break: break-all;
+	justify-content: center;
+	flex-shrink: initial;
+	flex-grow: inherit;
+	flex-direction: row;
+	display: -webkit-flex;
+	-webkit-flex-wrap: wrap;
+	list-style: none;
+		
+}
+#flex01{
+	flex: 1;
+	background-color: #C4E3F3;
+	border:solid #EEEEEE 2px;	
+}
+#flex_try:nth-child(2){
+	flex: 2;
+	background-color: #C4E3F3;
+	border:solid #C4E3F3 2px;	
+}
+#flex03{
+	flex: 3;
+	background-color: #C4E3F3;
+	border:solid #235 2px;		
+}
+#flex04{
+	flex: 4;
+	background-color: #C4E3F3;
+	border:solid #456 2px;	
+}

@@ -1,0 +1,13 @@
+{
+  "demo.html": {
+    "href": "demo.html",
+    "resources": [
+      "js/jquery-2.2.4.min.js",
+      "js/jquery.mobile-1.4.5.min.js",
+      "css/jquery.mobile-1.4.5.css",
+      "css/mo.css"
+    ],
+    "refer": [],
+    "priority": 0
+  }
+}

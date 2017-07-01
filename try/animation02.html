@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+#testImg{
+	width:100%;
+	height:100%;
+	background-image:url(images/1.jpg);
+	background-repeat:no-repeat;
+	position:fixed;
+	}
+
+        .paused{
+            animation: myfirst 4s infinite;
+            animation-direction: alternate;
+            animation-play-state: paused;
+            /* Safari and Chrome */
+            -webkit-animation: myfirst 4s infinite;
+            -webkit-animation-direction: alternate;
+            -webkit-animation-play-state: paused;
+        }
+        .play {
+            animation: myfirst 4s infinite;
+            animation-direction: alternate;
+            animation-play-state: play;
+            /* Safari and Chrome */
+            -webkit-animation: myfirst 4s infinite;
+            -webkit-animation-direction: alternate;
+            -webkit-animation-play-state: play;
+        }
+
+
+@keyframes myfirst
+{
+0%   {
+	background-size:100% 100%;
+	left:0px; 
+	top:0px;
+	}
+25%{
+	background-size:100% 100%;
+	background-image:url(images/2.jpg);
+	left:0px; 
+	top:0px;
+
+}
+ 
+50%  {
+	background-size:100% 100%;
+	background-image:url(images/3.jpg);
+	left:0px; 
+	top:0px;
+	}
+
+75%{
+	background-size:100% 100%;
+	background-image:url(images/4.jpg);
+	left:0px; 
+	top:0px;	
+
+
+}
+
+100% {
+	background-size:100% 100%; 
+	left:0px; 
+	top:0px;
+	}
+}
+
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+0%   {
+	background-size:100% 100%;
+	left:0px; 
+	top:0px;
+	}
+25%{
+	background-size:100% 105%;
+	background-image:url(images/2.jpg);
+	left:0px; 
+	top:0px;
+
+}
+ 
+50%  {
+	background-size:100% 100%;
+	background-image:url(images/3.jpg);
+	left:0px; 
+	top:0px;
+	}
+
+75%{
+	background-size:100% 100%;
+	background-image:url(images/4.jpg);
+	left:0px; 
+	top:0px;	
+
+
+}
+
+100% {
+	background-size:100% 100%; 
+	left:0px; 
+	top:0px;
+	}
+}
+
+
+
+</style>
+<script type="text/javascript">
+        function overplay() {
+            document.getElementById("testImg").className = "play";
+        }
+        function outpause() {
+            document.getElementById("testImg").className = "paused";
+        }
+
+</script>
+</head>
+<body>
+<div>
+<i id="testImg" class="paused" onmouseover="overplay()" onmouseout="outpause()"></i>
+</div>
+
+</body>
+</html>

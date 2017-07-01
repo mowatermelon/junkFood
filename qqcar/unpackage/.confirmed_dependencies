@@ -1,0 +1,13 @@
+{
+  "index.html": {
+    "href": "index.html",
+    "resources": [
+      "js/jquery-2.2.4.min.js",
+      "js/jquery.mobile-1.4.5.min.js",
+      "css/jquery.mobile-1.4.5.min.css",
+      "css/qqcar.css"
+    ],
+    "refer": [],
+    "priority": 0
+  }
+}

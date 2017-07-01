@@ -1,0 +1,71 @@
+/*             BODY                  */
+.floor_p{
+	background-color: aliceblue;
+	height: 0px;
+	font-family: "微软雅黑";
+	text-align: center;
+	vertical-align:middle;
+	font-size: 24px;
+	line-height: 30px;
+	color:#17D796;
+	opacity: 0.3;
+	filter: alpha(opacity: 30);
+	text-overflow: clip;
+	margin-top:-100px;
+	display: inline-block;
+	z-index:999;	
+}
+.floor li{
+	display: inline;
+	cursor:url(../img/cursor02.png),auto;
+	float: left;
+	margin-left: 10px;
+	list-style: none;
+	margin-bottom: 20px;
+	/*transform: rotate(-15deg) translate(-0px,-0px) ;*/
+}
+
+.floor li:hover{
+	transform: rotate(0deg) translate(-0px,-0px) ;
+}
+.floor{
+		cursor:url(../img/cursor.png),auto;
+		float: left;
+		width:50%;
+}
+
+/*             FLOOR01                  */
+.floor_01{
+	/*background-color: #17D796;*/
+}
+.floor_01 li{
+	height: 300px;
+}
+.floor_01_01,.floor_01_02,.floor_01_03{
+	background-image: url(../img/comic/1_5.jpg);	
+}
+.floor_01_01{
+	background-position: -68px -75px;
+}
+.floor_01_02{
+	background-position: -180px -75px;
+}
+.floor_01_03{
+	background-position: -284px -75px;
+}
+/*             FLOOR02                  */
+.floor_02 li{
+	height: 300px;
+}
+.floor_02_01,.floor_02_02,.floor_02_03{
+	background-image: url(../img/comic/1_6.jpg);	
+}
+.floor_02_01{
+	background-position: -116px -210px;
+}
+.floor_02_02{
+	background-position: -226px -75px;
+}
+.floor_02_03{
+	background-position: -424px -123px;
+}
