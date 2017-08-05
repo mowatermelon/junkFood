@@ -1,0 +1,56 @@
+<!-- <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%> -->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>证书监管主页面</title>
+ <script type="application/javascript" src="../../../../Script/jquery.js"></script>  
+
+<script>
+
+		var t=[
+			{
+				"jfsl": 2000,
+				"jhyzsl": 2000,
+				"jsbh": "D44000002001",
+				"lx": "1",
+				"pcid": "PC1",
+				"pcnd": "2016",
+				"qibh": "D44000000001",
+				"qxdm": "441802"
+			},
+			{
+				"jfsl": 1500,
+				"jhyzsl": 1500,
+				"jsbh": "44000001501",
+				"lx": "2",
+				"pcid": "PC1",
+				"pcnd": "2016",
+				"qibh": "44000000001",
+				"qxdm": "441802"
+			}
+		];
+		console.info(JSON.stringify(t));
+	
+</script>
+</head>
+<body>
+
+
+	<form>
+		<label> 序号：<input name="listorder"  id="listorder"/>
+		</label> <br /> <label> 关键字：<input name="keyword" id="keyword"/>
+		</label><br /> <label> 来源：<input name="source" id="source" />
+		</label><br /> <label> 类型： <select name="type" id="type">
+				<option value="1">负面</option>
+				<option value="0" selected>正面</option>
+		</select>
+		</label><br /> <!-- <label> 发现时间：<input name="fxsj"  id="fxsj"/>
+		</label><br /> --> <label> 发现人员：<input name="fxry" id="fxry"/>
+		</label><br /> <label> 详情：<input name="xq" id="xq"/>
+		</label>
+		<input onclick="test()" type="button" value="提交" />
+	</form>
+	
+</body>
+</html>

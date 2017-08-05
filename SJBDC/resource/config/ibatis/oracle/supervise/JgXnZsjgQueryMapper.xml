@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="JgXnZsjgQueryMapper">
+<resultMap id="BaseResultMap" type="java.util.Map" ></resultMap>
+
+
+  <!-- 证书监管首页查询sql -->
+  <select id="queryYSJGXXForIndex" resultMap="BaseResultMap" parameterType="java.util.Map">  
+  		select *
+           from (select zszt, count(*) value from bdcdj_zs_xx 
+            where 1=1
+	       <if test="cityCode!=null and cityCode!=''">
+	   			and (qxdm=${cityCode} or pqxdm=${cityCode})
+	   		</if>
+	   		<if test = "starttime!=null and starttime!='' and endtime !=null and endtime!=''">
+		         and sjrksj between to_date(#{starttime}, 'YYYY-MM-DD') and to_date(#{endtime}, 'YYYY-MM-DD')
+		 	</if>
+           group by zszt
+           ) PIVOT(SUM(value) FOR zszt IN(1,2,3,4))
+
+  </select>
+  <!-- 证书监管地图服务 -->
+  <select id="queryMapForIndex" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+  <choose>
+  <when test="cityCode!=null and cityCide!=''">
+  select s.QXDM sid,t.* from dic_v_xzq_x s left join (
+select *
+  from (select zszt, qxdm, count(*) value
+          from bdcdj_zs_xx
+         where 1 = 1
+        <if test = "starttime!=null and starttime!='' and endtime !=null and endtime!=''">
+		         and sjrksj between to_date(#{starttime}, 'YYYY-MM-DD') and to_date(#{endtime}, 'YYYY-MM-DD')
+		 	</if>
+         group by zszt, qxdm) PIVOT(SUM(value) FOR zszt IN(1, 2, 3, 4))) t on t.qxdm=s.QXDM
+         where s.PQXDM=#{cityCode}
+
+  
+  </when>
+  	<otherwise>
+	select s.QXDM sid,t.* from dic_v_xzq_s s left join (
+	select *
+  from (select zszt, pqxdm, count(*) value
+          from bdcdj_zs_xx
+         where 1 = 1
+        	<if test = "starttime!=null and starttime!='' and endtime !=null and endtime!=''">
+		         and sjrksj between to_date(#{starttime}, 'YYYY-MM-DD') and to_date(#{endtime}, 'YYYY-MM-DD')
+		 	</if>
+         group by zszt, pqxdm) PIVOT(SUM(value) FOR zszt IN(1, 2, 3, 4))) t on t.pqxdm=s.QXDM
+  	
+  	
+  	</otherwise>
+  </choose>
+  
+  
+  </select>
+  
+  
+  <!--查询企业印制绩效-->   
+	<select id="queryQYYZJX" resultMap="BaseResultMap" parameterType="java.util.Map">		 
+		 select y.yzqy, avg(nt.yzdf) yzdf, avg(nt.ycdf) ycdf
+		  from bdcdj_zs_qy y,
+		       (select t.id,
+		               CASE
+		                 WHEN ((sum(t.lzsl) / sum(t.jfsl) / 0.01)) > 1 THEN
+		                  (50 - (sum(t.lzsl) / sum(t.jfsl) / 0.01))
+                     else
+                      50
+                   end yzdf,           
+                   (50 -
+                   (select pc.ycjfts from bdcdj_zs_pc pc where pc.ywbsid = t.id)) ycdf,
+                   (select pc.qyid from bdcdj_zs_pc pc where pc.ywbsid = t.id) qyid
+              from (select f.jfsl,
+                           p.ywbsid id,
+                           (select count(*)
+                              from bdcdj_zs_xx x
+                             where x.zszt = 3
+                               and x.pcflid = f.ywbsid) lzsl
+                      from bdcdj_zs_pc p, bdcdj_zs_pcfl f
+                     where f.pcid = p.ywbsid                    
+                       <if test="year!=null and year!=''">
+		                 	and p.pcnd=#{year}
+		                 </if>                     
+                     ) t
+             group by t.id) nt
+     where y.ywbsid = nt.qyid
+     group by y.yzqy
+		 
+		
+	</select>
+  
+	<!--查询印刷机构基本信息-->   
+	<select id="queryYSJGXX" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select * from bdcdj_zs_qy b
+		where 1=1
+		<if test="id!=null and id!=''">
+			and b.id=#{id}
+		</if>
+		<if test="yzqy!=null and yzqy!=''">
+			and b.yzqy like '%'||#{yzqy}||'%'
+		</if>
+	</select>
+	
+	<!-- 查询订购单位基本信息 -->
+	<select id="queryDGDWZBXX" resultMap="BaseResultMap" parameterType="java.util.Map">
+	
+	select sum(t.jfsl) jfsl,
+         sum(t.jhyzsl) jhyzsl,
+         sum(t.syyl) syyl,
+         sum(t.fzsl) fzsl,
+         sum(lzsl) lzsl,
+         sum(wsysl) wsysl,
+         t.lx
+    from (select f.jfsl,
+                 f.jhyzsl,
+                 p.qxdm,
+                 f.lx,
+                 f.id,
+                 (select count(*)
+                    from bdcdj_zs_xx x
+                   where x.pcflid = f.id
+                     and x.zszt = 1) syyl,
+                 (select count(*)
+                    from bdcdj_zs_xx x
+                   where x.pcflid = f.id
+                     and x.zszt = 2) fzsl,
+                 (select count(*)
+                    from bdcdj_zs_xx x
+                   where x.pcflid = f.id
+                     and x.zszt = 3) lzsl,
+                 (select count(*)
+                    from bdcdj_zs_xx x
+                   where x.pcflid = f.id
+                     and x.zszt = 4) wsysl
+            from bdcdj_zs_pcfl f, bdcdj_zs_pc p
+           where p.id = f.pcid
+            <if test="cityCode!=null and cityCode!=''">
+	          and p.qxdm = #{cityCode}
+	         </if>
+	          <if test="year!=null and year!=''">
+	           and p.pcnd = #{year}
+	          </if>
+            ) t
+   group by t.lx
+
+  	
+  </select>
+	<!-- 证书使用情况 -->
+	<select id="queryZSSY" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<choose>
+			<when test="cityCode!=null and cityCode!=''">
+				
+				select tt.*,s.QXMC from dic_v_xzq_x s left join (
+				select t.qxdm,
+				       sum(jhyzsl) jhyzsl,
+				       sum(jfsl) jfsl,
+				       sum(sysl) sysl,
+				       (sum(sysl) / (select extract(month from sysdate) from dual)) avgsysl
+				  from (select f.qxdm,
+				               f.jhyzsl,
+				               f.jfsl,
+				               (select count(*)
+				                  from bdcdj_zs_xx
+				                 where zszt = 1
+				                   and pcflid = f.ywbsid) sysl
+				          from bdcdj_zs_pc p, bdcdj_zs_pcfl f
+				         where p.ywbsid = f.pcid
+				         <if test="year!=null and year!=''">
+					         	and  p.pcnd=#{year}
+					     </if>
+				         ) t
+				 group by t.qxdm) tt
+				 on s.QXDM=tt.qxdm
+				 where s.PQXDM=${cityCode}
+				    order by to_number(s.id)
+			</when>
+			<otherwise>
+						select tt.*,s.QXMC from dic_v_xzq_s s left join (
+					select t.qxdm,
+					       sum(jhyzsl) jhyzsl,
+					       sum(jfsl) jfsl,
+					       sum(sysl) sysl,
+					       (sum(sysl) / (select extract(month from sysdate) from dual)) avgsysl
+					  from (select p.qxdm,
+					               f.jhyzsl,
+					               f.jfsl,
+					               (select count(*)
+					                  from bdcdj_zs_xx
+					                 where zszt = 1
+					                   and pcflid = f.ywbsid) sysl
+					          from bdcdj_zs_pc p, bdcdj_zs_pcfl f
+					         where p.ywbsid = f.pcid
+					         <if test="year!=null and year!=''">
+					         	and  p.pcnd=#{year}
+					         </if>
+					         ) t
+					 group by t.qxdm) tt
+					 on s.QXDM=tt.qxdm
+					    order by to_number(s.id)
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 证书监管印制计划 -->
+	<select id="queryYZJH" resultMap="BaseResultMap" parameterType="java.util.Map">			
+		<choose>
+			<when test="cityCode!=null and cityCode!=''">
+  				 select x.QXMC,tt.* from dic_v_xzq_x x left join (
+			      select t.qxdm,
+			             sum(t.zsjfyzsl) zsjfyzsl,
+			             sum(t.zmjfyzsl) zmjfyzsl,
+			             sum(t.zsjfsl) zsjfsl,
+			             sum(t.zmjfsl) zmjfsl,
+			             sum(t.zslzsl) zslzsl,
+			             sum(t.zmlzsl) zmlzsl
+			        from (select f1.qxdm,
+			                     (select sum(f.jhyzsl)
+			                        from bdcdj_zs_pcfl f
+			                       where f.ywbsid = f1.ywbsid
+			                         and f.lx = 1) zsjfyzsl,
+			                     (select sum(f.jhyzsl)
+			                        from bdcdj_zs_pcfl f
+			                       where f.ywbsid = f1.ywbsid
+			                         and f.lx = 2) zmjfyzsl,
+			                     (select sum(f.jfsl)
+			                        from bdcdj_zs_pcfl f
+			                       where f.ywbsid = f1.ywbsid
+			                         and f.lx = 1) zsjfsl,
+			                     (select sum(f.jfsl)
+			                        from bdcdj_zs_pcfl f
+			                       where f.ywbsid = f1.ywbsid
+			                         and f.lx = 2) zmjfsl,
+			                     (select count(*)
+			                        from bdcdj_zs_xx x
+			                       where x.pcflid = f1.ywbsid
+			                         and x.ZSZT = 3
+			                         and x.ZSLX = 1) zslzsl,
+			                     (select count(*)
+			                        from bdcdj_zs_xx x
+			                       where x.pcflid = f1.ywbsid
+			                         and x.ZSZT = 3
+			                         and x.ZSLX = 2) zmlzsl
+			                from bdcdj_zs_pcfl f1
+			                <if test="year!=null and year!=''">
+								        where  f1.pcnd=#{year}
+								   </if>
+			                ) t
+			       group by t.qxdm
+			       )tt on tt.qxdm=x.QXDM
+			 where x.PQXDM=#{cityCode}
+           order by to_number(x.id)
+			</when>
+			<otherwise>
+			select s.qxmc,tt.* from dic_v_xzq_s s left join (
+             select t.qxdm,
+                     sum(t.zsjfyzsl) zsjfyzsl,
+                    sum(t.zmjfyzsl) zmjfyzsl,
+                    sum(t.zsjfsl) zsjfsl,
+                    sum(t.zmjfsl) zmjfsl,
+                    sum(t.zslzsl) zslzsl,
+                    sum(t.zmlzsl) zmlzsl
+               from (select p.qxdm,
+                            (select sum(f.jhyzsl)
+                               from bdcdj_zs_pcfl f
+                              where f.pcid = p.ywbsid
+                                and f.lx = 1) zsjfyzsl,
+                            (select sum(f.jhyzsl)
+                               from bdcdj_zs_pcfl f
+                              where f.pcid = p.ywbsid
+                                and f.lx = 2) zmjfyzsl,
+                            (select sum(f.jfsl)
+                               from bdcdj_zs_pcfl f
+                              where f.pcid = p.ywbsid
+                                and f.lx = 1) zsjfsl,
+                            (select sum(f.jfsl)
+                               from bdcdj_zs_pcfl f
+                              where f.pcid = p.ywbsid
+                                and f.lx = 2) zmjfsl,
+                            (select count(*)
+                               from bdcdj_v_zs_xx x
+                              where x.pcid = p.ywbsid
+                                and x.ZSZT = 3
+                                and x.ZSLX = 1) zslzsl,
+                            (select count(*)
+                               from bdcdj_v_zs_xx x
+                              where x.pcid = p.ywbsid
+                                and x.ZSZT = 3
+                                and x.ZSLX = 2) zmlzsl
+                       from bdcdj_zs_pc p
+                    <if test="year!=null and year!=''">
+					        where  p.pcnd=#{year}
+					   </if>
+                    
+                       ) t
+              group by t.qxdm)tt on tt.qxdm=s.QXDM
+               order by to_number(s.id)
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	<!-- 证书监管   Echart 印制企业劣证率总体统计-->
+	<select id="queryYZQYZTQK" resultMap="BaseResultMap" parameterType="java.util.Map">			
+
+             
+             select t.yzqy,sum(t.jfsl) jfsl,sum(t.pczl) pczl,sum(t.yczl) yczl,sum(t.lzzs) lzzs,sum(t.ycjfts) ycjfts from(
+         select q.yzqy,
+                p.ycjfts,
+                (select sum(f.jfsl) from bdcdj_zs_pcfl f where f.pcid = p.ywbsid) jfsl,
+                (select count(*) from BDCDJ_ZS_PC p1 where p1.qyid=q.ywbsid and p1.ywbsid=p.ywbsid) pczl,
+               (select count(*) from BDCDJ_ZS_PC p1 where p1.qyid=q.ywbsid and p1.ywbsid=p.ywbsid and p1.ycjfts>0) yczl,
+                (select count(*)
+                   from bdcdj_zs_xx x, bdcdj_zs_pcfl f
+                  where x.pcflid = f.ywbsid
+                    and zszt = 3
+                    and f.pcid = p.ywbsid) lzzs
+           from Bdcdj_Zs_Qy q
+           left join BDCDJ_ZS_PC p
+             on q.ywbsid = p.qyid
+
+           <if test="year!=null and year!=''">
+		         and p.pcnd=#{year}
+		     </if>
+               
+             ) t
+             group by yzqy
+             
+
+	</select>
+	
+	<!-- 查询印制企业 印制企业批次信息 -->
+	<select id="queryYZQYPCXX" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select (select sum(f.jfsl) from bdcdj_zs_pcfl f where f.pcid = p.ywbsid) yzzs,   
+          (select count(*) from bdcdj_zs_xx x,bdcdj_zs_pcfl f where x.pcflid=f.ywbsid and x.zszt=3 and f.pcid=p.ywbsid)  lzsl,
+           q.yzqy,
+           p.sjjfrq,
+           p.jfpc,
+           p.ycjfts
+      from bdcdj_zs_pc p, bdcdj_zs_qy q
+     where p.qyid = q.ywbsid
+
+		 <if test="year!=null and year!=''">
+		 	 and p.pcnd=#{year}
+		 </if>
+	</select>
+	
+	<!-- 查询订购印刷信息 -->
+	<select id="queryDGYSXX" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select (select sum(f.jfsl) from BDCDJ_ZS_PCFL f where p.id = f.pcid) jfsl,
+		       (select sum(f.jfsl)
+		          from BDCDJ_ZS_PCFL f
+		         where p.id = f.pcid
+		           and f.lx = 1) zszl,
+		       (select count(*)
+		          from BDCDJ_ZS_PCFL f, bdcdj_zs_xx x
+		         where x.pcflid = f.id
+		           and x.zszt = 3
+		           and p.id = f.pcid) lzsl,
+		       (select sum(f.jfsl)
+		          from BDCDJ_ZS_PCFL f
+		         where p.id = f.pcid
+		           and f.lx = 2) zmzl,
+		       p.dghth,
+		       p.ycjfts,
+		       p.dgrq,
+		       p.pcnd,
+		       p.jhjfrq,
+           p.jfpc,
+           (select q.yzqy from bdcdj_zs_qy q where q.id=p.qyid) yzqy
+		  from BDCDJ_ZS_PC p
+	</select>
+	
+	
+	<!-- 查询劣证信息 -->
+	<select id="queryLZXX" resultMap="BaseResultMap" parameterType="java.util.Map">
+	
+		select x.zsxlh,f.lx,p.jfpc,p.dghth,q.yzqy
+		          from BDCDJ_ZS_PCFL f, bdcdj_zs_xx x,BDCDJ_ZS_PC p,
+		          Bdcdj_Zs_Qy q
+		         where x.pcflid = f.id
+		           and p.id=f.pcid
+		           and x.zszt = 3
+		           and q.id=p.qyid
+	</select>
+	<!-- 查询废证信息 -->
+	<select id="queryFZXX" resultMap="BaseResultMap" parameterType="java.util.Map">
+	select zslx, zsxlh,fzr,fqr,fqyy,fqrq from bdcdj_zs_xx where zszt=2
+	</select>
+	
+
+	<!-- 查询证书信息 -->
+	<select id="queryPageZSXX" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select x.ywbsid, q.yzqy, p.jfpc,p.sjrksj,x.zsbh,x.zsxlh,x.zslx,x.zszt,d.qxmc
+		  from bdcdj_zs_xx x, bdcdj_zs_pcfl f, bdcdj_zs_pc p, bdcdj_zs_qy q,dic_xzq d
+		 where x.pcflid = f.ywbsid
+		   and f.pcid = p.ywbsid
+		   and p.qyid = q.ywbsid
+		   and p.qxdm=d.qxdm
+		   <if test="cityCode!=null and cityCode!=''">
+		   		and p.qxdm=#{cityCode}
+		   </if>
+		    <if test="zslx!=null and zslx!=''">
+		   		and x.zslx=#{zslx}	
+		   </if>
+		    <if test="zsxlh!=null and zsxlh!=''">
+		   		and x.zsxlh=#{zsxlh}
+		   </if>
+			 <if test="zszt!=null and zszt!=''">
+		   		and x.zszt=#{zszt}
+		   </if>
+		    <if test="yzqy!=null and yzqy!=''">
+		   		 and q.yzqy like '%'||#{yzqy}||'%'
+		   </if>
+	</select>
+	
+	<!-- 查询证书证明详细信息 -->
+	<select id="queryZSXXDetail" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select x.ZSXLH,x.ZSBH,x.ZSLX,x.ZSZT,x.lrr,x.LRRQ,x.FQR,x.FQRQ,x.FZR,x.FZRQ,x.FQYY,x.SJRKSJ,p.pcnd,p.jfpc,q.yzqy
+		  from bdcdj_v_zs_xx x,bdcdj_zs_pc p,bdcdj_zs_qy q
+		 where x.YWBSID = #{ywbsid}
+		and x.pcid=p.ywbsid
+		and q.ywbsid=p.qyid
+	</select>
+
+</mapper>

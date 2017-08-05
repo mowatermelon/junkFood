@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geostar.gtgh.portal.core.dao.ZsqyMapper" >
+  <resultMap id="BaseResultMap" type="com.geostar.gtgh.portal.core.entity.Zsqy" >
+    <result column="YZQY" property="yzqy" jdbcType="NVARCHAR" />
+    <result column="SJRKSJ" property="sjrksj" jdbcType="DATE" />
+    <result column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="YYZZDM" property="yyzzdm" jdbcType="NVARCHAR" />
+    <result column="LX" property="lx" jdbcType="NVARCHAR" />
+    <result column="FDDBR" property="fddbr" jdbcType="NVARCHAR" />
+    <result column="ZCZB" property="zczb" jdbcType="NVARCHAR" />
+    <result column="CLRQ" property="clrq" jdbcType="DATE" />
+    <result column="ZS" property="zs" jdbcType="NVARCHAR" />
+    <result column="YYQXQ" property="yyqxq" jdbcType="DATE" />
+    <result column="YYQXZ" property="yyqxz" jdbcType="DATE" />
+    <result column="JYFW" property="jyfw" jdbcType="NVARCHAR" />
+    <result column="DJJG" property="djjg" jdbcType="NVARCHAR" />
+    <result column="DJZT" property="djzt" jdbcType="NVARCHAR" />
+    <result column="HZRQ" property="hzrq" jdbcType="DATE" />
+  </resultMap>
+
+  <insert id="insert" parameterType="com.geostar.gtgh.portal.core.entity.Zsqy" >
+    insert into BDCDJ_ZS_QY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="yzqy != null" >
+        YZQY,
+      </if>
+      <if test="sjrksj != null" >
+        SJRKSJ,
+      </if>
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="yyzzdm != null" >
+        YYZZDM,
+      </if>
+      <if test="lx != null" >
+        LX,
+      </if>
+      <if test="fddbr != null" >
+        FDDBR,
+      </if>
+      <if test="zczb != null" >
+        ZCZB,
+      </if>
+      <if test="clrq != null" >
+        CLRQ,
+      </if>
+      <if test="zs != null" >
+        ZS,
+      </if>
+      <if test="yyqxq != null" >
+        YYQXQ,
+      </if>
+      <if test="yyqxz != null" >
+        YYQXZ,
+      </if>
+      <if test="jyfw != null" >
+        JYFW,
+      </if>
+      <if test="djjg != null" >
+        DJJG,
+      </if>
+      <if test="djzt != null" >
+        DJZT,
+      </if>
+      <if test="hzrq != null" >
+        HZRQ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="yzqy != null" >
+        #{yzqy,jdbcType=NVARCHAR},
+      </if>
+      <if test="sjrksj != null" >
+        #{sjrksj,jdbcType=DATE},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="yyzzdm != null" >
+        #{yyzzdm,jdbcType=NVARCHAR},
+      </if>
+      <if test="lx != null" >
+        #{lx,jdbcType=NVARCHAR},
+      </if>
+      <if test="fddbr != null" >
+        #{fddbr,jdbcType=NVARCHAR},
+      </if>
+      <if test="zczb != null" >
+        #{zczb,jdbcType=NVARCHAR},
+      </if>
+      <if test="clrq != null" >
+        #{clrq,jdbcType=DATE},
+      </if>
+      <if test="zs != null" >
+        #{zs,jdbcType=NVARCHAR},
+      </if>
+      <if test="yyqxq != null" >
+        #{yyqxq,jdbcType=DATE},
+      </if>
+      <if test="yyqxz != null" >
+        #{yyqxz,jdbcType=DATE},
+      </if>
+      <if test="jyfw != null" >
+        #{jyfw,jdbcType=NVARCHAR},
+      </if>
+      <if test="djjg != null" >
+        #{djjg,jdbcType=NVARCHAR},
+      </if>
+      <if test="djzt != null" >
+        #{djzt,jdbcType=NVARCHAR},
+      </if>
+      <if test="hzrq != null" >
+        #{hzrq,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+</mapper>

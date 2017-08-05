@@ -1,0 +1,76 @@
+.query-box {
+	border: 1px solid #DBDBDB;
+	margin: 0 auto 10px auto;
+	padding: 10px 30px;
+}
+
+.query-box .box-area {
+	position: relative;
+	padding: 10px 0;
+}
+
+.query-box label {
+	font-weight: normal;
+	font-size: 1.1rem;
+	padding: 0 8px;
+	color: #363636;
+}
+
+.query-box .text-input {
+	border: 1px solid #DBDBDB;
+	padding: 4px 8px;
+	width: 250px
+}
+
+.city-choose:after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	margin-top: -2.5px;
+	right: 50px;
+	width: 0px;
+	height: 0px;
+	border: 5px solid transparent;
+	border-top-color: #aaa
+}
+
+.query-box input:focus {
+	border: 1px solid #2175DE;
+}
+
+.query-box .btn-area {
+	text-align: center;
+}
+
+.btn-area .row {
+	margin: 0;
+}
+
+.btn-area a {
+	display: block;
+	width: 90%;
+	background: #3D88E5;
+	color: #fff;
+	padding: 5px 0;
+	cursor: pointer;
+}
+
+.btn-area .col-xs-5:last-child>a {
+	background: #99AEC9;
+}
+
+#resultList {
+	font-size: 1rem;
+}
+
+
+.title-area .box-title {
+	color: #464646;
+	font-size: 1.2rem;
+	margin-top: 4px;
+}
+
+.filterDiv {
+	height: 50px;
+	padding: 8px 0;
+}

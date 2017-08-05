@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geostar.gtgh.portal.core.dao.ZspcflMapper" >
+  <resultMap id="BaseResultMap" type="com.geostar.gtgh.portal.core.entity.Zspcfl" >
+    <result column="LX" property="lx" jdbcType="NVARCHAR" />
+    <result column="JHYZSL" property="jhyzsl" jdbcType="DECIMAL" />
+    <result column="JFSL" property="jfsl" jdbcType="DECIMAL" />
+    <result column="SJRKSJ" property="sjrksj" jdbcType="DATE" />
+    <result column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="PCID" property="pcid" jdbcType="NVARCHAR" />
+    <result column="QIBH" property="qibh" jdbcType="NVARCHAR" />
+    <result column="JSBH" property="jsbh" jdbcType="NVARCHAR" />
+    <result column="QXDM" property="qxdm" jdbcType="NVARCHAR" />
+    <result column="PCND" property="pcnd" jdbcType="NVARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.geostar.gtgh.portal.core.entity.Zspcfl" >
+    insert into BDCDJ_ZS_PCFL (LX, JHYZSL, JFSL, 
+      SJRKSJ, ID, PCID, QIBH, 
+      JSBH, QXDM, PCND)
+    values (#{lx,jdbcType=NVARCHAR}, #{jhyzsl,jdbcType=DECIMAL}, #{jfsl,jdbcType=DECIMAL}, 
+      #{sjrksj,jdbcType=DATE}, #{id,jdbcType=NVARCHAR}, #{pcid,jdbcType=NVARCHAR}, #{qibh,jdbcType=NVARCHAR}, 
+      #{jsbh,jdbcType=NVARCHAR}, #{qxdm,jdbcType=NVARCHAR}, #{pcnd,jdbcType=NVARCHAR})
+  </insert>
+  
+  <!-- 查询pc分类信息 -->
+ <select id="queryPCFL" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+ 	 select * from bdcdj_zs_pcfl where 1=1
+ 	 <if test="pcid!=null and pcid!=''">
+ 	  	and pcid=#{pcid}
+ 	 </if>
+ </select>
+ <!-- 根据id删除批次分类数据 -->
+ <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+ 	delete  from bdcdj_zs_pcfl where id=#{id}
+ </delete>
+ 
+ <!-- 查询起始编号与结束编号是否存在交集 -->
+ <select id="queryBHXX" resultType="java.lang.Integer" parameterType="java.lang.Object">
+ 	<![CDATA[
+	 select count(*)
+	  from bdcdj_zs_pcfl t
+	 where ((t.qibh >= #{qibh} and t.qibh <= #{qibh}) or
+	       (t.jsbh >= #{jsbh} and t.jsbh <= #{jsbh}))
+       		        
+		         ]]>
+ </select>
+</mapper>

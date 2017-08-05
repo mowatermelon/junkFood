@@ -1,0 +1,148 @@
+html,body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 微软雅黑;
+    font-size: .875rem;
+}
+.container{
+    width: 100%;
+    height: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    background: #F1F1F1;
+}
+.row-1{
+    width: 100%;
+    height: 55%;
+
+}
+.row-2{
+    width: 100%;
+    height: 45%;
+    padding-top: 5px;
+}
+.col-lg-4{
+    height: 100%;
+    padding-left: 0;
+    padding-right: 5px;
+}
+.col-lg-8{
+    padding-right: 5px;
+    padding-left: 0;
+    height: 100%;
+}
+.data-div{
+    width: 100%;
+    height: 100%;
+    background:#fff;
+    position: relative;
+}
+.title{
+    padding: 10px 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.unit{
+    float: right;
+    font-size:12px;
+    line-height: 27px;
+    color: #999999;
+}
+.rank-list{
+    position: absolute;
+    top: 50px;
+    bottom: 50px;
+    left: 40px;
+    right: 40px;
+}
+.rank{
+    height: 100%;
+    width: 50%;
+    float: left;
+}
+
+.rank table tbody tr td div span:first-child{
+    display: inline-block;
+    float: left;
+    font-size: 13px;
+    bottom: 0;
+    line-height: 35px;
+}
+.rank table tbody tr td div span:last-child{
+    display: inline-block;
+    float: right;
+    font-size: 20px;
+}
+.rank-table-1{
+    padding-right: 15px;
+}
+.rank-title{
+
+    background: #3aa7f5;
+    color: #fff;
+    height:30px;
+    /*padding: 5px 4px;*/
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 2px
+
+}
+.rank-table{
+
+}
+
+.per{
+    width: 100%;
+    height: 5px;
+    /*background: #eaeaea;*/
+    position: relative;
+}
+.per-bar{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    background: #6FE7F8;
+}
+
+.tab-ul{
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+    background: #eaeaea;
+    font-size: 14px;
+}
+.tab-ul li{
+    cursor: pointer;
+    text-align: center;
+    float: left;
+    width: 25%;
+}
+.ul-cur{
+    background: #3aa7f5;
+    color: #fff;
+}
+
+.search-title{
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    top: 40px;
+    z-index: 100
+}
+.search-title div{
+    width: 240px;
+    height: 40px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 40px;
+    background: #fff;
+    border: 1px solid #d5d5d5;
+}
+#dataCount{
+    background-color: #fff !important;
+}

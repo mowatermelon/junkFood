@@ -1,0 +1,42 @@
+/* 顶部头的颜色*/
+.base-header {
+	background: #03A2D9;
+}
+
+/*********左侧菜单模块背景色**************/
+.main .base-left-nav {
+	background: #2D3E50;
+}
+/***********菜单字体颜色***************/
+.sidebar-nav .sidebar-title {
+	color: #FCFFFF !important;
+}
+
+.select-title:after {
+	content: "";
+	position: absolute;
+	width: 3px;
+	height: 100%;
+	background: #FF6600;
+	left: 0;
+}
+
+/*菜单选中背景色或者字体色 */
+.sidebar-nav .select-title {
+	color: #EC6315 !important;
+	background: #425262;
+}
+
+.sidebar-nav a:hover {
+	color: #EC6315 !important;
+	background: #425262;
+}
+
+.sidebar-nav a:hover:after {
+	content: "";
+	position: absolute;
+	width: 3px;
+	height: 100%;
+	background: #FF6600;
+	left: 0;
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>总体情况</title>
+    <link type="text/css" rel="stylesheet" href="../../../../Script/plugins/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../../../Script/plugins/bootstarp-table/bootstrap-table.css">
+        <link type="text/css" rel="stylesheet" href="../../../../Script/plugins/bootstrap-datetimepicker/css/daterangepicker-bs3.css">
+    <link type="text/css" rel="stylesheet" href="zsjgPage1.css">
+    <link type="text/css" rel="stylesheet" href="../../filter.css">
+    <script type="application/javascript" src="../../../../Script/jquery.js"></script>
+    <script type="application/javascript" src="../../../../Script/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="application/javascript" src="../../../../Script/plugins/bootstarp-table/bootstrap-table.js"></script>
+    <script type="application/javascript" src="../../../../Script/plugins/bootstarp-table/locale/bootstrap-table-zh-CN.js"></script>
+    <script type="application/javascript" src="../../../../Script/plugins/bootstarp-table/extensions/export/bootstrap-table-export.js"></script>
+    <script src="../../../../Script/plugins/bootstarp-table/extensions/export/tableExport.js"></script>
+    <script type="application/javascript" src="../../../../Script/plugins/echarts/echarts-all.js"></script>
+    <script type="application/javascript" src="../../filter.js"></script>
+    <script type="application/javascript" src="../../../../Script/plugins/bootstrap-datetimepicker/js/moment.js"></script>
+    <script type="application/javascript" src="../../../../Script/plugins/bootstrap-datetimepicker/js/daterangepicker.js"></script>
+     <script type="application/javascript" src="../../../../Common/js/cityPicker.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../../../Common/css/cityPicker.css">
+    <link type="text/css" rel="stylesheet" href="../../../../Common/css/index.css">
+    <script type="application/javascript" src="../../../../Common/js/prototype.js"></script>
+    <script type="application/javascript" src="../../../../Common/js/util.js"></script>
+    <script type="application/javascript" src="../../filterPanel2.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../filterPanel2.css" />
+    <script type="application/javascript" src="zsjgPage1.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="gzjz-page">
+        <div class="filterDiv" style="padding-top:20px;">
+		</div>
+        <div class="mainContent">
+            <div class="width100 height100" style="position: relative">
+                <div class="title">
+                    <div style="font-weight: 700;display: inline-block"><span class="glyphicon glyphicon-signal" style="padding-right: 5px"></span>证书证明使用</div>
+                </div>
+                <div class="zongChart" id="zongChart">
+                    <div class="col-lg-3  col-sm-8 col-xs-8 padding-0" style="height:100%">
+                        <div class="colaverage colborder1" >
+                            <div class="colaverage4 " style="padding-left: 8%;padding-top: 5%" >
+                                <div class="p1">
+                                    <p class="sjhjp0">证书使用情况</p>
+                                </div>
+                                <div>
+                                    <p class="sjhjp_0"><span class="sjhjp1">本年度共印制证书</span>
+                                        <span class="sjhjp2" id="ZSGYZZS"></span><span class="sjhjp1">本</span></p>
+                                    <p class="sjhjp_0"><span class="sjhjp1">截止目前已使用</span>
+                                        <span class="sjhjp2" id="ZSYSY"></span><span class="sjhjp1">本</span></p>
+                                    <p class="sjhjp_0"><span class="sjhjp1">本月使用</span>
+                                        <span class="sjhjp3" id="ZSBYSY"></span><span class="sjhjp1">本&nbsp;&nbsp;</span>
+                                        <span class="sjhjp_0"><span class="sjhjp1">预计还可使用</span>
+                                        <span class="sjhjp3">5</span><span class="sjhjp1">个月</span></span>
+                                        </p>
+                                   
+                                </div>
+                            </div>
+                            <div class="colaverage6" id="zsqk" style="padding-top: 10px"></div>
+                        </div>
+                        <div class="colaverage colborder2">
+                           <div class="colaverage4 " style="padding-left: 8%;padding-top: 5%" >
+                                <div class="p1">
+                                    <p class="sjhjp0">证明使用情况</p>
+                                </div>
+                                <div>
+                                    <p class="sjhjp_0"><span class="sjhjp1">本年度共印制证明</span>
+                                        <span class="sjhjp2" id="ZMGYZZS"></span><span class="sjhjp1">本</span></p>
+                                    <p class="sjhjp_0"><span class="sjhjp1">截止目前已使用</span>
+                                        <span class="sjhjp2"  id="ZMYSY"></span><span class="sjhjp1">本</span></p>
+                                    <p class="sjhjp_0"><span class="sjhjp1">本月使用</span>
+                                        <span class="sjhjp3" id="ZMBYSY"></span><span class="sjhjp1">本&nbsp;&nbsp;</span>
+                                        <span class="sjhjp_0"><span class="sjhjp1">预计还可使用</span>
+                                        <span class="sjhjp3">5</span><span class="sjhjp1">个月</span></span>
+                                        </p>
+                                   
+                                </div>
+                            </div>
+                            <div class="colaverage6" id="zmqk" style="padding-top: 10px"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-sm-4 col-xs-4 padding-0" style="height:100%">
+                        <div class="dituliulan" id="dituliulan" >
+                        <div class="mapTip">
+                        <p>
+                			<span style="font-weight: 700;font-size: 14px">证书使用量</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                				<span style="font-weight: 700;font-size: 20px;color: #246eca;font-family: Arial" id="ZSSYL"></span>
+                				</p>
+                				 <p>
+                				<span style="font-weight: 700;font-size: 14px;margin-top:30px;">证明使用量</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                				<span style="font-weight: 700;font-size: 20px;color: #246eca;font-family: Arial" id="ZMSYL"></span>
+                				 </p>
+            			</div>
+            			<iframe src="" style="width: 100%; height: 99.5%" frameborder="0" scrolling="auto" id="ifrmMap" name="ifrmMap"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

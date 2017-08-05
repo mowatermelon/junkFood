@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="JgXnGzjzQueryMapper">
+	<resultMap id="BaseResultMap" type="java.util.Map"></resultMap>
+	<!-- 查询地市工作进展 -->
+	<select id="queryDSGZJZ" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<choose>
+			<when test="cityCode!=null and cityCode!=''">
+			 select s.xzqmc,
+		       (select count(*)
+		          from gzjz
+		         where qxdm = s.QXDM
+		           and lx_code = 'XTSJGZ'
+		           and flag = 1) XTSJGZ,
+		       (select count(*)
+		          from gzjz
+		         where qxdm = s.QXDM
+		           and lx_code = 'JSCLSJ'
+		           and flag = 1) JSCLSJ,
+		       (select count(*)
+		          from gzjz
+		         where qxdm = s.QXDM
+		           and lx_code = 'JRGJPT'
+		           and flag = 1) JRGJPT,
+		       (select count(*)
+		          from gzjz
+		         where qxdm = s.QXDM
+		           and lx_code = 'RYHZDW'
+		           and flag = 1) RYHZDW,
+		       (select count(*)
+		          from gzjz
+		         where qxdm = s.QXDM
+		           and lx_code = 'ZLYJ'
+		           and flag = 1) ZLYJ,
+		       (select count(*)
+		          from gzjz
+		         where qxdm = s.QXDM
+		           and lx_code = 'JSBWSJ'
+		           and flag = 1) JSBWSJ,
+		       (select count(*)
+		          from gzjz
+		         where qxdm = s.QXDM
+		           and lx_code = 'SJZHJK'
+		           and flag = 1) SJZHJK,
+		       (select count(*)
+		          from gzjz
+		         where qxdm = s.QXDM
+		           and lx_code = 'CKSZ'
+		           and flag = 1) CKSZ,
+		       (select count(*)
+		          from gzjz
+		         where qxdm = s.QXDM
+		           and lx_code = 'YWLCZZ'
+		           and flag = 1) YWLCZZ,
+		       (select count(*)
+		          from gzjz
+		         where qxdm = s.QXDM
+		           and lx_code = 'BFXZ'
+		           and flag = 1) BFXZ,
+		       (select count(*) from dic_v_xzq_x x where x.qxdm = s.QXDM) ZL
+		  from dic_v_xzq_x s
+		  where s.PQXDM = #{cityCode}
+		 order by to_number(s.id)
+			 
+			</when>
+			<otherwise>
+				  select s.xzqmc,
+			         (select count(*)
+			            from gzjz
+			           where pqxdm = s.QXDM
+			             and lx_code = 'XTSJGZ'
+			             and flag = 1) XTSJGZ,
+			         (select count(*)
+			            from gzjz
+			           where pqxdm = s.QXDM
+			             and lx_code = 'JSCLSJ'
+			             and flag = 1) JSCLSJ,
+			         (select count(*)
+			            from gzjz
+			           where pqxdm = s.QXDM
+			             and lx_code = 'JRGJPT'
+			             and flag = 1) JRGJPT,
+			         (select count(*)
+			            from gzjz
+			           where pqxdm = s.QXDM
+			             and lx_code = 'RYHZDW'
+			             and flag = 1) RYHZDW,
+			         (select count(*)
+			            from gzjz
+			           where pqxdm = s.QXDM
+			             and lx_code = 'ZLYJ'
+			             and flag = 1) ZLYJ,
+			         (select count(*)
+			            from gzjz
+			           where pqxdm = s.QXDM
+			             and lx_code = 'JSBWSJ'
+			             and flag = 1) JSBWSJ,
+			         (select count(*)
+			            from gzjz
+			           where pqxdm = s.QXDM
+			             and lx_code = 'SJZHJK'
+			             and flag = 1) SJZHJK,
+			         (select count(*)
+			            from gzjz
+			           where pqxdm = s.QXDM
+			             and lx_code = 'CKSZ'
+			             and flag = 1) CKSZ,
+			         (select count(*)
+			            from gzjz
+			           where pqxdm = s.QXDM
+			             and lx_code = 'BFXZ'
+			             and flag = 1) BFXZ,
+			         (select count(*)
+			            from gzjz
+			           where pqxdm = s.QXDM
+			             and lx_code = 'YWLCZZ'
+			             and flag = 1) YWLCZZ,
+			         (select count(*) from dic_v_xzq_x x where x.PQXDM = s.QXDM) ZL
+			  
+			    from dic_v_xzq_s s
+			   order by to_number(s.id)
+
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 查询区域工作进展 -->
+	<select id="queryQXGZJZ" resultMap="BaseResultMap" parameterType="java.util.Map">
+
+		select tt.qxmc town,
+	       qxdm,
+	       (select xzqmc
+	          from dic_xzq
+	         where qxdm = (substr(tt.qxdm, 0, 4) || '00')) city,
+	       (select flag
+	          from gzjz g
+	         where lx_code = 'XTSJGZ'
+	           and g.qxdm = tt.qxdm
+	           and g.jb = tt.jb) XTSJGZ,
+	       (select flag
+	          from gzjz g
+	         where lx_code = 'JSCLSJ'
+	           and g.qxdm = tt.qxdm
+	           and g.jb = tt.jb) JSCLSJ,
+	       (select flag
+	          from gzjz g
+	         where lx_code = 'JRGJPT'
+	           and g.qxdm = tt.qxdm
+	           and g.jb = tt.jb) JRGJPT,
+	       (select flag
+	          from gzjz g
+	         where lx_code = 'RYHZDW'
+	           and g.qxdm = tt.qxdm
+	           and g.jb = tt.jb) RYHZDW,
+	       (select flag
+	          from gzjz g
+	         where lx_code = 'ZLYJ'
+	           and g.qxdm = tt.qxdm
+	           and g.jb = tt.jb) ZLYJ,
+	       (select flag
+	          from gzjz g
+	         where lx_code = 'JSBWSJ'
+	           and g.qxdm = tt.qxdm
+	           and g.jb = tt.jb) JSBWSJ,
+	       (select flag
+	          from gzjz g
+	         where lx_code = 'SJZHJK'
+	           and g.qxdm = tt.qxdm
+	           and g.jb = tt.jb) SJZHJK,
+	       (select flag
+	          from gzjz g
+	         where lx_code = 'CKSZ'
+	           and g.qxdm = tt.qxdm
+	           and g.jb = tt.jb) CKSZ,
+	       (select flag
+	          from gzjz g
+	         where lx_code = 'YWLCZZ'
+	           and g.qxdm = tt.qxdm
+	           and g.jb = tt.jb) YWLCZZ,
+	       (select flag
+	          from gzjz g
+	         where lx_code = 'BFXZ'
+	           and g.qxdm = tt.qxdm
+	           and g.jb = tt.jb) BFXZ
+	  from (select t.qxdm, t.jb, t.qxmc
+	          from gzjz t
+	         group by t.qxdm, t.jb, t.qxmc) tt
+	 order by tt.qxdm
+		
+
+	</select>
+	
+	<!-- 查询工作进展说明 -->
+	<select id="queryGZJZSM" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select sm from gzjz g where qxdm=#{qxdm} and lx_code=#{lx}
+	</select>
+</mapper>

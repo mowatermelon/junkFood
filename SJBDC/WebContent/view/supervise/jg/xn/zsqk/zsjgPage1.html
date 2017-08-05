@@ -1,0 +1,66 @@
+<!--<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>证书监管</title>
+   <script type="application/javascript" src="../../../../Script/jquery.js"></script>  
+     <link type="text/css" rel="stylesheet" href="../../../../Script/plugins/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../../../Script/plugins/bootstarp-table/bootstrap-table.css">
+    <script type="application/javascript" src="../../../../Script/plugins/echarts/echarts-all.js"></script>
+    <script type="text/javascript" src="zsjg.js"></script>
+        <link href="zsjg.css" type="text/css" rel="stylesheet"/>
+    <style>
+    .top-menu {
+    background: #F1F1F1;
+    text-align: right;
+    }
+
+    .top-menu a {
+    display: inline-block;
+    padding: 8px 25px;
+    color: #AAAAAA;
+    font-size: 1.1rem;
+    cursor: pointer;
+    }
+
+    .top-menu .selected {
+    color: #F67450;
+    border-bottom: 2px solid #F67450;
+    }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="height50">
+        <div class="col-lg-7">
+            <div class="title">企业信用</div>
+            <div class="chart-div">
+            <div class="width50" id="qyxy"  style="height:300px">
+            </div>
+            <div class="width50" id="radar"  style="height:300px">
+
+            </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="col-3">
+                <div class="title">全年计划</div>
+            <div class="chart-div" id="qnjh" style="height:300px"></div>
+            </div>
+        </div>
+    </div>
+    <div class="height50" style="padding-top: 15px; ">
+        <div class="row-2">
+        <div class="title">全省废证劣证情况</div>
+            <div class="type">
+                <span style="border-radius: 4px 0 0 4px;border-right: 0" id="inArea" class="type-cur">按区域统计</span>
+                <span style="border-radius: 0 4px 4px 0;border-left: 0" id="inTime">按时间统计</span>
+            </div>
+            <div class="qsqk" id="qsqk"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

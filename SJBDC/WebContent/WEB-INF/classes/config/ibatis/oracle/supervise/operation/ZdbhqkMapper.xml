@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geostar.gtgh.portal.core.dao.ZdbhqkMapper" >
+  <resultMap id="BaseResultMap" type="com.geostar.gtgh.portal.core.entity.Zdbhqk" >
+    <result column="YWBSID" property="ywbsid" jdbcType="OTHER" />
+    <result column="ZDDM" property="zddm" jdbcType="OTHER" />
+    <result column="BHYY" property="bhyy" jdbcType="OTHER" />
+    <result column="BHNR" property="bhnr" jdbcType="OTHER" />
+    <result column="DJSJ" property="djsj" jdbcType="DATE" />
+    <result column="DBR" property="dbr" jdbcType="OTHER" />
+    <result column="FJ" property="fj" jdbcType="OTHER" />
+    <result column="QXDM" property="qxdm" jdbcType="OTHER" />
+    <result column="SJRKSJ" property="sjrksj" jdbcType="DATE" />
+    <result column="BDCDYH" property="bdcdyh" jdbcType="OTHER" />
+    <result column="YBDCDYH" property="ybdcdyh" jdbcType="OTHER" />
+    <result column="ZDBSID" property="zdbsid" jdbcType="OTHER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.geostar.gtgh.portal.core.entity.Zdbhqk" >
+    insert into BDC_CG.ZDBHQK (YWBSID, ZDDM, BHYY, 
+      BHNR, DJSJ, DBR, FJ, 
+      QXDM, SJRKSJ, BDCDYH, YBDCDYH, 
+      ZDBSID)
+    values (#{ywbsid,jdbcType=OTHER}, #{zddm,jdbcType=OTHER}, #{bhyy,jdbcType=OTHER}, 
+      #{bhnr,jdbcType=OTHER}, #{djsj,jdbcType=DATE}, #{dbr,jdbcType=OTHER}, #{fj,jdbcType=OTHER}, 
+      #{qxdm,jdbcType=OTHER}, #{sjrksj,jdbcType=DATE}, #{bdcdyh,jdbcType=OTHER}, #{ybdcdyh,jdbcType=OTHER}, 
+      #{zdbsid,jdbcType=OTHER})
+  </insert>
+  <!-- 删除 -->
+  <delete id="deleteByid" parameterType="java.util.Map">
+     delete * from 
+  </delete>
+</mapper>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>地市业务办理情况</title>
+    <link type="text/css" rel="stylesheet" href="../../../../Script/plugins/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../../../Script/plugins/bootstarp-table/bootstrap-table.css">
+        <link type="text/css" rel="stylesheet" href="../../../../Script/plugins/bootstrap-datetimepicker/css/daterangepicker-bs3.css">
+    <link type="text/css" rel="stylesheet" href="djywPage.css">
+    <link type="text/css" rel="stylesheet" href="../../filter.css">
+    <script type="application/javascript" src="../../../../Script/jquery.js"></script>
+    <script type="application/javascript" src="../../../../Script/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="application/javascript" src="../../../../Script/plugins/bootstarp-table/bootstrap-table.js"></script>
+    <script type="application/javascript" src="../../../../Script/plugins/bootstarp-table/locale/bootstrap-table-zh-CN.js"></script>
+    <script type="application/javascript" src="../../../../Script/plugins/bootstarp-table/extensions/export/bootstrap-table-export.js"></script>
+    <script src="../../../../Script/plugins/bootstarp-table/extensions/export/tableExport.js"></script>
+    <script type="application/javascript" src="../../../../Script/plugins/echarts/echarts-all.js"></script>
+    <script type="application/javascript" src="../../filter.js"></script>
+    <script type="application/javascript" src="../../../../Script/plugins/bootstrap-datetimepicker/js/moment.js"></script>
+    <script type="application/javascript" src="../../../../Script/plugins/bootstrap-datetimepicker/js/daterangepicker.js"></script>
+    <script type="application/javascript" src="djywPage2.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="gzjz-page">
+        <div class="filterDiv">
+           <div class="province">
+				<b class="area-select">广东省</b>
+				<div class="glyphicon glyphicon-play icon"></div>
+				<div class="area">
+					 <div style="border-bottom: 2px solid #dedede;height:28px; padding-left: 10px">
+            	<span  style="height:28px;display:inline-block;float:left">当前城市为：</span><span class="area-select"></span></div>
+					<div
+						style="width: 60px; height: 186px; padding-left: 10px; padding-top: 4px; color: #008ACD; display: inline-block; float: left">广东省：</div>
+					<div
+						style="width: 236px; height: 186px; display: inline-block; float: left">
+						<ul class="area-li">
+						</ul>
+					</div>
+				</div>
+			</div>
+            <!-- 时间选择控件 -->
+	         <div class="well">
+	            <div class="controls">
+	                <input type="text" readonly style="width: 200px" name="reservation" id="reservation"  value="2015-01-01 - 2016-10-21"/>
+	            </div>
+	        </div>
+			<!-- 时间选择控件 -->
+        </div>
+        <div class="mainContent">
+            <div class="width100 height100" style="position: relative">
+                <div class="title">
+                    <div style="font-weight: 700;display: inline-block"><span class="glyphicon glyphicon-signal" style="padding-right: 5px"></span>地市业务办理情况</div>
+                </div>
+                <div class="zongChart" id="zongChart">
+                    <div class="colaverage4" id="zszmzzt" >
+                    </div>
+                    <div class="colaverage6 table1" id="qszstable">
+                        <table id="resultList" style="font-size: 14px;top: 10px"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!-- <constant name="struts.enable.DynamicMethodInvocation" value="false" /> -->
+   <!--  <constant name="struts.objectFactory.spring.autoWire" value="name"/> -->
+    <constant name="struts.custom.i18n.resources" value="i18n.messageResource"/>
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <constant name="struts.ui.theme" value="simple"/>
+    <constant name="struts.multipart.maxSize" value="104857600"/>
+	<constant name="struts.objectFactory" value="spring"/>
+    <constant name="struts.enable.SlashesInActionNames" value="true"/>
+    <constant name="struts.local" value="zh_CN"/>
+    <constant name="struts.devMode" value="false"/>
+	<!-- 将struts2交给spring管理-->
+    <!-- <constant name="struts.configuration.xml.reload" value="true"/>
+    <constant name="struts.action.extension" value="action,do,webwork"/>
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+    <constant name="struts.devMode" value="false"/>
+    <constant name="struts.multipart.maxSize" value="100971520"/>
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <constant name="struts.objectFactory.spring.autoWire" value="name"/>
+    <constant name="struts.objectFactory" value="spring"></constant>
+    <constant name="struts.custom.i18n.resources" value="messages"/> -->
+	<!-- <include file="config/struts-web_gt.xml"></include>
+	<include file="config/struts-new.xml"></include> -->
+	<include file="struts2/struts-user.xml" />
+</struts>    

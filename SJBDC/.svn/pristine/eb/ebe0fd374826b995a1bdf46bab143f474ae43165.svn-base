@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>废证情况</title>
+<link type="text/css" rel="stylesheet"
+	href="../../../../Script/plugins/bootstrap/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet"
+	href="../../../../Script/plugins/bootstarp-table/bootstrap-table.css">
+  <link type="text/css" rel="stylesheet" href="../../../../Script/plugins/bootstrap-datetimepicker/css/daterangepicker-bs3.css">
+<link type="text/css" rel="stylesheet" href="zsjgPage5.css">
+<link type="text/css" rel="stylesheet" href="../../filter.css">
+<script type="application/javascript" src="../../../../Script/jquery.js"></script>
+<script type="application/javascript"
+	src="../../../../Script/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="application/javascript"
+	src="../../../../Script/plugins/bootstarp-table/bootstrap-table.js"></script>
+<script type="application/javascript"
+	src="../../../../Script/plugins/bootstarp-table/locale/bootstrap-table-zh-CN.js"></script>
+<script type="application/javascript"
+	src="../../../../Script/plugins/bootstarp-table/extensions/export/bootstrap-table-export.js"></script>
+<script
+	src="../../../../Script/plugins/bootstarp-table/extensions/export/tableExport.js"></script>
+<script type="application/javascript"
+	src="../../../../Script/plugins/echarts/echarts-all.js"></script>
+<script type="application/javascript" src="../../filter.js"></script>
+<script type="application/javascript"
+	src="../../../../Script/plugins/bootstrap-datetimepicker/js/moment.js"></script>
+    <script type="application/javascript" src="../../../../Script/plugins/bootstrap-datetimepicker/js/daterangepicker.js"></script>
+<script type="application/javascript" src="zsjgPage5.js"></script>
+	<script type="application/javascript" src="../../../../Common/js/prototype.js"></script>
+	<script type="application/javascript" src="../../../../Common/js/util.js"></script>
+	<script type="application/javascript"
+	src="../../../../Common/js/cityPicker.js"></script>
+<link type="text/css" rel="stylesheet"
+	href="../../../../Common/css/cityPicker.css">
+<link type="text/css" rel="stylesheet"
+	href="../../../../Common/css/index.css">
+<script type="application/javascript"
+	src="../../../../Common/js/prototype.js"></script>
+<script type="application/javascript"
+	src="../../../../Common/js/util.js"></script>
+<script type="application/javascript" src="../../filterPanel2.js"></script>
+<link type="text/css" rel="stylesheet" href="../../filterPanel2.css" />
+</head>
+<body>
+	<div class="container">
+
+
+		<div class="mainContent">
+			<div class="width100 height100" style="position: relative">
+				<div class="filterDiv">
+				</div>
+
+				<div class="zongChart" id="zongChart">
+					<div class="colaverage" id="zszmzzt" style="height:40%"></div>
+					<div class="colaverage" id="qszstable" style="height:60%">
+						<table id="resultList" style="font-size: .9rem; top: 10px"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

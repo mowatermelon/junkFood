@@ -1,0 +1,65 @@
+﻿@charset "UTF-8";
+/*
+Name:用户自定义控件样式文件
+Author:朱静静
+Note:2013-11-28
+修改人：liubing
+修改日期：2014.3.3
+修改内容：增加选择项容器的z-index属性
+*/
+
+/*CSS Reset*/
+html{color:#000;background:#FFF}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
+ol,ul{list-style:none;}
+caption,th{text-align:left;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+q:before,q:after{content:'';}
+abbr,acronym{border:0;font-variant:normal;}
+sup{vertical-align:text-top;}
+sub{vertical-align:text-bottom;}
+input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}
+input,textarea,select{*font-size:100%;}
+legend{color:#000;}
+body{font-size:12px;font-family:Tahoma,Arial,"宋体";color:#444;background:#eef3fa}
+a{color:#444;text-decoration:none;}
+.clearfix:after{visibility:hidden;display:block;font-size:0;content: " ";clear:both;height:0;}.clearfix{display:inline-table;}* html .clearfix{height:1%;}.clearfix{display:block;}
+
+/*布局*/
+.main-body{padding:12px 15px;}
+
+/*时间筛选*/
+.select-box{ margin-top:8px; background:#fafafa;}
+.a{font-size:12px;color:#F9F9F9;}
+.select{z-index:999; position:relative;float:left;margin-right:14px;width:132px;height:33px;line-height:33px;font-family:"微软雅黑","黑体";font-size:16px;color:#fff;text-align:center;background:#42b7ed; }
+.select:hover{cursor:pointer;}
+.selected{position:absolute;top:33px; z-index:999; left:-1px;width:130px;border-top:1px solid white;display:none;}
+.selected a{display:block;width:132px;height:32px;line-height:32px;text-align:center;font-size:16px;color:#fff;text-align:center; background-color:#42b7ed;border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;}
+
+.customSelect{ z-index:999; position:relative;float:left;margin-right:5px;width:130px;height:33px;line-height:33px;font-family:"微软雅黑","黑体";font-size:16px;color:#ffffff;text-align:center; background-color:#42b7ed;}
+.customSelect:hover{cursor:pointer;}
+.customSelected{position:absolute; z-index:999; top:33px;left:-1px;padding:12px 14px;width:390px;text-align:left;border-top:1px solid white;color:#fff;text-align:center; background-color:#42b7ed;border:1px solid #fff;display:none;}
+.customSelected input{padding:0 4px;width:130px;height:30px;border:1px solid #fff;font-size:14px;color:#666;color:#444444;text-align:center; background-color:#F9F9F9;border-bottom:1px solid #dadada; border-left:1px solid #dadada; border-right:1px solid #dadada;}
+.customSelected input[type='button']{margin-left:10px;width:68px;height:32px;line-height:32px;border:none;color:#444444;text-align:center; background-color:#F9F9F9; border:1px solid #dadada;}
+.customSelected em{margin:0 8px;}
+
+
+.queryBarRadio{position:relative; z-index:999; float:left;margin-right:14px;padding-right:10px;line-height:33px;font-family:"微软雅黑","黑体";font-size:16px;color:#444444;text-align:center; background-color:#F9F9F9;/*border:1px solid #dadada;*/}
+
+/*图标样式*/
+.img{ background-image:url(Images/下拉.png); background-repeat:no-repeat; background-position:center;}
+
+.empty{position:relative;float:left;margin-right:5px;width:5px;height:33px;line-height:33px; text-align:center;}
+.empty div{ width:1px; height:33px; background-image:url(Images/分隔线.png)}
+
+/*导出，打印，返回*/
+.menuExcelOut{cursor:pointer; position:relative;float:right;margin-right:10px;width:80px;height:33px;line-height:33px;font-family:"微软雅黑","黑体";font-size:16px;color:#fff;text-align:center;background:#42b7ed;}
+.menuExcelOut div.img{  margin-left:10px;width:20px;background-image:url(Images/导出.png); background-repeat:no-repeat;}
+
+.menuPrint{cursor:pointer; position:relative;float:right;margin-right:10px;width:80px;height:33px;line-height:33px;font-family:"微软雅黑","黑体";font-size:16px;color:#444444;text-align:center;background:#F9F9F9;}
+.menuPrint div.img{ margin-left:10px;width:20px;background-image:url(Images/打印.png); background-repeat:no-repeat;}
+
+.menuReturn{cursor:pointer; position:relative;float:right;margin-right:10px;width:80px;height:33px;line-height:33px;font-family:"微软雅黑","黑体";font-size:16px;color:#fff;text-align:center;background:#42b7ed; display:none;}

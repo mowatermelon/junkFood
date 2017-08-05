@@ -1,0 +1,102 @@
+[
+    {
+        "xh": "1",
+        "qy": "广州市",
+        "type": "",
+        "jhyssl": "2000",
+        "yjfsl": "1000",
+        "ysysl": "",
+        "average": "",
+        "surplus": ""
+    },
+    {
+        "xh": "",
+        "qy": "",
+        "type": "证书",
+        "jhyssl": "1000",
+        "yjfsl": "600",
+        "ysysl": "",
+        "average": "",
+        "surplus": ""
+    },
+    {
+        "xh": "",
+        "qy": "",
+        "type": "证明",
+        "jhyssl": "1000",
+        "yjfsl": "400",
+        "ysysl": "",
+        "average": "",
+        "surplus": ""
+    },
+    {
+        "xh": "2",
+        "qy": "深圳市",
+        "type": "",
+        "jhyssl": "4000",
+        "yjfsl": "1000",
+        "ysysl": "",
+        "average": "",
+        "surplus": ""
+    },
+    {
+        "xh": "3",
+        "qy": "佛山市",
+        "type": "",
+        "jhyssl": "4000",
+        "yjfsl": "1000",
+        "ysysl": "",
+        "average": "",
+        "surplus": ""
+    },
+    {
+        "xh": "4",
+        "qy": "肇庆市",
+        "type": "",
+        "jhyssl": "4000",
+        "yjfsl": "1000",
+        "ysysl": "",
+        "average": "",
+        "surplus": ""
+    },
+    {
+        "xh": "5",
+        "qy": "汕头市",
+        "type": "",
+        "jhyssl": "4000",
+        "yjfsl": "1000",
+        "ysysl": "",
+        "average": "",
+        "surplus": ""
+    },
+    {
+        "xh": "6",
+        "qy": "潮州市",
+        "type": "",
+        "jhyssl": "4000",
+        "yjfsl": "1000",
+        "ysysl": "",
+        "average": "",
+        "surplus": ""
+    },
+    {
+        "xh": "7",
+        "qy": "揭阳市",
+        "type": "",
+        "jhyssl": "4000",
+        "yjfsl": "1000",
+        "ysysl": "",
+        "average": "",
+        "surplus": ""
+    },
+    {
+        "xh": "8",
+        "qy": "茂名市",
+        "type": "",
+        "jhyssl": "4000",
+        "yjfsl": "1000",
+        "ysysl": "",
+        "average": "",
+        "surplus": ""
+    }
+]

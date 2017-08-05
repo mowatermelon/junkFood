@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geostar.gtgh.portal.core.dao.ZspcMapper" >
+  <resultMap id="BaseResultMap" type="com.geostar.gtgh.portal.core.entity.Zspc" >
+    <result column="QXDM" property="qxdm" jdbcType="NVARCHAR" />
+    <result column="JFPC" property="jfpc" jdbcType="NVARCHAR" />
+    <result column="JHJFRQ" property="jhjfrq" jdbcType="DATE" />
+    <result column="YCJFTS" property="ycjfts" jdbcType="DECIMAL" />
+    <result column="JHDNPCZS" property="jhdnpczs" jdbcType="DECIMAL" />
+    <result column="SJRKSJ" property="sjrksj" jdbcType="DATE" />
+    <result column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="QYID" property="qyid" jdbcType="NVARCHAR" />
+    <result column="DGHTH" property="dghth" jdbcType="NVARCHAR" />
+    <result column="SJJFRQ" property="sjjfrq" jdbcType="DATE" />
+    <result column="PCND" property="pcnd" jdbcType="NVARCHAR" />
+    <result column="DGRQ" property="dgrq" jdbcType="DATE" />
+  </resultMap>
+  <insert id="insert" parameterType="com.geostar.gtgh.portal.core.entity.Zspc" >
+    insert into BDCDJ_ZS_PC (QXDM, JFPC, JHJFRQ, 
+      YCJFTS, JHDNPCZS, SJRKSJ, 
+      ID, QYID, DGHTH, SJJFRQ, 
+      PCND, DGRQ)
+    values (#{qxdm,jdbcType=NVARCHAR}, #{jfpc,jdbcType=NVARCHAR}, #{jhjfrq,jdbcType=DATE}, 
+      #{ycjfts,jdbcType=DECIMAL}, #{jhdnpczs,jdbcType=DECIMAL}, #{sjrksj,jdbcType=DATE}, 
+      #{id,jdbcType=NVARCHAR}, #{qyid,jdbcType=NVARCHAR}, #{dghth,jdbcType=NVARCHAR}, #{sjjfrq,jdbcType=DATE}, 
+      #{pcnd,jdbcType=NVARCHAR}, #{dgrq,jdbcType=DATE})
+  </insert>
+
+	 <!-- 根据id删除批次数据 -->
+	 <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+	 	delete  from bdcdj_zs_pc where id=#{id}
+	 </delete>
+
+</mapper>

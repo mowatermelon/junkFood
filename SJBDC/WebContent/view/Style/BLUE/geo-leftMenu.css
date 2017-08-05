@@ -1,0 +1,58 @@
+
+
+/*左侧菜单*/
+.g-ml{width: 200px;color: #fff; font-size: 14px; background-color: #393f42;}
+.g-ml div{ height: 56px; line-height: 56px; text-indent: 72px;color:#fff;}
+.g-ml .ml-focus{color: #3498db; font-weight: bold; background-color: #141617;}
+
+/*.g-ml .gm-focus .g-pml-1-0{background-position:  -222px 18px;}
+.g-ml .gm-focus .g-pml-1-1{background-position:  -222px -42px;}
+.g-ml .gm-focus .g-pml-1-2{background-position:  -222px -102px;}
+.g-ml .gm-focus .g-pml-1-3{background-position:  -222px -162px;}
+.g-ml .gm-focus .g-pml-1-4{background-position:  -222px -221px;}
+.g-ml .gm-focus .g-pml-1-5{background-position:  -222px -282px;}*/
+
+.g-ml .arrowUp,
+.g-ml .arrowDown{
+	display:block;
+	float: right;
+	margin: 24px 16px 0 0;
+	width: 9px;
+	height: 9px;
+	background-image: url('../../Images/CSSimage/button.png');
+}
+.g-ml .arrowUp{background-position:-550px 0;}
+.g-ml .arrowDown{background-position:-540px 0;}
+.g-ml .g-subMenu{background-color: #50575b;}
+.g-ml .g-subMenu li{
+    height: 42px;
+    line-height: 42px;
+    text-indent: 72px;
+    color: #cecece;
+    background: url('../../Images/CSSimage/button.png') 46px -343px;}
+.g-ml .g-subMenu .subMenu-focus{font-weight: bold;color: #fff;background-color: #7b888e;}
+
+
+/*左侧菜单2*/
+.g-ml-gray{
+	width: 200px;
+	background-color: #eaedf1;
+}
+.g-ml-gray div{
+	height: 50px;
+	line-height: 50px;
+	text-indent: 52px;
+	background: url('../../Images/CSSimage/button.png') 38px -667px;
+}
+.g-ml-gray .focus{
+	color: #0874b9;
+	font-weight: bold;
+	background: #fff url('../../Images/CSSimage/button.png') 38px -719px;
+}
+
+
+
+
+
+
+

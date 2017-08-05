@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geostar.gtgh.portal.core.dao.GzjzMapper" >
+  <resultMap id="BaseResultMap" type="com.geostar.gtgh.portal.core.entity.Gzjz" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="QXDM" property="qxdm" jdbcType="NVARCHAR" />
+    <result column="QXMC" property="qxmc" jdbcType="NVARCHAR" />
+    <result column="JB" property="jb" jdbcType="NVARCHAR" />
+    <result column="LX_CODE" property="lxCode" jdbcType="NVARCHAR" />
+    <result column="LX" property="lx" jdbcType="NVARCHAR" />
+    <result column="SM" property="sm" jdbcType="NVARCHAR" />
+    <result column="WCSJ" property="wcsj" jdbcType="DATE" />
+    <result column="FLAG" property="flag" jdbcType="DECIMAL" />
+    <result column="PQXDM" property="pqxdm" jdbcType="NVARCHAR" />
+    <result column="JBLX" property="jblx" jdbcType="DECIMAL" />
+  </resultMap>
+  
+
+  <sql id="Base_Column_List" >
+    ID, QXDM, QXMC, JB, LX_CODE, LX, SM, WCSJ, FLAG, PQXDM, JBLX
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from GZJZ
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from GZJZ
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+ 
+  <insert id="insert" parameterType="com.geostar.gtgh.portal.core.entity.Gzjz" >
+    insert into GZJZ (ID, QXDM, QXMC, JB, 
+      LX_CODE, LX, SM, WCSJ, 
+      FLAG, PQXDM, JBLX)
+    values (#{id,jdbcType=VARCHAR}, #{qxdm,jdbcType=NVARCHAR}, #{qxmc,jdbcType=NVARCHAR}, #{jb,jdbcType=NVARCHAR}, 
+      #{lxCode,jdbcType=NVARCHAR}, #{lx,jdbcType=NVARCHAR}, #{sm,jdbcType=NVARCHAR}, #{wcsj,jdbcType=DATE}, 
+      #{flag,jdbcType=DECIMAL}, #{pqxdm,jdbcType=NVARCHAR}, #{jblx,jdbcType=DECIMAL})
+  </insert>
+ 
+  <update id="updateByPrimaryKey" parameterType="com.geostar.gtgh.portal.core.entity.Gzjz" >
+    update GZJZ
+    set QXDM = #{qxdm,jdbcType=NVARCHAR},
+      QXMC = #{qxmc,jdbcType=NVARCHAR},
+      JB = #{jb,jdbcType=NVARCHAR},
+      LX_CODE = #{lxCode,jdbcType=NVARCHAR},
+      LX = #{lx,jdbcType=NVARCHAR},
+      SM = #{sm,jdbcType=NVARCHAR},
+      WCSJ = #{wcsj,jdbcType=DATE},
+      FLAG = #{flag,jdbcType=DECIMAL},
+      PQXDM = #{pqxdm,jdbcType=NVARCHAR},
+      JBLX = #{jblx,jdbcType=DECIMAL}
+      where  ID = #{id,jdbcType=VARCHAR}
+      
+  </update>
+  
+  <!-- 根据区县代码查询实体对象 -->
+  <select id="queryObjByQxdmAndLx" resultMap="BaseResultMap" parameterType="com.geostar.gtgh.portal.core.entity.Gzjz">
+  		select 
+  		<include refid="Base_Column_List" />
+  		 from GZJZ
+    where qxdm=#{qxdm}
+    and lx_code=#{lxCode}
+  </select>
+</mapper>

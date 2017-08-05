@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BigShowYqjgQueryMapper">
+<resultMap id="BaseResultMap" type="java.util.Map" ></resultMap>
+	 <!--查询关键字  -->
+	<select id="queryKeyWord" resultMap="BaseResultMap" parameterType="java.util.Map">
+	select * from (select count(*) value, keyword
+	          from BDCDJ_YQGL
+	         group by keyword
+	         order by value desc
+	        )
+	  <![CDATA[
+		 where rownum < 6
+	   ]]>
+	</select>
+</mapper>

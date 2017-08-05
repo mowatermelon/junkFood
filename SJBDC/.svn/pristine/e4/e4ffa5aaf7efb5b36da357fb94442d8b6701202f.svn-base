@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geostar.gtgh.portal.core.dao.WorkAnswerMapper">
+	<resultMap id="BaseResultMap"
+		type="com.geostar.gtgh.portal.core.entity.WorkAnswer">
+		<id column="YWBSID" property="ywbsid" jdbcType="VARCHAR" />
+		<result column="THEME" property="theme" jdbcType="NVARCHAR" />
+		<result column="CONTENT" property="content" jdbcType="NVARCHAR" />
+		<result column="CREATEUSER" property="createuser" jdbcType="NVARCHAR" />
+		<result column="CREATETIME" property="createtime" jdbcType="DATE" />
+		<result column="PID" property="pid" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		YWBSID, THEME, CONTENT, CREATEUSER, CREATETIME, PID
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Object">
+		select
+		<include refid="Base_Column_List" />
+		from BDC_CG.WORK_ANSWER
+		where YWBSID = #{ywbsid,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+		delete from BDC_CG.WORK_ANSWER
+		where YWBSID = #{ywbsid,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="com.geostar.gtgh.portal.core.entity.WorkAnswer">
+		insert into BDC_CG.WORK_ANSWER (YWBSID, THEME, CONTENT,
+		CREATEUSER, CREATETIME, PID
+		)
+		values (#{ywbsid,jdbcType=VARCHAR}, #{theme,jdbcType=NVARCHAR},
+		#{content,jdbcType=NVARCHAR},
+		#{createuser,jdbcType=NVARCHAR}, #{createtime,jdbcType=DATE}, #{pid,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.geostar.gtgh.portal.core.entity.WorkAnswer">
+		insert into BDC_CG.WORK_ANSWER
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ywbsid != null">
+				YWBSID,
+			</if>
+			<if test="theme != null">
+				THEME,
+			</if>
+			<if test="content != null">
+				CONTENT,
+			</if>
+			<if test="createuser != null">
+				CREATEUSER,
+			</if>
+			<if test="createtime != null">
+				CREATETIME,
+			</if>
+			<if test="pid != null">
+				PID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ywbsid != null">
+				#{ywbsid,jdbcType=VARCHAR},
+			</if>
+			<if test="theme != null">
+				#{theme,jdbcType=NVARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=NVARCHAR},
+			</if>
+			<if test="createuser != null">
+				#{createuser,jdbcType=NVARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=DATE},
+			</if>
+			<if test="pid != null">
+				#{pid,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.geostar.gtgh.portal.core.entity.WorkAnswer">
+		update BDC_CG.WORK_ANSWER
+		<set>
+			<if test="theme != null">
+				THEME = #{theme,jdbcType=NVARCHAR},
+			</if>
+			<if test="content != null">
+				CONTENT = #{content,jdbcType=NVARCHAR},
+			</if>
+			<if test="createuser != null">
+				CREATEUSER = #{createuser,jdbcType=NVARCHAR},
+			</if>
+			<if test="createtime != null">
+				CREATETIME = #{createtime,jdbcType=DATE},
+			</if>
+			<if test="pid != null">
+				PID = #{pid,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where YWBSID = #{ywbsid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.geostar.gtgh.portal.core.entity.WorkAnswer">
+		update BDC_CG.WORK_ANSWER
+		set THEME = #{theme,jdbcType=NVARCHAR},
+		CONTENT = #{content,jdbcType=NVARCHAR},
+		CREATEUSER = #{createuser,jdbcType=NVARCHAR},
+		CREATETIME = #{createtime,jdbcType=DATE},
+		PID = #{pid,jdbcType=VARCHAR}
+		where YWBSID = #{ywbsid,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 根据id删除数据 -->
+	<delete id="deleteBYYwbsid" parameterType="java.util.Map">
+		delete  from WORK_ANSWER t where (t.ywbsid=#{ywbsid} or t.pid=#{ywbsid})
+	</delete>
+</mapper>

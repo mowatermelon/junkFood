@@ -1,0 +1,221 @@
+.iframeContainer {
+	position: absolute;
+	overflow: hidden;
+	top: 0px;
+	bottom: 0px;
+	width: 100%;
+	z-index: 10;
+}
+
+.iframePage {
+	width: 100%;
+	height: 100%;
+}
+
+.headTab {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+	color: #fff;
+}
+
+.icon {
+	position: relative;
+	top: 2px;
+	display: inline-block;
+	font-style: normal;
+	margin-right: 5px;
+}
+
+.headTab li {
+	float: left;
+	color: #fff;
+	height: 100%;
+	text-align: center;
+	line-height: 46px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.headTab li:hover {
+	background: #1056ab;
+}
+
+.headTab a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.headMenu {
+	display: none;
+	position: absolute;
+	top: 46px;
+	width: 80%;
+	height: 200px;
+	z-index: 1;
+	background: rgba(14, 102, 209, 0.8);
+}
+
+.menuDiv {
+	list-style-type: none;
+	float: left;
+	text-align: left;
+	height: 100%;
+	font-size: 12px;
+	padding-top: 10px;
+	margin: 0px;
+	padding-left: 0px;
+}
+
+.disc {
+	width: 5px;
+	height: 5px;
+	display: inline-block;
+	background: #fff;
+	border-radius: 50%;
+	margin-right: 10px;
+	margin-bottom: 2px;
+}
+
+.menuDiv li {
+	text-align: left;
+	color: #fff;
+	height: 30px;
+	line-height: 30px;
+	cursor: pointer;
+	padding-left: 20%;
+	margin-left: 12%;
+	margin-right: 12%;
+}
+
+.menuDiv li:hover {
+	color: #ffac1b;
+}
+
+.rightTab {
+	position: absolute;
+	height: 60%;
+	width: 10%;
+	right: 0;
+	top: 20%;
+	padding: 20px 0px;
+	z-index: 100;
+}
+
+.tabList {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+.tabList ul {
+	list-style-type: none;
+	margin: 0px;
+}
+
+.tabList {
+	font-size: 14px;
+	color: #000;
+	position: relative;
+}
+
+.topCircle {
+	width: 100%;
+	height: 40px;
+}
+
+.bottomCircle {
+	width: 100%;
+	height: 40px;
+}
+
+.childTab {
+	width: 100%;
+	padding: 0;
+}
+.childTab span{
+	padding:8px 20px;
+}
+
+.childTab span:hover{
+	color:#fff;
+	background:url("../images/supervise/blue.png") no-repeat;
+	background-position: 0 4px;
+}
+.childTab li {
+	font-size: 14px;
+	cursor: pointer;
+	width: 100%;
+	padding-left: 35px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.childTab li:hover{
+	background: url("../images/supervise/dot.png") no-repeat;
+	background-position: 13px 10px;
+}
+
+.g-p-bg-1 {
+	width: 30px;
+	height: 30px;
+	background: url("../images/supervise/rightTab.png");
+	background-position: 2px 7px;
+	background-repeat:no-repeat;
+}
+
+.g-p-bg-2 {
+	display: inline-block;
+	height: 27px;
+	line-height: 27px;
+	width: 100%;
+	text-decoration: none;
+	padding-left: 36px;
+	font-size: 15px;
+	color: #000;
+	background: url("../images/supervise/rightTab.png");
+	background-position: 2px -30px;
+	cursor: pointer;
+}
+
+.g-p-bg-3 {
+	width: 100%;
+	background: url("../images/supervise/line.png") repeat-y;
+	background-position: -2px 0px;
+}
+
+.g-p-bg-4 {
+	width: 30px;
+	height: 30px;
+	background: url("../images/supervise/rightTab.png");
+	background-position: -30px -6px;
+}
+
+.g-p-bg-5 {
+	width: 100%;
+	height: 100%;
+	background: url("../images/supervise/rightTab.png");
+	background-position: 0px -60px;
+}
+
+.g-p-bg-6 {
+	background: url("../images/supervise/dot.png") no-repeat;
+	background-position: 13px 10px
+}
+
+.g-p-bg-7 {
+	color:#fff;
+	background:url("../images/supervise/blue.png") no-repeat;
+	background-position: 0 4px;
+	contain:cover;
+}
+
+.titleIcon{
+	padding-left:24px !important;
+	background:url("../images/supervise/bt.png") no-repeat;
+	background-position: 0px;
+	font-family: inherit !important;
+}
+

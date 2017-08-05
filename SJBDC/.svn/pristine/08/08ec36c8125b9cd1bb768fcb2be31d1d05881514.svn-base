@@ -1,0 +1,14 @@
+driver=oracle.jdbc.driver.OracleDriver
+url=jdbc:oracle:thin:@192.168.32.200:1521:orcl
+username=BDC_CG
+password=BDC_CG
+#init connection size
+initialSize=0  
+#max active connection  size
+maxActive=20  
+#max idle connection size
+maxIdle=20  
+#min idle connction size
+minIdle=1
+#max wait time
+maxWait=60000  

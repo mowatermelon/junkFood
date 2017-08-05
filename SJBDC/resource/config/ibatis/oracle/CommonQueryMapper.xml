@@ -1,0 +1,2076 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geostar.gtgh.portal.core.dao.CommonQueryMapper">
+<resultMap id="BaseResultMap" type="java.util.Map" ></resultMap>
+    <!-- 测试数据 -->
+	<select id="queryPageForGzjzqk" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		 select * from gzjzqk t where 1=1
+	 
+ 		<if test="qxdm!=null and qxdm!=''">
+			and t.qxdm like '%'||#{qxdm}||'%'
+		</if>
+		<if test="sjzhjk!=null and sjzhjk!=''">
+			and t.sjzhjk=#{sjzhjk}
+		</if>
+	</select>
+	
+	<select id="queryTest" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select t.bdcdyh,t.bdcdybsid,t.qlrmc from bdcdj_djb t
+	</select>
+	<!--工作进展   上报和接收总数 -->
+    <select id="queryPageForJgXngzjz1" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		 select * from JG_SJJH_JRXQ_HZ	  
+	</select>
+
+	<!-- 全省工作进展  各项指标完成所占比例  -->  
+	   <select id="queryPageForJgXnGzjzZBZB" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		select * from 
+		(select aa.lx_code,round((sum(t)/count(*)) * 100, 2) zb  from (
+		select A.PID,B.LX_CODE,nvl(C.T, 0) T from (	
+		       select * from DIC_XZQ where jb='县' 
+		       	<if test="xzqdm!=null and xzqdm!=''">
+                and  xzqdm  like '%'||#{xzqdm}||'%'
+		         </if> 
+		) A left join (
+		         select distinct lx_code from gzjz where lx_code in ('BFXZ','CKSZ','RYHZDW','ZLYJ','SJZHJK','YWLCZZ','XTSJGZ','JRGJPT')
+		) B on 1=1
+		left join (
+		     select qxdm,lx_code,count(1) t from gzjz
+		     group by qxdm,lx_code
+		) C on A.PID=C.qxdm and B.lx_code=C.lx_code ) aa
+		group by aa.lx_code) bb
+
+		pivot 
+		(
+		   sum(zb)
+		   for lx_code
+		   in ('BFXZ' BFXZ,'CKSZ' CKSZ,'RYHZDW' RYHZDW,'ZLYJ' ZLYJ,'SJZHJK' SJZHJK,'YWLCZZ'  YWLCZZ,'XTSJGZ' XTSJGZ,'JRGJPT' JRGJPT)
+		)	  
+
+	</select>
+	   <!-- 1.监管  -->
+       <!-- 2.效能 -->
+       <!-- 3.工作进展 -->
+       <!-- 4.地市工作进展 不动产登记周报    -->   
+	 <select id="queryPageForJgXnGzjz2" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		select xx.sid,
+		    xx.xzqdm,
+		    xx.xzqmc,
+		    nvl(xx.bfxz,0) bfxz,
+			nvl(xx.CKSZ,0) CKSZ,
+			nvl(xx.RYHZDW,0) RYHZDW,
+			nvl(xx.ZLYJ,0) ZLYJ,
+			nvl(xx.SJZHJK,0) SJZHJK,
+			nvl(xx.YWLCZZ,0) YWLCZZ,
+			nvl(xx.XTSJGZ,0) XTSJGZ,
+			nvl(xx.JRGJPT,0) JRGJPT,
+			GG.sm BFXZSM,
+			 CC.SM CKSZSM,
+			CC1.SM RYHZDWSM,CC2.SM ZLYJSM,CC3.SM SJZHJKSM,CC4.SM YWLCZZSM,CC5.SM XTSJGZSM,CC6.SM JRGJPTSM from
+			(select * from
+			(select dic_xzq.xzqmc, dic_xzq.xzqdm,dic_xzq.sid, aa.lx_code,NVL(aa.flag,0) FLAG
+			                  from dic_xzq
+			                  left join ( select distinct lx_code,qxdm ,NVL(flag,0) FLAG from gzjz where lx_code in ('BFXZ','CKSZ','RYHZDW','ZLYJ','SJZHJK','YWLCZZ','XTSJGZ','JRGJPT') ) aa
+			                    on aa.qxdm = dic_xzq.xzqdm
+			                 where 1=1
+			                 
+			         and dic_xzq.jb = '县'
+			                   and dic_xzq.xzqdm like '44%'
+			                   and dic_xzq.xzqdm != 440100 
+			                   ) 
+			pivot 
+			(
+			   sum(flag)
+			   for(lx_code)
+			   in ('BFXZ' BFXZ,'CKSZ' CKSZ,'RYHZDW' RYHZDW,'ZLYJ' ZLYJ,'SJZHJK' SJZHJK,'YWLCZZ'  YWLCZZ,'XTSJGZ' XTSJGZ,'JRGJPT' JRGJPT)
+			)) xx left join (select * from gzjz WHERE lx_code='BFXZ') GG ON GG.qxdm=xx.xzqdm 
+			left join (select * from gzjz WHERE lx_code='CKSZ') CC ON CC.qxdm=xx.xzqdm 
+			left join (select * from gzjz WHERE lx_code='RYHZDW') CC1 ON CC1.qxdm=xx.xzqdm 
+			left join (select * from gzjz WHERE lx_code='ZLYJ') CC2 ON CC2.qxdm=xx.xzqdm 
+			left join (select * from gzjz WHERE lx_code='SJZHJK') CC3 ON CC3.qxdm=xx.xzqdm 
+			left join (select * from gzjz WHERE lx_code='YWLCZZ') CC4 ON CC4.qxdm=xx.xzqdm 
+			left join (select * from gzjz WHERE lx_code='XTSJGZ') CC5 ON CC5.qxdm=xx.xzqdm 
+			left join (select * from gzjz WHERE lx_code='JRGJPT') CC6 ON CC6.qxdm=xx.xzqdm
+	</select>
+   <!-- 1.监管  -->
+   <!-- 2.效能 -->
+   <!-- 3.工作进展 -->
+   <!-- 4.全省工作进展各地市  指标完成情况    -->        
+	<select id="queryPageForGzjzZBWCQK" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+	   select bb.sid,bb.T,bb.zl
+		  from (select substr(aa.pid, 1, 4) sid, aa.lx_code, count(*) zl, sum(T) T
+		          from (select A.PID, B.LX_CODE, nvl(C.T, 0) T
+		                  from (select *
+		                          from DIC_XZQ
+		                         where jb = '县'
+                                 and  xzqdm  like '%44%'
+		                          ) A
+		                  left join (select distinct lx_code
+		                              from gzjz
+		                             where lx_code in ('BFXZ',
+		                                               'CKSZ',
+		                                               'RYHZDW',
+		                                               'ZLYJ',
+		                                               'SJZHJK',
+		                                               'YWLCZZ',
+		                                               'XTSJGZ',
+		                                               'JRGJPT')) B
+		                    on 1 = 1
+		                  left join (select qxdm, lx_code, count(1) t
+		                              from gzjz
+		                             group by qxdm, lx_code) C
+		                    on A.PID = C.qxdm
+		                   and B.lx_code = C.lx_code) aa
+		         group by aa.lx_code, substr(aa.pid, 1, 4)) bb
+		 where bb.lx_code = #{zblx}
+   </select>
+   <!-- 1.监管  -->
+   <!-- 2.效能 -->		
+   <!-- 3.工作进展 -->
+   <!-- 4.首页地图  21市工作进展  8指标  所占比列    -->   
+    <select id="queryPageForGzjzMAPzb" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		    select * from (
+			select tt.sid, tt.lx_code,round((tt.T /tt.zl) * 100, 2) zb  from 
+			(
+			select substr(aa.pid,1,4) sid ,  aa.lx_code,count(*) zl,sum(T) T  from (
+			select A.PID,B.LX_CODE,nvl(C.T, 0) T from (
+			       select * from DIC_XZQ where jb='县' and xzqdm like '%44%'
+			) A left join (
+			         select distinct lx_code from gzjz where lx_code in ('BFXZ','CKSZ','RYHZDW','ZLYJ','SJZHJK','YWLCZZ','XTSJGZ','JRGJPT')
+			) B on 1=1
+			left join (
+			     select qxdm,lx_code,count(1) t from gzjz
+			     group by qxdm,lx_code
+			) C on A.PID=C.qxdm and B.lx_code=C.lx_code ) aa
+			group by aa.lx_code, substr(aa.pid,1,4) 
+			) tt
+			) 
+			
+			pivot 
+			(
+			   sum(zb)
+			   for(lx_code)
+			   in ('BFXZ' BFXZ,'CKSZ' CKSZ,'RYHZDW' RYHZDW,'ZLYJ' ZLYJ,'SJZHJK' SJZHJK,'YWLCZZ'  YWLCZZ,'XTSJGZ' XTSJGZ,'JRGJPT' JRGJPT)
+			) 
+	    
+	</select>
+	
+	 <!-- 工作进展  首 页 市级地图服务  -->
+	<select id="queryPageForGzjzMap2" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+	     select * from(select A.PID,B.LX_CODE,nvl(C.T, 0) T from (
+			       select * from DIC_XZQ where jb='县' 
+			       <if test="qxdm!=null and qxdm!=''">
+			         and xzqdm like #{qxdm}||'%'
+		            </if>
+			) A left join (
+			         select distinct lx_code from gzjz where lx_code in ('BFXZ','CKSZ','RYHZDW','ZLYJ','SJZHJK','YWLCZZ','XTSJGZ','JRGJPT')
+			) B on 1=1
+			left join (
+			     select qxdm,lx_code,count(1) t from gzjz
+			     group by qxdm,lx_code
+			) C on A.PID=C.qxdm and B.lx_code=C.lx_code)
+			pivot 
+			(
+			   sum(T)
+			   for(lx_code)
+			   in ('BFXZ' BFXZ,'CKSZ' CKSZ,'RYHZDW' RYHZDW,'ZLYJ' ZLYJ,'SJZHJK' SJZHJK,'YWLCZZ'  YWLCZZ,'XTSJGZ' XTSJGZ,'JRGJPT' JRGJPT)
+			)
+	</select>
+	
+	<!--工作进展  echart zhu级服务     -->   
+    <select id="queryPageForGzjzEchartzhu" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+			select A.XZQDM,--行政区代码
+			       A.XZQMC,--行政区名称
+			       nvl(ZL, 0) ZL, --总量
+			       nvl(BFXZ, 0) BFXZ, --颁发新证                                                 
+			       nvl(CKSZ, 0) CKSZ, --窗口设置
+			       nvl(RYHZDW, 0) RYHZDW, --人员划转到位
+			       nvl(ZLYJ, 0) ZLYJ, --资料移交
+			       nvl(SJZHJK, 0) SJZHJK, --数据整合情况
+			       nvl(YWLCZZ, 0) YWLCZZ, --业务流程再造
+			       nvl(XTSJGZ, 0) XTSJGZ, --系统升级改造
+			       nvl(JRGJPT, 0) JRGJPT, --接入国家平台
+			       nvl(JSBWSJ, 0) JSBWSJ, --接收报文数据
+			       nvl(JSCLSJ, 0) JSCLSJ --接收存量数据
+			  from (select b.xzqdm, a.xzqmc, b.zl
+			          from (select xzqdm, xzqmc from dic_xzq) a
+			         right join (select substr(xzqdm, 1, length(${qxdm}) + 2) xzqdm,
+			                           count(1) zl
+			                      from dic_xzq
+			                     where jb = '县'
+			                       and xzqdm like #{qxdm}||'%'
+			                     group by substr(xzqdm, 1, length(${qxdm}) + 2)) b
+			            on a.xzqdm = b.xzqdm) A
+			  left join (select PQXDM,
+			                    sum(nvl(BFXZ, 0)) BFXZ,
+			                    sum(nvl(CKSZ, 0)) CKSZ,
+			                    sum(nvl(RYHZDW, 0)) RYHZDW,
+			                    sum(nvl(ZLYJ, 0)) ZLYJ,
+			                    sum(nvl(SJZHJK, 0)) SJZHJK,
+			                    sum(nvl(YWLCZZ, 0)) YWLCZZ,
+			                    sum(nvl(XTSJGZ, 0)) XTSJGZ,
+			                    sum(nvl(JRGJPT, 0)) JRGJPT,
+			                    sum(nvl(JSBWSJ, 0)) JSBWSJ,
+			                    sum(nvl(JSCLSJ, 0)) JSCLSJ
+			               from (select substr(qxdm, 1, length(${qxdm}) + 2) pqxdm,
+			                            case
+			                              when LX_CODE = N'BFXZ' then
+			                               sum(flag)
+			                            end BFXZ,
+			                            case
+			                              when LX_CODE = N'CKSZ' then
+			                               sum(flag)
+			                            end CKSZ,
+			                            case
+			                              when LX_CODE = N'RYHZDW' then
+			                               sum(flag)
+			                            end RYHZDW,
+			                            case
+			                              when LX_CODE = N'ZLYJ' then
+			                               sum(flag)
+			                            end ZLYJ,
+			                            case
+			                              when LX_CODE = N'SJZHJK' then
+			                               sum(flag)
+			                            end SJZHJK,
+			                            case
+			                              when LX_CODE = N'YWLCZZ' then
+			                               sum(flag)
+			                            end YWLCZZ,
+			                            case
+			                              when LX_CODE = N'XTSJGZ' then
+			                               sum(flag)
+			                            end XTSJGZ,
+			                            case
+			                              when LX_CODE = N'JRGJPT' then
+			                               sum(flag)
+			                            end JRGJPT,
+			                            case
+			                              when LX_CODE = N'JSBWSJ' then
+			                               sum(flag)
+			                            end JSBWSJ,
+			                            case
+			                              when LX_CODE = N'JSCLSJ' then
+			                               sum(flag)
+			                            end JSCLSJ
+			                       from GZJZ where jb='县'
+                            group by substr(qxdm, 1, length(${qxdm}) + 2), LX_CODE) 
+			              group by PQXDM) B
+			    on A.XZQDM = B.PQXDM
+			 order by A.XZQDM asc
+		
+	</select>
+	<!--工作进展 地图市级服务 -->  
+	 <select id="queryPageForJgXngzjzMAPSHI" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+				
+				select a.xzqdm,
+			       nvl(b.flag, 0) flag
+			  from dic_xzq a
+			  left join gzjz b
+			    ON (a.xzqdm = b.qxdm)
+			 where 1=1
+			 
+			 <if test="qxdm!=null and qxdm!=''">
+						and a.xzqdm like #{qxdm}||'%'
+					</if>
+			   and (lx_code = #{zblx} or lx_code is null)
+			   and a.jb = '县'
+
+	</select>
+	<!--工作进展 广东省不动产工作进展指标 完成情况(是否) -->    
+	 <select id="queryPageForJgXngzjz5" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+	select case when exists (select 1 from dic_xzq where xzqdm = substr(t.qxdm,1,4)) then (select xzqmc from dic_xzq where xzqdm = substr(t.qxdm,1,4)) end  xzqmc,
+		qxmc,case when bfxz=1 then '是' else '否' end bfxz,
+		case when ryhzdw=1 then '是' else '否' end ryhzdw ,
+		  ryhzdw_sm,
+		  case when zlyj=1 then '是' else '否' end zlyj,
+		    zlyj_sm,
+		    case when sjzhjk=1 then '是' else '否' end sjzhjk,
+		      sjzhjk_sm,
+		      case when ywlczz=1 then '是' else '否' end ywlczz,
+		        ywlczz_sm,
+		        case when cksz=1 then '是' else '否' end cksz,
+		          cksz_sm,
+		          case when xtsjgz=1 then '是' else '否' end xtsjgz,
+		            xtsjgz_sm,
+		            case when jrgjpt=1 then '是' else '否' end jrgjpt,
+		              jrgjpt_sm
+		from gzjzqk t where qxdm is not null
+			
+	</select>
+<!--业务登记   证书 证明  总业务量 -->
+	<select id="queryPageForJgXnDjywEchart" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+	  select zs,--证书
+		       zm,--证明
+		       ywzl,--业务总量
+		       case
+		       <![CDATA[
+		         when (t.ywzl - s.zm - s.zs) < 0 then 0  
+		         ]]>
+		         else
+		          (t.ywzl - s.zm - s.zs)
+		       end qt
+		  from (select '1' QXDM, nvl(sum(zs), 0) zs, nvl(sum(zm), 0) zm
+		          from JG_FZL_UNION_V a
+		         where 1=1
+		      <if test="xzqdm!=null and xzqdm!=''">
+			  and a.qxdm like '%'||#{xzqdm}||'%'
+		     </if>
+		           and tjsj between #{starttime} and #{endtime}) s
+		  left join (select '1' QXDM, nvl(sum(ywl), 0) ywzl, nvl(sum(zydj), 0) zydj
+		               from JG_YWL_UNION_V b
+		              where 1=1	
+		     <if test="xzqdm!=null and xzqdm!=''">
+			 and b.qxdm like '%'||#{xzqdm}||'%'
+		    </if>
+		     and tjsj between #{starttime} and #{endtime}) t
+		     on s.QXDM = t.QXDM
+	</select>
+	<!--业务登记 Top10  -->
+	<select id="queryPageForJgXnDjywtTop10" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+			select c.xzqmc, nvl(zl, 0) zl
+			  from (select *
+			          from dic_xzq
+			         where jb = '市'
+			           and xzqdm like '%44%') c
+			  left join (select substr(qxdm, 1, 4) sid, sum(a.zs) + sum(a.zm) as zl
+			               from JG_FZL_UNION_V a
+			              where qxdm like '%44%'
+			              group by substr(qxdm, 1, 4)) b
+			    on c.xzqdm = b.sid
+			 where 1=1 and
+			 <![CDATA[rownum <= 10]]>
+			 order by zl desc
+	</select>
+	<!-- 业务登记 地图 各市 -->
+	<select id="queryPageForJgXnDjywMap" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		   select sss.* ,
+		        case
+		       <![CDATA[
+	            when 
+				(ss.ywl-sss.zs-sss.zm)<0 then 0 
+	            ]]>
+				else
+				(ss.ywl-sss.zs-sss.zm)
+				end qt from
+				(select d.xzqdm,
+				           sum(nvl(v.ywl, 0)) ywl
+				                    
+				      from dic_xzq d 
+				     left join (select *from jg_ywl_union_v where tjsj between #{starttime} and #{endtime})v
+				        on substr(v.QXDM, 1, length(#{qxdm})+ 2) = d.xzqdm
+				     where 1=1
+				      <if test="qxdm!=null and qxdm!=''">
+			          and d.xzqdm like #{qxdm}||'%'
+		              </if>
+				     and length(xzqdm) = length(#{qxdm}) + 2   
+				     group by d.xzqdm  ) ss left join(select d.xzqdm,
+				           sum(nvl(v.zs, 0)) zs,
+				           sum(nvl(v.zm, 0)) zm          
+				      from dic_xzq d 
+				     left join (select *from jg_fzl_union_v where tjsj between #{starttime} and #{endtime})v
+				        on substr(v.QXDM, 1, length(#{qxdm})+ 2) = d.xzqdm
+				     where 1=1
+				      <if test="qxdm!=null and qxdm!=''">
+			          and d.xzqdm like #{qxdm}||'%'
+		              </if>
+				     and length(xzqdm) = length(#{qxdm}) + 2
+				     group by d.xzqdm
+				) sss on sss.xzqdm=ss.xzqdm
+			 	 	
+	</select>
+	<!-- 登记业务 二级页面柱状图 -->
+	<select id="queryPageForJgXnDjywEcharZHU" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+				select d.xzqmc,
+				           sum(nvl(v.zs, 0)) zs,
+				           sum(nvl(v.zm, 0)) zm,
+				           sum(nvl(v.zs + v.zm, 0)) zfzl
+				      from dic_xzq d 
+				     left join (select *from jg_fzl_union_v where tjsj between #{starttime} and #{endtime})v
+				        on substr(v.QXDM, 1, length(${qxdm})+ 2) = d.xzqdm
+				     where 1=1
+				    	<if test="qxdm!=null and qxdm!=''">
+						and d.xzqdm like #{qxdm}||'%'
+						</if>	
+				     and length(xzqdm) = length(${qxdm}) + 2
+				     group by d.xzqmc
+	</select>
+		<!-- 登记业务 二级页面折线图 -->
+	<select id="queryPageForJgXnDjywEcharZHE" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		select tt.day_id sj, nvl(s.zs, 0) zs, nvl(s.zm, 0) zm, nvl(s.zfzl, 0) zfzl
+		  from (SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{starttime}, 'YYYY-MM'), ROWNUM - 1),
+		                       'YYYY-MM') DAY_ID
+		          FROM DUAL
+		       <![CDATA[  
+		       CONNECT BY ROWNUM <= months_between
+		       ]]>
+		        (to_date(#{endtime}, 'yyyy-mm'),
+		                                  to_date(#{starttime}, 'yyyy-mm')) + 1) tt
+		  left join (select t.tjsj, sum(zs) zs, sum(zm) zm, sum(zs) + sum(zm) zfzl
+		               from (select qxdm, zs, zm, substr(tjsj, 1, 7) tjsj
+		                       from jg_fzl_union_v) t
+		              where 1 = 1
+		                 <if test="xzqdm!=null and xzqdm!=''">
+					    	 and qxdm like '%'||#{xzqdm}||'%'
+					    </if>
+		                and qxdm is not null
+		                and tjsj between #{starttime} and #{endtime}
+		              group by t.tjsj) s
+		    on s.tjsj = tt.day_id	order by SJ
+	</select>
+	
+    <!-- 1.监管  -->
+    <!-- 2.效能 -->
+    <!-- 3.数据监管 -->
+	<!-- 数据汇交  增量数据/实时汇交数据 总量  圆 -->
+	<select id="queryPageForJgXnSjhjEchart1" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+	
+		select sum(hjzs) hjzs, --汇交总量
+		       sum(sbzs) sbzs, --上报总量
+		       sum(rkzs) rkzs --入库总量
+		  from jh_ztqk
+		 where 1 = 1
+		      <if test="qxdm!=null and qxdm!=''">
+		         and  xzqdm like #{qxdm}||'%'
+		      </if>
+		   --and xzqdm like '44%'
+		      <if test="starttime!=null and starttime!='' and endtime !=null and endtime!=''">
+		        and TJSJ between to_date(#{starttime}, 'yyyy-mm-dd') and to_date(#{endtime}, 'yyyy-mm-dd')
+		      </if>
+		   --and TJSJ between to_date('2015-01-01', 'yyyy-mm-dd') and to_date('2016-12-31', 'yyyy-mm-dd')
+		
+	</select>
+	
+	<!-- 汇交情况  -->
+	<select id="queryPageForJgXnHjqkTable" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		select d.xzqmc, t.*
+		  from (
+		        <choose>
+		        <when test="qxdm!=null and qxdm!=''">
+		          select substr(a.xzqdm, 1, length(${qxdm}) + 2) sid,
+		        </when>
+		        <otherwise>
+		        select substr(a.xzqdm, 1, 4) sid,
+		                </otherwise>
+		                </choose>
+		                sum(HJZS) HJZS, --汇交总数
+		                sum(HJCGSL) HJCGSL, --汇交成功数量
+		                sum(HJYCSL) HJYCSL, --汇交异常数量
+		                sum(HJWFKSL) HJWFKSL, --汇交未反馈数量
+		                sum(BWHQ) BWHQ, --zip报文获取
+		                sum(FKSJ) FKSJ, --反馈数据
+		                sum(SJRK) SJRK, --数据入库
+		                sum(SJJYCW) SJJYCW, --数据校验错误数量
+		                sum(ZXJYCW) ZXJYCW, --中心解压错误数量
+		                sum(ZXJMCW) ZXJMCW, --中心解密错误数量
+		                sum(JSQMCW) JSQMCW, --接收签名错误数量
+		                sum(TSXX) TSXX --提示信息
+		          from (select xzqdm
+		                   from dic_xzq
+		                  where 1 = 1
+		                       <choose>
+		                        <when test="qxdm!=null and qxdm!=''">
+		                       and xzqdm like #{qxdm}||'%'
+		                        </when>
+		                        <otherwise>
+		                    and xzqdm like '44%'
+		                       </otherwise>
+		                       </choose>
+		                    and length(xzqdm) > 4) a
+		          left join (select *
+		                       from JH_HJ_ZTQK
+		                      where 1 = 1
+		                           <if test = "starttime!=null and starttime!='' and endtime !=null and endtime!=''">
+		                             and TJSJ between to_date(#{starttime}, 'YYYY-MM-DD') and to_date(#{endtime}, 'YYYY-MM-DD')
+		                           </if>
+		                        --and TJSJ between to_date('2015-01-01', 'yyyy-mm-dd') and to_date('2016-12-31', 'yyyy-mm-dd')
+		                        ) b
+		            on a.xzqdm = b.xzqdm
+		        <choose>
+		        <when test="qxdm!=null and qxdm!=''">
+		          group by substr(a.xzqdm, 1, length(${qxdm}) + 2)
+		        </when>
+		        <otherwise>
+		         group by substr(a.xzqdm, 1, 4)
+		        </otherwise>
+		        </choose>
+		        ) t
+		  left join dic_xzq d
+		    on d.xzqdm = t.sid
+
+	</select>
+	
+	<!-- 上报情况  -->
+	<select id="queryPageForJgXnSbqkTable" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		select d.xzqmc, t.*
+		  from (
+		        <choose>
+		        <when test="qxdm!=null and qxdm!=''">
+		          select substr(a.xzqdm, 1, length(${qxdm}) + 2) sid,
+		        </when>
+		        <otherwise>
+		        select substr(a.xzqdm, 1, 4) sid,
+		                </otherwise>
+		                </choose>
+		                sum(SBZS) SBZS, --上报总数
+		                sum(SBWFKZS) SBWFKZS, --上报未反馈总数
+		                sum(SBCGSL) SBCGSL, --上报成功数量
+		                sum(SBYCSL) SBYCSL, --上报异常数量
+		                sum(SJJYCW) SJJYCW, --数据校验错误数量
+		                sum(ZXJYCW) ZXJYCW, --中心解压错误数量
+		                sum(ZXJMCW) ZXJMCW, --中心解密错误数量
+		                sum(JSQMCW) JSQMCW, --接收签名错误数量
+		                sum(TSXX) TSXX --提示信息
+		          from (select xzqdm
+		                   from dic_xzq
+		                  where 1 = 1
+		                       <choose>
+		                        <when test="qxdm!=null and qxdm!=''">
+		                       and xzqdm like #{qxdm}||'%'
+		                        </when>
+		                        <otherwise>
+		                    and xzqdm like '44%'
+		                       </otherwise>
+		                       </choose>
+		                    and length(xzqdm) > 4) a
+		          left join (select *
+		                       from JH_SB_ZTQK
+		                      where 1 = 1
+		                           <if test = "starttime!=null and starttime!='' and endtime !=null and endtime!=''">
+		                             and TJSJ between to_date(#{starttime}, 'YYYY-MM-DD') and to_date(#{endtime}, 'YYYY-MM-DD')
+		                           </if>
+		                        --and TJSJ between to_date('2015-01-01', 'yyyy-mm-dd') and to_date('2016-12-31', 'yyyy-mm-dd')
+		                        ) b
+		            on a.xzqdm = b.xzqdm
+		        <choose>
+		        <when test="qxdm!=null and qxdm!=''">
+		          group by substr(a.xzqdm, 1, length(${qxdm}) + 2)
+		        </when>
+		        <otherwise>
+		         group by substr(a.xzqdm, 1, 4)
+		        </otherwise>
+		        </choose>
+		        ) t
+		  left join dic_xzq d
+		    on d.xzqdm = t.sid			
+	</select>
+	
+	<!-- 数据汇交，数据上报 -->
+	<select id="queryPageForJgXnSjhjssb" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+	
+		select a.day_id, --时间
+		       nvl(b.hjzs, 0) hjzs, --汇交总数
+		       nvl(b.sbzs, 0) sbzs --上报总数
+		  from (SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{starttime}, 'YYYY-MM'), ROWNUM - 1),'YYYY-MM') DAY_ID
+		  --from (SELECT TO_CHAR(ADD_MONTHS(TO_DATE('2015-12', 'YYYY-MM'), ROWNUM - 1),'YYYY-MM') DAY_ID
+		          FROM DUAL
+		        <![CDATA[
+		        CONNECT BY ROWNUM <= months_between
+		        ]]>
+		        (to_date(#{endtime}, 'yyyy-mm'), to_date(#{starttime}, 'yyyy-mm')) + 1) a
+		        --(to_date('2016-12', 'yyyy-mm'),to_date('2015-12', 'yyyy-mm')) + 1) a
+		  left join (select substr(to_char(tjsj, 'yyyy-mm'), 1, 7) tjsj,
+		                    nvl(sum(hjzs), 0) hjzs,
+		                    nvl(sum(sbzs), 0) sbzs
+		               from JH_ZTQK
+		              where tjsj between to_date(#{starttime}, 'yyyy-mm') and to_date(#{endtime}, 'yyyy-mm')
+		              --where tjsj between to_date('2015-12', 'yyyy-mm') and to_date('2016-12', 'yyyy-mm')
+		              and substr(xzqdm, 1, length(${qxdm})) = #{qxdm}
+		              --and substr(xzqdm, 1, length('44')) = '44'
+		              group by substr(to_char(tjsj, 'yyyy-mm'), 1, 7)) b
+		    on a.day_id = b.tjsj
+		 order by a.day_id
+					
+	</select>
+	
+	<!-- 数据汇交  数据汇交总量统计（省市切换） 表 -->
+	<select id="queryPageForJgXnSjhjEchart2" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		select d.xzqmc,
+		           sum(nvl(v.sjjs, 0)) sjhj
+		      from dic_xzq d 
+		     left join (select *from JG_SJJH_UNION_V where tjsj between #{starttime} and #{endtime})v
+		        on substr(v.QXDM, 1, length(${qxdm})+ 2) = d.xzqdm
+		     where 1=1
+		    <if test="qxdm!=null and qxdm!=''">
+		    and d.xzqdm like #{qxdm}||'%'
+		    </if>
+		     and length(xzqdm) = length(${qxdm}) + 2
+		     group by d.xzqmc
+	</select>
+	<!-- 数据汇交  近6个月数据汇交动态（时间固定为6个月  本月前推6个月） 折线 -->
+	<select id="queryPageForJgXnSjhjEchart3" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		select sjb.day_id sj,nvl(hj.sjhj,0) sjhjdt  from
+			(SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{starttime},'YYYY-MM'),ROWNUM-1),'YYYY-MM') DAY_ID 
+			FROM DUAL 
+			CONNECT BY
+			<![CDATA[
+			 ROWNUM<=months_between 
+			]]>
+			(to_date(#{endtime}, 'yyyy-mm'),to_date(#{starttime}, 'yyyy-mm'))+1 ) sjb
+			left join (select v.hjsj,
+			           sum(nvl(v.sjjs, 0)) sjhj
+			      from dic_xzq d 
+			     left join (select substr(tjsj,1,7) hjsj,qxdm,sjjs from JG_SJJH_UNION_V )v
+			        on substr(v.QXDM, 1, length(${qxdm})+ 2) = d.xzqdm
+			     where 1=1
+			   
+			     <if test="qxdm!=null and qxdm!=''">
+		         and d.xzqdm like #{qxdm}||'%'
+		         </if>
+			     and length(xzqdm) = length(${qxdm}) + 2
+			     group by v.hjsj 
+			     ) hj on hj.hjsj=sjb.day_id order by sjb.day_id
+	</select>
+	
+	
+	<!-- 数据汇交   系统接入情况（接收报文数据JSBWSJ） -->
+	<select id="queryPageForJgXnSjhjEchartJSBWSJ" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+			select *
+			  from (select count(1) xjr
+			          from dic_xzq
+			         where jb = '县'
+			         <if test="qxdm!=null and qxdm!=''">
+		                 and xzqdm like #{qxdm}||'%'
+		               </if>
+			           ),
+			       (select sum(flag) byjr
+			          from gzjz
+			         where to_char(wcsj, 'yyyy-mm') = '2016-10'
+			           and lx_code = 'JSBWSJ'
+			           and jb = '县'
+			           <if test="qxdm!=null and qxdm!=''">
+		                 and qxdm like '%'||#{qxdm}||'%'
+		               </if>
+			          ),
+			       (select sum(flag) yjr
+			          from gzjz
+			         where lx_code = 'JSBWSJ'
+			           and jb = '县'
+			           <if test="qxdm!=null and qxdm!=''">
+		                 and qxdm like '%'||#{qxdm}||'%'
+		               </if>
+			          )
+	</select>
+	
+	<!-- 数据汇交 存量数据汇交情况（接收存量数据JSCLSJ） -->
+	
+	<select id="queryPageForJgXnSjhjEchartJSCLSJ" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+			select *
+			  from (select count(1) xjr
+			          from dic_xzq
+			         where jb = '县'
+			         <if test="qxdm!=null and qxdm!=''">
+		                 and xzqdm like #{qxdm}||'%'
+		               </if>
+			           ),
+			       (select sum(flag) byjr
+			          from gzjz
+			         where to_char(wcsj, 'yyyy-mm') = '2016-10'
+			           and lx_code = 'JSCLSJ'
+			           and jb = '县'
+			           <if test="qxdm!=null and qxdm!=''">
+		                 and qxdm like '%'||#{qxdm}||'%'
+		               </if>
+			          ),
+			       (select sum(flag) yjr
+			          from gzjz
+			         where lx_code = 'JSCLSJ'
+			           and jb = '县'
+			           <if test="qxdm!=null and qxdm!=''">
+		                 and qxdm like '%'||#{qxdm}||'%'
+		               </if>
+			          )
+	</select>
+	
+	<!-- 数据交换map1       广东省各市【汇交总量】【上报总量】【入库总量】 （省市切换）-->
+	<select id="queryPageForJgXnSjhjMap1" resultMap="BaseResultMap" parameterType="java.util.Map">
+	
+		select d.xzqmc, t.*
+		  from (
+		        <choose>
+		        <when test="qxdm!=null and qxdm!=''">
+		          select substr(a.xzqdm, 1, length(${qxdm}) + 2) sid,
+		        </when>
+		        <otherwise>
+		        select substr(a.xzqdm, 1, 4) sid,
+		                </otherwise>
+		                </choose>
+		               sum(b.hjzs) hjzs,--汇交总量
+		               sum(b.sbzs)sbzs,--上报总量
+		               sum(b.rkzs) rkzs --入库总量
+		          from (select xzqdm
+		                   from dic_xzq
+		                  where 1 = 1
+		                       <choose>
+		                        <when test="qxdm!=null and qxdm!=''">
+		                       and xzqdm like #{qxdm}||'%'
+		                        </when>
+		                        <otherwise>
+		                    and xzqdm like '44%'
+		                       </otherwise>
+		                       </choose>
+		                    and length(xzqdm) > 4) a
+		          left join (select *
+		                       from jh_ztqk
+		                      where 1 = 1
+		                           <if test = "starttime!=null and starttime!='' and endtime !=null and endtime!=''">
+		                             and TJSJ between to_date(#{starttime}, 'YYYY-MM-DD') and to_date(#{endtime}, 'YYYY-MM-DD')
+		                           </if>
+		                        --and TJSJ between to_date('2015-01-01', 'yyyy-mm-dd') and to_date('2016-12-31', 'yyyy-mm-dd')
+		                        ) b
+		            on a.xzqdm = b.xzqdm
+		        <choose>
+		        <when test="qxdm!=null and qxdm!=''">
+		          group by substr(a.xzqdm, 1, length(${qxdm}) + 2)
+		        </when>
+		        <otherwise>
+		         group by substr(a.xzqdm, 1, 4)
+		        </otherwise>
+		        </choose>
+		        ) t
+		  left join dic_xzq d
+		    on d.xzqdm = t.sid
+    
+	</select>
+	
+	<!-- 数据汇交map2       广东省各市接入量和未接入量  （省市不同，2个服务）省-->
+	<select id="queryPageForJgXnSjhjMap2" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+			select substr(a.xzqdm,1,length('44')+2) sid,sum(nvl(b.flag,0)) yjr,count(1)-sum(nvl(b.flag,0)) as wjr
+				 from
+				(select xzqdm  from  dic_xzq where xzqdm like '%44%' and length(xzqdm)>4) a left join 
+				
+				 (select qxdm,flag,lx_code from gzjz where qxdm like '%44%' AND lx_code='JSBWSJ' and  jb='县')
+				  b
+				on a.xzqdm=b.QXDM
+				group by substr(a.xzqdm,1,length('44')+2)
+	</select>
+	
+	<!-- 查询省市接入情况，监管中心数据交换模块 -->
+	<select id="queryPageForJRQKbyCity" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+
+	 <choose>
+	 	<when test="cityCode!=null and cityCode!=''">
+	 		  select (select count(*)
+		            from gzjz g
+		           where g.qxdm = s.QXDM
+		             and g.LX_CODE = 'JSBWSJ') wjr,
+		         (select count(*)
+		            from gzjz g
+		           where g.qxdm = s.QXDM
+		             and g.LX_CODE = 'JSBWSJ'
+		             and g.flag = 1) ysr,
+		         s.XZQMC
+		    from dic_v_xzq_x s
+		     where 1=1
+		    <if test="cityCode!=null and cityCode!=''">
+		    	and s.PQXDM=#{cityCode}
+		    </if>
+	 	</when>
+	 	<otherwise>
+	 	    select (select count(*)
+		            from gzjz g
+		           where g.pqxdm = s.QXDM
+		             and g.LX_CODE = 'JSBWSJ') wjr,
+		         (select count(*)
+		            from gzjz g
+		           where g.pqxdm = s.QXDM
+		             and g.LX_CODE = 'JSBWSJ'
+		             and g.flag = 1) ysr,
+		         s.XZQMC
+		    from dic_v_xzq_s s
+		    
+	 	</otherwise>
+	 </choose>
+        
+	</select>
+	
+		<!-- 数据汇交map3      广东省某市各是否完成  （省市不同，2个服务）市-->
+	<select id="queryPageForJgXnSjhjMap3" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		select substr(a.xzqdm,1,length(${qxdm})+2) sid,sum(nvl(b.flag,0)) ywc
+			 from
+			(select xzqdm  from  dic_xzq where 1=1
+			<if test="qxdm!=null and qxdm!=''">
+		     and xzqdm like #{qxdm}||'%'
+		    </if>
+			and length(xzqdm)>4) a left join 
+			
+			 (select qxdm,flag,lx_code from gzjz where 1=1
+			 
+			 <if test="qxdm!=null and qxdm!=''">
+		     and qxdm like '%'||#{qxdm}||'%'
+		    </if>
+			 AND lx_code='JSBWSJ' and  jb='县')
+			  b
+			on a.xzqdm=b.QXDM
+			group by substr(a.xzqdm,1,length(${qxdm})+2)
+	</select>
+	
+	<!-- 数据汇交总量（省市切换） -->
+	<select id="queryPageForJgXnSjhjMap4" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		select substr(a.xzqdm,1,length(${qxdm})+2) sid,sum(nvl(b.sjjs,0)) hjzl
+			 from
+			(select xzqdm  from  dic_xzq where 1=1
+			
+			 <if test="qxdm!=null and qxdm!=''">
+		     and xzqdm like #{qxdm}||'%'
+		    </if>
+			 and length(xzqdm)>4) a left join 
+			
+			 (select  * from JG_SJJH_UNION_V where tjsj between #{starttime} and #{endtime})
+			  b
+			on a.xzqdm=b.QXDM
+			group by substr(a.xzqdm,1,length(${qxdm})+2)
+				
+	</select>
+	
+	<!-- 数据汇交   增量数据汇交情况 -->
+	<select id="queryPageForJgXnSjhjTable1" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		select s.*,nvl(y.yfz,0) yjr,(s.zs - nvl(y.yfz,0)) djr,round(nvl(y.yfz,0)/s.zs,2)*100 jrl from
+			  (select xzqdm, xzqmc, T2.ZS
+			  from dic_xzq
+			  left join (select sid, count(1) AS ZS
+			               from dic_xzq
+			              where 1=1
+			               and jb = '县'
+			               <if test="qxdm!=null and qxdm!=''">
+		                  and xzqdm like #{qxdm}||'%'
+		                  </if>
+			              group by sid) T2
+			    ON T2.SID = xzqdm
+			 where jb = '市'
+			 ORDER BY XZQDM ) s
+			 left join (select sid ,count(1) as yfz from (select substr(XZQdm,1,4) as sid from (select D.*,T.FLAG,T.LX_CODE
+			  from dic_xzq D
+			  left join (gzjz) T
+			    ON T.QXDM = xzqdm
+			WHERE LENGTH(XZQDM)=6 AND XZQDM!='440000') where   lx_code = 'JSBWSJ'and flag = '1'  )group by sid ) y on y.sid=s.xzqdm
+	
+	
+	</select>
+	
+	<!-- 数据汇交   存量数据汇交情况 -->
+	<select id="queryPageForJgXnSjhjTable2" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		select d.xzqmc,
+		       sum(nvl(v.zs, 0)) zs,
+		       sum(nvl(v.zm, 0)) zm,
+		       sum(nvl(v.zs + v.zm, 0)) zfzl
+		  from jg_fzl_union_v v
+		 right join dic_xzq d
+		    on substr(v.QXDM, 1, length(${qxdm}) + 2) = d.xzqdm
+		 where 1=1
+		<if test="qxdm!=null and qxdm!=''">
+		and d.xzqdm like #{qxdm}||'%'
+		</if>		
+		 and length(xzqdm) = length(${qxdm}) + 2
+		 group by d.xzqmc
+	</select>
+	
+	<!-- 数据汇交   数据汇交情况_汇交情况_按行政区 -->
+	<select id="queryPageForJgXnSjhjTable3" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+	
+		SELECT XZQDM,
+		       XZQMC,
+		       NVL(SUM(ZSL), 0) AS ZSL,
+		       SUM(DECODE(LX, '证书', ZSL, 0)) AS ZS,
+		       SUM(DECODE(LX, '证明', ZSL, 0)) AS ZM,
+		       SUM(DECODE(LX, '其他', ZSL, 0)) AS QT
+		  FROM (SELECT DIC_XZQ.XZQDM, DIC_XZQ.XZQMC, T.LX AS LX, T.ZS AS ZSL
+		          FROM (SELECT QXDM, LX, SUM(SL) AS ZS
+		                  FROM JG_SJFLHJ_NOTODAY_V
+		                 WHERE tjsj between #{starttime} and #{endtime}
+		                 GROUP BY QXDM, LX) T
+		         RIGHT JOIN DIC_XZQ
+		            on substr(T.QXDM, 1, length(${qxdm}) + 2) = DIC_XZQ.xzqdm
+		         WHERE 1=1
+		         <if test="qxdm!=null and qxdm!=''">
+		           and DIC_XZQ.xzqdm like #{qxdm}||'%'
+		         </if>
+		           and length(DIC_XZQ.xzqdm) = length(${qxdm}) + 2
+		         ORDER BY DIC_XZQ.XZQDM, t.LX)
+		 GROUP BY XZQDM, XZQMC
+		 ORDER BY XZQDM
+
+	</select>
+		
+	<!-- 数据汇交   数据汇交情况_汇交情况_按时间范围 -->
+	<select id="queryPageForJgXnSjhjTable4" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		SELECT DAY_ID,
+		       NVL(ZSL, 0) AS ZSL,
+		       NVL(ZS, 0) AS ZS,
+		       NVL(ZM, 0) AS ZM,
+		       NVL(QT, 0) AS QT
+		  FROM (SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{starttime}, 'YYYY-MM'), ROWNUM - 1),
+		                       'YYYY-MM') DAY_ID
+		          FROM DUAL
+		        CONNECT BY
+		       <![CDATA[ 
+		         ROWNUM <=
+		         months_between(to_date(#{endtime}, 'yyyy-mm'),
+		                        to_date(#{starttime}, 'yyyy-mm')) + 1)
+		       ]]>
+		  LEFT JOIN (SELECT TJSJ,
+		                    NVL(SUM(SL), 0) AS ZSL,
+		                    SUM(DECODE(LX, '证书', SL, 0)) AS ZS,
+		                    SUM(DECODE(LX, '证明', SL, 0)) AS ZM,
+		                    SUM(DECODE(LX, '其他', SL, 0)) AS QT
+		               FROM (select TO_CHAR(to_date(TJSJ, 'yyyy-mm-dd'), 'yyyy-mm') AS TJSJ,
+		                            LX,
+		                            SUM(SL) AS SL
+		                       from JG_SJFLHJ_NOTODAY_V
+		                      WHERE 1 = 1
+		                        AND QXDM like #{qxdm}||'%'
+		                      GROUP BY TO_CHAR(to_date(TJSJ, 'yyyy-mm-dd'), 'yyyy-mm'),
+		                               LX)
+		              GROUP BY TJSJ) T
+		    ON DAY_ID = T.TJSJ
+		 ORDER BY DAY_ID		
+
+	</select>
+	
+    <!-- 1.监管  -->
+    <!-- 2.效能 -->
+    <!-- 3.数据汇交 -->
+	<!-- 业务监管  首页Echart 柱状图-->
+	<select id="queryPageForYwjgMainEchartz1" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select y.cwlx,nvl(c.sl,0) sl  from (select distinct cwlx from ywjg) y left join 
+			(select cwlx,nvl(sum(sl),0) sl
+				  from ywjg
+				 where 1=1
+				 <if test="qxdm!=null and qxdm!=''">
+		          and qxdm like #{qxdm}||'%' 
+		         </if>
+				and  tjsj between to_date(#{starttime}, 'YYYY-MM-dd') and
+				 to_date(#{endtime}, 'YYYY-MM-dd')
+				group by cwlx) c on c.cwlx=y.cwlx
+	</select>
+
+	<!-- 业务监管  异常错误详情EchartTop10 圆 -->
+	<select id="queryPageForYwjgEchartzTop10" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select dic_xzq.xzqmc, --行政区名称
+		       DIC_XZQ.xzqdm, --行政区代码
+		       nvl(aa.ycsl, 0) ycsl --异常数量
+		  from dic_xzq
+		  left join (SELECT substr(qxdm, 1, length(${qxdm}) + 2) qxdm, count(1) ycsl
+		               from BDCDJ_CHECK
+		             where FXSJ between to_date(#{starttime}, 'YYYY-MM-DD') and
+		              to_date(#{endtime}, 'YYYY-MM-DD')
+		              --where FXSJ between to_date('2016-10-01', 'YYYY-MM-DD') and
+		                    --to_date('2016-11-01', 'YYYY-MM-DD')
+		             group by substr(qxdm, 1, length(${qxdm}) + 2)) aa
+		              --group by substr(qxdm, 1, length(44) + 2)) aa
+		    on aa.qxdm = dic_xzq.xzqdm
+		 where 1 = 1
+		      and LENGTH(dic_xzq.xzqdm) = (length(${qxdm}) + 2)   
+		   --and LENGTH(dic_xzq.xzqdm) = (length(44) + 2)
+		       and dic_xzq.xzqdm like #{qxdm}||'%'   
+		   --and dic_xzq.xzqdm like '44%'	      
+		   and dic_xzq.xzqdm != '440100'
+		    <![CDATA[
+		    and rownum <= 10 
+		    ]]> 
+		 order by ycsl desc
+
+	</select>
+    <!-- 业务监管 -->
+	<select id="queryPageForYwjgEchart1" resultMap="BaseResultMap" parameterType="java.util.Map">
+			select a.ycdm, nvl(b.cwl, 0) cwl
+				  from (select distinct (ycdm) from BDCDJ_CHECK) a
+				  left join (select ycdm, count(1) cwl
+				               from BDCDJ_CHECK
+				              where 1=1 
+				              
+				              
+				              substr(qxdm, 1, length(${qxdm})) = #{qxdm}
+				                and sjrksj between to_date(#{starttime}, 'YYYY-MM') and
+				                    to_date(#{endtime}, 'YYYY-MM')
+				              group by ycdm) b
+				    on a.ycdm = b.ycdm
+	</select> 
+	
+	
+	<!-- 业务监管  异常错误详情Table1 圆 -->
+	<select id="queryPageForYwjgTable1" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select dic_xzq.xzqmc,--行政区名称
+		       DIC_XZQ.xzqdm,--行政区代码
+		       nvl(aa.SXYC, 0) SXYC,--时序异常
+		       nvl(aa.CQBL, 0) CQBL,--超期办理
+		       nvl(aa.ZSYC, 0) ZSYC,--证书异常
+		       nvl(aa.QTYC, 0) QTYC,--其它异常
+		       nvl(aa.LJYC, 0) LJYC --逻辑异常
+		  from dic_xzq
+		  left join (SELECT substr(qxdm, 1, length(${qxdm}) + 2) qxdm,
+		                    sum(SXYC) SXYC,
+		                    sum(CQBL) CQBL,
+		                    sum(ZSYC) ZSYC,
+		                    sum(QTYC) QTYC,
+		                    sum(LJYC) LJYC
+		               FROM (select QXDM, YCDM
+		                       from BDCDJ_CHECK
+		                      where FXSJ between to_date(#{starttime}, 'YYYY-MM-DD') and
+		                            to_date(#{endtime}, 'YYYY-MM-DD')) pivot(COUNT(1) for(ycdm) in('时序异常' SXYC,
+		                                                                                             '超期办理' CQBL,
+		                                                                                             '证书异常' ZSYC,
+		                                                                                             '其它异常' QTYC,
+		                                                                                             '逻辑异常' LJYC))
+		              group by substr(qxdm, 1, length(${qxdm}) + 2)) aa
+		    on aa.qxdm = dic_xzq.xzqdm
+		 where 1 = 1
+		      
+		   and LENGTH(dic_xzq.xzqdm) = (length(${qxdm}) + 2)
+		      
+		   and dic_xzq.xzqdm like #{qxdm}||'%'
+		      
+		   and dic_xzq.xzqdm != '440100'
+		 order by xzqdm
+
+	</select>
+	
+    <!-- 业务监管  异常错误详情Table2 圆 -->
+	<select id="queryPageForYwjgTable2" resultMap="BaseResultMap" parameterType="java.util.Map">
+			select day_id,
+			       nvl(cw1, 0) cw1,
+			       nvl(cw2, 0) cw2,
+			       nvl(cw3, 0) cw3,
+			       nvl(cw4, 0) cw4
+			  from (SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{starttime}, 'YYYY-MM'), ROWNUM - 1),
+			                       'YYYY-MM') DAY_ID
+			          FROM DUAL
+			        CONNECT BY
+			        <![CDATA[
+			         ROWNUM <= months_between(to_date(#{endtime}, 'yyyy-mm'),
+			                                  to_date(#{starttime}, 'yyyy-mm')) + 1)
+			                                  ]]>
+			  left join (select tjsj,
+			                    sum(cw1) cw1,
+			                    sum(cw2) cw2,
+			                    sum(cw3) cw3,
+			                    sum(cw4) cw4
+			               from (select dic_xzq.xzqmc,
+			                            to_char(tjsj, 'YYYY-MM') tjsj,
+			                            substr(dic_xzq.xzqdm, 1, (length(${qxdm}) + 2)) qxdm,
+			                            dic_xzq.sid,
+			                            aa.cwlx_code,
+			                            NVL(aa.sl, 0) sl
+			                       from dic_xzq
+			                       left join (select *
+			                                   from ywjg
+			                                  ) aa
+			                         on aa.qxdm = dic_xzq.xzqdm
+			                      where 1 = 1
+			                        and dic_xzq.jb = '县'
+			                        <if test="qxdm!=null and qxdm!=''">
+		                             and dic_xzq.xzqdm like #{qxdm}||'%'
+		                            </if>     
+			                        and dic_xzq.xzqdm != '440100') pivot(sum(sl) for(cwlx_code) in('1' cw1,
+			                                                                                       '2' cw2,
+			                                                                                       '3' cw3,
+			                                                                                       '4' cw4))
+			              group by tjsj)
+			    on day_id = tjsj
+			
+	</select>
+
+	<!-- 业务监管异常信息查询 page1 柱状图 -->
+	<select id="queryYCXX" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select a.ycdm,count(*) as value from BDCDJ_CHECK a,DIC_XZQ d
+		where a.qxdm=d.xzqdm 
+		<if test="startDate!=null and endDate!=null and startDate!='' and endDate!=''">
+			and a.sjrksj between to_date(#{startDate}, 'YYYY-MM-DD') and to_date(#{endDate}, 'YYYY-MM-DD')
+		</if>
+		<if test="cityCode!=null and cityCode!=''">
+		     and  d.xzqdm like '%'||#{cityCode}||'%'
+		</if>  
+		group by a.ycdm
+		order by value desc
+	</select>
+	
+	
+	
+	   <!-- 业务监管异常信息查询 page1 左下 进度条 -->
+	<select id="queryYCXXTOP10" resultMap="BaseResultMap" parameterType="java.util.Map">   
+	select * from (
+	select z.xzqmc, nvl(t.value, 0) value
+	  from dic_xzq z
+	  left join (
+	  <choose>
+	  	<when test="cityCode !=null and cityCode!=''">
+	  		select nvl(count(*), 0) value, qxdm as qxdm
+	               from Bdcdj_Check where 1=1
+	               <if test="startDate!=null and endDate!=null and startDate!='' and endDate!=''">
+						and sjrksj between to_date(#{startDate}, 'YYYY-MM-DD') and to_date(#{endDate}, 'YYYY-MM-DD')
+					</if>
+	              group by qxdm
+	  	</when>
+	  	<otherwise>
+	  		select nvl( count(*),0) value ,pqxdm as qxdm from Bdcdj_Check 
+	  		where 1=1
+	               <if test="startDate!=null and endDate!=null and startDate!='' and endDate!=''">
+						and sjrksj between to_date(#{startDate}, 'YYYY-MM-DD') and to_date(#{endDate}, 'YYYY-MM-DD')
+					</if>
+	  		 group by Pqxdm
+	  	</otherwise>
+	  </choose>
+	  
+	  ) t
+	    on z.xzqdm = t.qxdm
+	    where 1=1
+	  <choose>
+			 	<when test="cityCode !=null and cityCode!=''">
+			 	 and jb = '县'
+	   			  and z.sid=#{cityCode}
+			 	</when>
+			 	<otherwise>
+			 	 and jb = '市'
+			 	</otherwise>
+			 </choose>
+	 order by value desc
+
+ <![CDATA[
+	)t where rownum<11
+	   ]]>
+	   
+	 
+		 
+		
+	</select>
+	
+	
+	<!--业务监管  map -->
+
+	<select id="queryPageForYwjgMap" resultMap="BaseResultMap" parameterType="java.util.Map">
+			select a.qxdm, nvl(b.yczl, 0) zl
+					  from (select substr(xzqdm, 1, length(${qxdm}) + 2) qxdm
+					          from dic_xzq
+					         where jb = '县'
+					         <if test="qxdm!=null and qxdm!=''">
+		                      and  xzqdm like #{qxdm}||'%'
+		                      </if>  
+					           
+					         group by substr(xzqdm, 1, length(${qxdm}) + 2)) a
+					  left join
+					 (select substr(qxdm, 1, length(${qxdm}) + 2) qxdm, count(1) yczl
+					    from BDCDJ_CHECK
+					   where to_char(sjrksj, 'YYYY-MM-DD') between #{starttime} and #{endtime}
+					   group by substr(qxdm, 1, length(${qxdm}) + 2)) b
+					
+					    on a.qxdm = b.qxdm			
+	</select>
+	
+
+
+	<!-- 证书监管   Echart 印制企业绩效得分-->
+	<select id="queryPageForZsjgEchart1" resultMap="BaseResultMap" parameterType="java.util.Map">
+			select 
+		       distinct(t.yzqy),
+		       t.ycdf,
+		       t.fzdf
+		  from ZSYZXX t
+		  where TO_CHAR(JFRQ, 'YYYY') = #{year}
+	</select>
+	
+	<!--  -->
+	<!--  -->
+	<!--  -->
+	<!-- 证书监管   Echart 印制企业劣证率总体统计-->
+	<select id="queryPageForZsjgEchart2" resultMap="BaseResultMap" parameterType="java.util.Map">
+			
+		select aa.yzqy,jfsl,jhdnpczs,lzsl,zycjfpc,
+				   round((zycjfpc /jhdnpczs ) * 100, 2)  ycl,
+				   round((lzsl /jfsl ) * 100, 2)  lzl    
+				 from 
+				(select 
+				      t.yzqy, 
+				      sum(t.jfsl) jfsl,
+				      t.jhdnpczs jhdnpczs,
+				      sum(t.lzsl) lzsl
+				 
+				  from ZSYZXX t
+				 where TO_CHAR(JFRQ, 'YYYY') = #{year}
+				 group by t.yzqy，t.jhdnpczs) bb
+				 ,
+				 (select yzqy,sum(case when ycjfts>0 then 1 else 0 end) zycjfpc from ZSYZXX  where  TO_CHAR(JFRQ, 'YYYY') = #{year} group by yzqy) aa
+				  where aa.yzqy=bb.yzqy
+
+	</select>	
+	
+	<!-- 证书监管   table1-->
+	<select id="queryPageForZsjgtable1" resultMap="BaseResultMap" parameterType="java.util.Map">
+	
+		select yzqy, --印制企业
+		       jfpc, --印制批次
+		       YCJFTS, --延迟交付天数
+		       JFRQ, --交付日期
+		       sum(jhyzsl) as JHYZSL, --批次印制数量
+		       sum(lzsl) as LZSL --批次劣证数量
+		  from ZSYZXX
+		  where to_char(jfrq,'YYYY')=#{year}
+		  --where to_char(jfrq,'YYYY')='2016'
+		 group by yzqy, --印制企业
+		          jfpc, --印制批次
+		          YCJFTS, --延迟交付天数
+		          JFRQ --交付日期
+
+	</select>
+	
+	<!-- 证书监管 table2-->
+	<select id="queryPageForZsjgTable2" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select cc.xzqmc as xmc,tt.zsxlh,tt.bsrq,tt.xzqmc,tt.lx as smc from 
+			(select aa.qxdm,aa.zsxlh,aa.bsrq,dd.xzqmc,aa.lx from 
+			(select substr(qxdm,1,4) sid,qxdm,zsxlh,bsrq,lx from fzxx where to_char(bsrq,'YYYY-MM') between #{starttime} and #{endtime} 
+			<if test="qxdm!=null and qxdm!=''">
+		    and qxdm like '%'||#{qxdm}||'%'
+		   </if>
+			) aa
+			left join 
+			(select * from dic_xzq where jb='市' 
+			<if test="qxdm!=null and qxdm!=''">
+		    and xzqdm like #{qxdm}||'%'
+		   </if>
+			) dd
+			on aa.sid=dd.xzqdm
+			) tt
+			left join
+			(select xzqdm, xzqmc from dic_xzq where 1=1
+			<if test="qxdm!=null and qxdm!=''">
+		    and xzqdm like #{qxdm}||'%'
+		    </if>
+		    and jb='县') cc
+			on cc.xzqdm= tt.qxdm
+	</select>
+
+	
+	<!-- 证书监管-证书查询 -->
+	<select id="queryPageForZSCX" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select z.*,d.xzqmc from zsxx z left join dic_xzq d
+		on z.qxdm=d.id
+		where 1=1
+		<if test="qxdm!=null and qxdm!=null">
+			and z.qxdm like #{qxdm}||'%'
+		</if>
+		<if test="zslx!=null and zslx!=''">
+			and z.zslx = #{zslx}
+		</if>
+		<if test="zsbh!=null and zsbh!=''">
+			and z.zsbh like '%'||#{zsbh}||'%'
+		</if>
+		<if test="zszt!=null and zszt!=''">
+			and z.zszt = #{zszt}
+		</if>
+		<if test="zsxlh!=null and zsxlh!=''">
+			and z.zsxlh like '%'||#{zsxlh}||'%'
+		</if>
+		<if test="starttime!=null and starttime!='' and endtime !=null and endtime!=''">
+			and jfrq between (to_date(#{starttime}, 'yyyy-mm-dd')) and (to_date(#{endtime}, 'yyyy-mm-dd'))
+		</if>
+		<if test="yzqy!=null and yzqy!=''">
+			and z.yzqy like '%'||#{yzqy}||'%'
+		</if>
+		<if test="jfpc!=null and jfpc!=''">
+			and z.jfpc like '%'||#{jfpc}||'%'
+		</if>
+	</select>
+
+	<!-- 证书监管   Echart 费证汇总柱状图-->
+	<select id="queryPageForZsjgEchartFzht" resultMap="BaseResultMap" parameterType="java.util.Map">
+	         select cc.*,aa.xzqmc from 
+			   (select tt.sid,tt.zs,ss.zm from
+			    (select b.sid, nvl(a.fzsl, 0) zs
+			                  from (select substr(xzqdm, 1, length(${qxdm}) + 2) sid
+			                          from dic_xzq
+			                         where jb = '县'
+			                        <if test="qxdm!=null and qxdm!=''">
+		                              and xzqdm like #{qxdm}||'%'	
+		                            </if> 
+			                         group by substr(xzqdm, 1, length(${qxdm}) + 2)) b
+			                  left join (select substr(qxdm, 1, length(${qxdm}) + 2) sid,
+			                                    count(1) fzsl
+			                               from fzxx
+			                              where to_char(bsrq, 'YYYY-MM-DD') between
+			                                    #{starttime} and #{endtime} and lx='证书'
+			                              group by substr(qxdm, 1, length(${qxdm}) + 2),lx) a
+			                    on b.sid = a.sid) tt
+			                    left join
+			                       (select b.sid, nvl(a.fzsl, 0) zm
+			                  from (select substr(xzqdm, 1, length(${qxdm}) + 2) sid
+			                          from dic_xzq
+			                         where jb = '县'
+			                         <if test="qxdm!=null and qxdm!=''">
+		                              and xzqdm like #{qxdm}||'%'
+		                            </if> 
+			                         
+			                         group by substr(xzqdm, 1, length(${qxdm}) + 2)) b
+			                  left join (select substr(qxdm, 1, length(${qxdm}) + 2) sid,
+			                                    count(1) fzsl
+			                               from fzxx
+			                              where to_char(bsrq, 'YYYY-MM-DD') between
+			                                    #{starttime} and #{endtime} and lx='证明'
+			                              group by substr(qxdm, 1, length(${qxdm}) + 2),lx) a
+			                    on b.sid = a.sid) ss
+			                    on tt.sid=ss.sid) cc
+			                    left join
+			                    (select xzqdm,xzqmc from dic_xzq where xzqdm like '%44%') aa
+                                 on cc.sid=aa.xzqdm order by cc.sid
+			   
+			                   
+	</select>
+	<!-- 广东省 某年 某地区 证书/证明 计划印制总数  汇总-->
+	<select id="queryPageForZsjgEchartHuizong" resultMap="BaseResultMap" parameterType="java.util.Map">
+	      select ss.*,tt.xzqmc from 
+			  (select a.sid,nvl(b.jhyzsl, 0) jhyzsl
+			     from (select substr(xzqdm, 1, length(${qxdm}) + 2) sid
+			             from dic_xzq
+			            where jb = '县'
+			            <if test="qxdm!=null and qxdm!=''">
+		                 and xzqdm like #{qxdm}||'%'
+		               </if> 
+			              and xzqdm like '%44%'
+			            group by substr(xzqdm, 1, length(${qxdm}) + 2)) a
+			     left join (select substr(qxdm, 1, length(${qxdm}) + 2) sid,
+			                       sum(jhyzsl) jhyzsl
+			                  from ZSYZXX
+			                 where lx = '证书'
+			                   and to_char(jfrq, 'YYYY') = #{year}
+			                   <if test="qxdm!=null and qxdm!=''">
+		                       and qxdm like '%'||#{qxdm}||'%'
+		                       </if> 	
+			                 group by substr(qxdm, 1, length(${qxdm}) + 2)) b
+			       on a.sid = b.sid) ss
+			       left join
+			        (select xzqdm,xzqmc from dic_xzq where xzqdm like '%44%') tt
+			         on ss.sid=tt.xzqdm order by ss.sid
+	</select>
+		<!-- 证书使用情况 Echart  -->
+	<select id="queryPageForZsjgEchat5" resultMap="BaseResultMap" parameterType="java.util.Map">
+			 select cc.*,aa.xzqmc from 		      
+				(select tt.sid,tt.jhyzsl, tt.jfsl, ss.ysy
+					  from (select a.sid,nvl(b.jhyzsl, 0) jhyzsl, nvl(b.jfsl, 0) jfsl
+					          from (select substr(xzqdm, 1, length(${qxdm}) + 2) sid
+					                  from dic_xzq
+					                 where jb = '县'
+					                 <if test="qxdm!=null and qxdm!=''">
+				                      and xzqdm like #{qxdm}||'%'
+				                     </if> 
+					                 group by substr(xzqdm, 1, length(${qxdm}) + 2)) a
+					          left join (select substr(qxdm, 1, length(${qxdm}) + 2) sid,
+					                           sum(jhyzsl) jhyzsl,
+					                           sum(jfsl) jfsl
+					                      from ZSYZXX
+					                     where to_char(jfrq, 'YYYY') = #{year}
+					                     group by substr(qxdm, 1, length(${qxdm}) + 2)) b
+					            on a.sid = b.sid) tt,
+					       
+					       (select a.sid, nvl(b.ysy, 0) ysy
+					          from (select substr(xzqdm, 1, length(${qxdm}) + 2) sid
+					                  from dic_xzq
+					                 where jb = '县'
+					                 <if test="qxdm!=null and qxdm!=''">
+				                     and xzqdm like #{qxdm}||'%'
+				                     </if> 
+					                 group by substr(xzqdm, 1, length(${qxdm}) + 2)) a
+					          left join (select substr(qxdm, 1, length(${qxdm}) + 2) sid, count(*) ysy
+					                      from zsxx
+					                     group by substr(qxdm, 1, length(${qxdm}) + 2)) b
+					            on a.sid = b.sid) ss
+					 where tt.sid = ss.sid) cc
+					 left join
+					 (select xzqdm,xzqmc from dic_xzq where xzqdm like '%44%') aa
+					 on cc.sid=aa.xzqdm  order by cc.sid
+			 
+	</select>
+	
+	<!-- 证书监管 map -->
+	<select id="queryPageForZsjgMap" resultMap="BaseResultMap" parameterType="java.util.Map">
+			  select cc.sid,cc.zs,dd.zm from 
+				    ( select a.sid,nvl(b.ysy,0) zs from 
+				    (select substr(xzqdm,1,length(${qxdm})+2) sid  from dic_xzq where jb='县' 
+				    <if test="qxdm!=null and qxdm!=''">
+		    and xzqdm like #{qxdm}||'%'
+		    </if>
+				     group by substr(xzqdm,1,length(${qxdm})+2)) a
+				    left join 
+				     (select substr(qxdm,1,length(${qxdm})+2) sid,count(*) ysy from zsxx  where zslx='证书' and to_char(sjrksj,'YYYY')=#{year} group by substr(qxdm,1,length(${qxdm})+2)) b
+				     on a.sid=b.sid) cc
+				     left join
+				    ( select a.sid,nvl(b.ysy,0) zm from 
+				    (select substr(xzqdm,1,length(${qxdm})+2) sid  from dic_xzq where jb='县' 
+				    <if test="qxdm!=null and qxdm!=''">
+		    and xzqdm like #{qxdm}||'%'
+		    </if>
+				     group by substr(xzqdm,1,length(${qxdm})+2)) a
+				    left join 
+				     (select substr(qxdm,1,length(${qxdm})+2) sid,count(*) ysy from zsxx  where zslx='证明' group by substr(qxdm,1,length(${qxdm})+2)) b
+				     on a.sid=b.sid) dd
+				     on
+				     cc.sid=dd.sid
+	</select>
+	
+	
+	
+	
+	
+	<!-- 数据汇交  数据上报 -->
+	<select id="queryPageForSjhjsb" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select ss.sid,ss.xzqmc,nvl(tt.zhengque,0) zhengque,nvl(tt.sjjycw,0) sjjycw,nvl(tt.jycw,0) jycw,nvl(tt.jmcw,0) jmcw,nvl(tt.qmcw,0) qmcw,nvl(tt.tsxx,0) tsxx,nvl(tt.zl,0) zl,nvl(tt.qt,0) qt,nvl(tt.zql,0) zql from (
+				select aa.sid,bb.xzqmc from 
+				(select substr(xzqdm,1,length(${qxdm})+2) sid from dic_xzq where 1=1
+				<if test="qxdm!=null and qxdm!=''">
+		    and xzqdm like #{qxdm}||'%'
+		    </if>
+				 
+				 and jb='县' group by  substr(xzqdm,1,length(${qxdm})+2)) aa
+				left join 
+				(select xzqmc,xzqdm from dic_xzq ) bb
+				on
+				aa.sid=bb.xzqdm) ss
+				left join 
+				
+				(select sid,zhengque,sjjycw ,jycw, jmcw ,qmcw, tsxx,(zhengque+sjjycw+jycw+jmcw+qmcw+tsxx+gmcw+cfsb) zl,(tsxx+gmcw) qt,round((zhengque)/(zhengque+sjjycw+jycw+jmcw+qmcw+tsxx+gmcw+cfsb)*100,2) zql from (
+				
+				select sid,nvl(zhengque,0) zhengque,nvl(sjjycw,0) sjjycw,nvl(jycw,0) jycw,nvl(jmcw,0) jmcw,nvl(qmcw,0) qmcw,nvl(tsxx,0)tsxx,nvl(gmcw,0)gmcw,nvl(cfsb,0) cfsb from (
+				
+				select * from 
+				(select substr(qxdm,1,length(${qxdm})+2) sid,count(responsecode) sl ,responsecode from JH_JSBW_JSFK where sjrksj between to_date(#{starttime},'YYYY-MM-dd') and to_date(#{endtime},'YYYY-MM-dd')
+				group by responsecode,substr(qxdm,1,length(${qxdm})+2)) a
+				pivot
+				(
+				   sum(a.sl)
+				   for(responsecode)
+				   in('0000' zhengque ,'1000'sjjycw ,'2000' jycw,'2010' jmcw,'2020' qmcw,'3000' tsxx,'4000' gmcw,'5000' cfsb)
+				) 
+				)
+				)
+				) tt
+				
+				on ss.sid=tt.sid order by ss.sid
+	</select>
+	
+	
+
+	<!-- 查询反馈信息数据 -->
+	<select id="queryPageFKXX" resultMap="BaseResultMap" parameterType="java.util.Map">
+		 select id, YWH,bizmsgid, qxdm, hjsj, fksj, fklx, zt, 
+		 case when bizxmldata is not null then 1 else 0 end biz,
+		 case when extxmldata is not null then 1 else 0 end ext,
+		case when srepxmldata is not null then 1 else 0 end srep,
+		case when grepxmldata is not null then 1 else 0 end grep
+      	from JH_HJ_FKQK
+		where 1=1
+		<if test="cityChoice !=null and cityChoice!='' and cityChoice!='广东省'">
+			and QXDM in (select d.xzqmc from DIC_XZQ d where d.sid in 
+			( select t.xzqdm from DIC_XZQ t where t.jb='市' and t.xzqmc=#{cityChoice})
+			union all
+			select d.xzqmc from DIC_XZQ d where d.jb='县' and d.xzqmc=#{cityChoice})
+		</if>
+		<if test="status !=null and status!=''">
+			and fklx =#{status} 
+		</if>
+		<if test="bizmsgid !=null and bizmsgid!=''">
+			and BIZMSGID like '%'||#{bizmsgid}||'%'
+		</if>
+		<if test="ywh !=null and ywh!=''">
+			and YWH =#{ywh} 
+		</if>
+		<if test="startDate !=null and startDate!='' and endDate!='' and endDate!=null">
+			and FKSJ between(to_date(#{startDate},'yyyy-MM-dd hh24:mi:ss')) and (to_date(#{endDate},'yyyy-MM-dd hh24:mi:ss'))  
+		</if>
+		order by fksj desc
+	</select>
+	<!-- 根据报文ID查询报文 -->
+	<select id="queryXMLDATA" resultMap="BaseResultMap" parameterType="java.util.Map">
+		 select
+		 <if test="flag !=null and flag==0">
+			bizxmldata
+		</if>
+		<if test="flag !=null and flag==1">
+			extxmldata
+		</if>
+		<if test="flag !=null and flag==2">
+			srepxmldata
+		</if>
+		<if test="flag !=null and flag==3">
+			grepxmldata
+		</if>
+		   from JH_HJ_FKQK
+		where rownum=1
+		<if test="bizmsgid !=null and bizmsgid!=''">
+			and BIZMSGID =#{bizmsgid} 
+		</if>
+	</select>
+	<!-- 查询反馈失败的报文 信息-->
+	<select id="queryPageErrorRep" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select t.bizmsgid,t.ywh,t.jrywbm ,
+		t.responseinfo SREPINFO,
+  		j.responseinfo GREPINFO,'' as seqno,'' as srepxml,'' as grepxml
+		from JH_JSBW_JSFK t
+		left join JH_SBBW_SBFK j on t.bizmsgid=j.bizmsgid
+		where  1=1
+		<if test="bizmsgid !=null and bizmsgid!=''">
+			and t.bizmsgid like'%'||#{bizmsgid}||'%'
+		</if>
+		<if test="ywh !=null and ywh!=''">
+			and t.ywh like '%'||#{ywh}||'%'
+		</if>
+		<if test="jrywbm !=null and jrywbm!=''">
+			and t.jrywbm like '%'||#{jrywbm}||'%'
+		</if>
+		order by t.QXDM
+	</select>
+	<!-- 查询登记簿相关信息  -->
+	<select id="queryPageRegister" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select ywbsid, txglbsid, bdcdyh, zdzhtzm, zl, mj, bdclx, ytmc, ytdm, qxdm, qxmc,'' as seqno from BDCDJ_BDCDY
+		where 1=1
+		<if test="cityChoice !=null and cityChoice!=''">
+			and QXDM in (select d.xzqdm from DIC_XZQ d where d.sid in 
+			( select t.xzqdm from DIC_XZQ t where t.jb='市' and t.xzqmc=#{cityChoice})
+			union all
+			select d.xzqdm from DIC_XZQ d where d.jb='县' and d.xzqmc=#{cityChoice})
+		</if>
+		<if test="bdcdyh !=null and bdcdyh!=''">
+			and BDCDYH like '%'||#{bdcdyh}||'%'
+		</if>
+		<if test="identityCode !=null and identityCode!=''">
+			and zl like '%'||#{identityCode}||'%'
+		</if>
+		<if test="estateClass !=null and estateClass!=''">
+			and BDCLX =#{estateClass}
+		</if>
+		order by QXDM
+	</select>
+	<!-- 查询异常业务信息  -->
+	<select id="queryPageBusExc" resultMap="BaseResultMap" parameterType="java.util.Map">
+		
+	select ywbsid, ywh, djlx, ycdm,ycsm,  djjg, fxsj, clqk, fkry,(select k.xzqmc from DIC_XZQ k where k.xzqdm=qxdm) as QXMC
+	     from BDCDJ_CHECK b
+	where  1=1
+		<if test="cityChoice !=null and cityChoice!=''">
+			and (b.qxdm=#{cityChoice} or b.pqxdm=#{cityChoice})
+		</if>
+		<if test="ywh !=null and ywh!=''">
+			and b.ywh like '%'||#{ywh}||'%'
+		</if>
+		<if test="djlx !=null and djlx!=''">
+			and b.djlx =#{djlx}
+		</if>
+		<if test="ycdm !=null and ycdm!=''">
+			and b.ycdm =#{ycdm}
+		</if>
+		<if test="startDate !=null and startDate!='' and endDate!='' and endDate!=null">
+					and b.sjrksj between(to_date(#{startDate},'yyyy-MM-dd')) and (to_date(#{endDate},'yyyy-MM-dd'))  
+				  </if>
+		order by b.fxsj desc
+	</select>
+	<!-- 查询异常信息 按行政区 -->
+	<select id="queryYCByYZQ" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select d.xzqmc,d.xzqdm,
+		       (select count(*)
+		          from BDCDJ_CHECK b
+		         where (b.qxdm = d.xzqdm or b.pqxdm = d.xzqdm)
+		           and b.ycdm = '时序异常'
+		           <if test="startDate !=null and startDate!='' and endDate!='' and endDate!=null">
+					and b.sjrksj between(to_date(#{startDate},'yyyy-MM-dd')) and (to_date(#{endDate},'yyyy-MM-dd'))  
+				  </if>
+		           ) sxyc,
+		           (select count(*)
+		          from BDCDJ_CHECK b
+		         where (b.qxdm = d.xzqdm or b.pqxdm = d.xzqdm)
+		           and b.ycdm = '证书异常'
+		           <if test="startDate !=null and startDate!='' and endDate!='' and endDate!=null">
+					and b.sjrksj between(to_date(#{startDate},'yyyy-MM-dd')) and (to_date(#{endDate},'yyyy-MM-dd'))  
+				  </if>
+		           ) zsyc,
+		          (select count(*)
+		          from BDCDJ_CHECK b
+		         where (b.qxdm = d.xzqdm or b.pqxdm = d.xzqdm)
+		           and b.ycdm = '超期办理'
+		            <if test="startDate !=null and startDate!='' and endDate!='' and endDate!=null">
+					and b.sjrksj between(to_date(#{startDate},'yyyy-MM-dd')) and (to_date(#{endDate},'yyyy-MM-dd'))  
+				  </if>
+		           ) cqbz ,
+		          (select count(*)
+		          from BDCDJ_CHECK b
+		         where (b.qxdm = d.xzqdm or b.pqxdm = d.xzqdm)
+		           and b.ycdm = '逻辑异常'
+		            <if test="startDate !=null and startDate!='' and endDate!='' and endDate!=null">
+					and b.sjrksj between(to_date(#{startDate},'yyyy-MM-dd')) and (to_date(#{endDate},'yyyy-MM-dd'))  
+				  </if>
+		           ) rryc ,
+		           (select count(*)
+		          from BDCDJ_CHECK b
+		         where (b.qxdm = d.xzqdm or b.pqxdm = d.xzqdm)
+		           and b.ycdm = '其它异常'
+		            <if test="startDate !=null and startDate!='' and endDate!='' and endDate!=null">
+					and b.sjrksj between(to_date(#{startDate},'yyyy-MM-dd')) and (to_date(#{endDate},'yyyy-MM-dd'))  
+				  </if>
+		           ) qtyc 
+		  from dic_xzq d
+		 where 1=1
+		 <choose>
+		 	<when test="cityCode !=null and cityCode!=''">
+		 	 and jb = '县'
+   			  and d.sid=#{cityCode}
+		 	</when>
+		 	<otherwise>
+		 	 and jb = '市'
+		 	</otherwise>
+		 </choose>
+	</select>
+	
+	<!-- 查询异常信息 按时间 -->
+	<select id="queryYCBySJ" resultMap="BaseResultMap" parameterType="java.util.Map">      
+
+ 
+ select to_char(c.sjrksj, 'yyyy-MM-dd') as sjrksj,
+       (select count(*)
+          from BDCDJ_CHECK b
+         where b.ycdm = '时序异常'
+       
+           and to_char(b.sjrksj, 'yyyy-MM-dd') =
+               to_char(c.sjrksj, 'yyyy-MM-dd')) as SXYC,
+               (select count(*)
+          from BDCDJ_CHECK b
+         where b.ycdm = '超期办理'
+           and to_char(b.sjrksj, 'yyyy-MM-dd') =
+               to_char(c.sjrksj, 'yyyy-MM-dd')) as CQBZ,
+               (select count(*)
+          from BDCDJ_CHECK b
+         where b.ycdm = '其它异常'
+           and to_char(b.sjrksj, 'yyyy-MM-dd') =
+               to_char(c.sjrksj, 'yyyy-MM-dd')) as QTYC,
+               (select count(*)
+          from BDCDJ_CHECK b
+         where b.ycdm = '逻辑异常'
+           and to_char(b.sjrksj, 'yyyy-MM-dd') =
+               to_char(c.sjrksj, 'yyyy-MM-dd')) as rryc,
+               (select count(*)
+          from BDCDJ_CHECK b
+         where b.ycdm = '证书异常'
+           and to_char(b.sjrksj, 'yyyy-MM-dd') =
+               to_char(c.sjrksj, 'yyyy-MM-dd')) as zsyc
+               
+  from BDCDJ_CHECK c
+  where  1=1 
+<if test="startDate !=null and startDate!='' and endDate!='' and endDate!=null">
+					and c.sjrksj between(to_date(#{startDate},'yyyy-MM-dd')) and (to_date(#{endDate},'yyyy-MM-dd'))  
+				  </if>
+	 <if test="cityCode !=null and cityCode!=''">
+      and (c.qxdm = #{cityCode} or c.pqxdm =#{cityCode})
+      </if>
+  group by to_char(c.sjrksj, 'yyyy-MM-dd')
+   order by to_char(c.sjrksj, 'yyyy-MM-dd')
+	</select>
+	
+	<!-- 证书监管二级页面  证书使用情况 -->
+	<select id="queryPageForJgXnZsjgEchart1Zssyqk" resultMap="BaseResultMap" parameterType="java.util.Map">
+		 select *
+  			from (select nvl(count(*), 0) ysy
+          from ZSXX
+         where zslx = '证书'
+           and to_char(SJRKSJ, 'YYYY') = substr(#{starttime}, 1, 4)  and  qxdm like #{qxdm}||'%'),
+       (select nvl(count(*), 0) bysy
+          from ZSXX
+         where zslx = '证书'
+           and to_char(SJRKSJ, 'YYYY-MM') = substr(#{starttime}, 1, 7)  and  qxdm like #{qxdm}||'%'),
+       (select nvl(sum(JFSL), 0) gyzzs
+          from ZSYZXX
+         where to_char(jfrq, 'YYYY') = substr(#{starttime}, 1, 4)
+           AND LX = '证书'  and  qxdm like #{qxdm}||'%')
+
+	</select>
+	<!-- 证书监管二级页面  证明使用情况 -->
+	<select id="queryPageForJgXnZsjgEchart2Zmsyqk" resultMap="BaseResultMap" parameterType="java.util.Map">
+		 select *
+  			from (select nvl(count(*), 0) ysy
+          from ZSXX
+         where zslx = '证明'
+           and to_char(SJRKSJ, 'YYYY') = substr(#{starttime}, 1, 4) and  qxdm like #{qxdm}||'%'),
+       (select nvl(count(*), 0) bysy
+          from ZSXX
+         where zslx = '证明'
+           and to_char(SJRKSJ, 'YYYY-MM') = substr(#{starttime}, 1, 7) and  qxdm like #{qxdm}||'%'),
+       (select nvl(sum(JFSL), 0) gyzzs
+          from ZSYZXX
+         where to_char(jfrq, 'YYYY') = substr(#{starttime}, 1, 4)
+           AND LX = '证明' and  qxdm like #{qxdm}||'%')
+
+	</select>
+	<!--  -->
+	<select id="queryFindXMLById" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+		select 
+		<if test="flag !=null and flag==0">
+			SREPXMLDATA
+		</if>
+		<if test="flag !=null and flag==1">
+			GREPXMLDATA
+		</if>
+		 from JH_JSBW_WJBF where rownum=1
+		 <if test="bizmsgid !=null and bizmsgid!=''">
+			and bizmsgid=#{bizmsgid}
+		</if>
+	</select>
+	
+	
+	
+	<!-- 首页不动产单元号情况查询2-->
+	<select id="queryPageForMainCQQKDJ" resultMap="BaseResultMap" parameterType="java.util.Map">
+		  select aa.*,
+			case when bb.bdcdyh is null then '0' else '1' end YG,bb.BDCDJZMH,bb.YGDJZL ,bb.DJSJ ygdjsj,
+      case when cc.bdcdyh is null then '0' else '1' end dy,  cc.DYFS,cc.DYBDCLX,cc.DYR,cc.BDBZZQSE,cc.ZWLXQSSJ ,cc.ZWLXJSSJ,cc.DJSJ dydjsj, 
+      case when dd.bdcdyh is null then '0' else '1' end cf,  dd.CFJG,dd.CFWH,dd.CFLX,dd.CFQSSJ,dd.CFJSSJ,dd.CFFW ,dd.DJSJ cfdjsj,
+      case when ee.bdcdyh is null then '0' else '1' end yy,  ee.YYSX ,ee.BDCDJZMH,ee.DJSJ yydjsj
+			from (select * from BDCDJ_DJB where  1=1 and
+		  	<if test="bdcdyh!=null and bdcdyh!=''">
+		             bdcdyh = #{bdcdyh} and 
+		   </if>     
+		    qxdm like #{qxdm}||'%') aa 
+			left join  BDCDJ_YG bb on aa.bdcdyh=bb.bdcdyh
+			left join  BDCDJ_DY cc  on aa.bdcdyh=cc.bdcdyh
+			left join  BDCDJ_CF dd  on aa.bdcdyh=dd.bdcdyh
+			left join  BDCDJ_YY ee on aa.bdcdyh=ee.bdcdyh
+	</select>
+	
+	<!-- 首页不动产单元号情况查询3-->
+	<select id="queryPageForMainDJGLQK" resultMap="BaseResultMap" parameterType="java.util.Map">
+		 select * 
+		  from BDCDJ_GL 
+		 where  1=1 and
+		 <if test="bdcdyh!=null and bdcdyh!=''">
+		             bdcdyh = #{bdcdyh} and 
+		  </if>
+		 qxdm like #{qxdm}||'%'
+	</select>
+	
+	<!-- 首页证书监管echarts1-->
+	<select id="queryPageForZsjgMainEcharts1" resultMap="BaseResultMap" parameterType="java.util.Map">
+		 select gyzzs,yfq,ysy,(gyzzs-yfq-ysy) wsy
+        from (select nvl(count(*), 0) ysy
+          from ZSXX
+         where
+          zszt='1' and qxdm like #{qxdm}||'%'),
+       (select nvl(count(*), 0) yfq
+          from ZSXX
+         where 
+           zszt='2' and  qxdm like #{qxdm}||'%'),
+       (select nvl(sum(JFSL), 0) gyzzs
+          from ZSYZXX
+         where 
+             qxdm like #{qxdm}||'%')
+	</select> 
+	
+	<!-- 业务登记 -->
+
+	<select id="queryPageForzhjgywdj" resultMap="BaseResultMap" parameterType="java.util.Map">
+				  select c.xzqmc, aa.*
+				          from (select a.qxdm,
+				                       nvl(b.ywl, 0) ywl,
+				                       nvl(b.scdj, 0) scdj,
+				                       nvl(b.zydj, 0) zydj,
+				                       nvl(b.bgdj, 0) bgdj,
+				                       nvl(b.zxdj, 0) zxdj,
+				                       nvl(b.gzdj, 0) gzdj,
+				                       nvl(b.yydj，0) yydj,
+				                       nvl(b.ygdj, 0) ygdj,
+				                       nvl(b.cfdj, 0) cfdj,
+				                       nvl(b.qtdj, 0) qtdj
+				                  from (select substr(xzqdm, 1, length(${qxdm}) + 2) qxdm
+				                          from dic_xzq
+				                         where 1=1
+				                         <if test="qxdm!=null and qxdm!=''">
+		                                  and xzqdm like #{qxdm}||'%'
+		                                  </if>
+				                        
+				                           and jb = '县'
+				                         group by substr(xzqdm, 1, length(${qxdm}) + 2)) a
+				                  left join (select substr(qxdm, 1, length(${qxdm}) + 2) qxdm,
+				                                   sum(YWL) ywl,
+				                                   sum(scdj) scdj,
+				                                   sum(zydj) zydj,
+				                                   sum(bgdj) bgdj,
+				                                   sum(zxdj) zxdj,
+				                                   sum(gzdj) gzdj,
+				                                   sum(yydj) yydj,
+				                                   sum(ygdj) ygdj,
+				                                   sum(cfdj) cfdj,
+				                                   sum(qtdj) qtdj
+				                              from jg_ywl_union_v
+				                             where 1=1
+				                             <if test="qxdm!=null and qxdm!=''">
+		                                      and qxdm like #{qxdm}||'%'
+		                                     </if>
+				                             
+				                               and tjsj between  #{starttime} and
+				                                   #{endtime}
+				                             group by substr(qxdm, 1, length(${qxdm}) + 2)) b
+				                    on a.qxdm = b.qxdm) aa
+				          left join (select xzqdm, xzqmc
+				                       from dic_xzq
+				                      where 1=1 
+				                      <if test="qxdm!=null and qxdm!=''">
+		                              and xzqdm like #{qxdm}||'%'
+		                              </if>
+				                      ) c
+				            on aa.qxdm = c.xzqdm  
+				         order by qxdm asc
+
+	</select>
+	<!-- 广东省不动产工作进展增量数据汇交情况2-->    
+	 <select id="queryPageForJgXngzjzZlsjhjqk2" resultMap="BaseResultMap" parameterType="java.util.Map"> 
+			select aa.sid xzqdm,
+			       cc.xzqmc,
+			       aa.qxsl,
+			       nvl(bb.ysbqx, 0) ysbqx,
+			       (aa.qxsl - nvl(bb.ysbqx, 0)) dsbqx,
+			       round((nvl(bb.ysbqx, 0) / aa.qxsl) * 100, 0) sbl
+			  from (select sid, count(1) qxsl
+			          from dic_xzq
+			         where length(xzqdm) = 6
+			           and xzqdm like '44%'
+			         group by sid) aa
+			  left join (select substr(qxdm, 1, 4) qxdm, sum(flag) ysbqx
+			               from GZJZ t
+			              where lx_code = 'JRGJPT'
+			                and jb = '县'
+			              group by substr(qxdm, 1, 4)) bb
+			    on aa.sid = bb.qxdm
+			  left join (select xzqdm, xzqmc from dic_xzq) cc
+			    on aa.sid = cc.xzqdm order by aa.sid
+
+	</select>
+	<!-- 查询异常业务信息  -->
+	<select id="queryBusExc" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select  ywh, djlx, ycdm,ycsm,  djjg, fxsj, clqk, fkry,(select k.xzqmc from DIC_XZQ k where k.xzqdm=qxdm) as QXMC
+		 from BDCDJ_CHECK 
+		 where 1=1
+		<if test="cityChoice !=null and cityChoice!=''">
+			and QXDM in (select d.xzqdm from DIC_XZQ d where d.sid in 
+			( select t.xzqdm from DIC_XZQ t where t.jb='市' and t.xzqmc=#{cityChoice})
+			union all
+			select d.xzqdm from DIC_XZQ d where d.jb='县' and d.xzqmc=#{cityChoice})
+		</if>
+		<if test="ywh !=null and ywh!=''">
+			and ywh like '%'||#{ywh}||'%'
+		</if>
+		<if test="djlx !=null and djlx!=''">
+			and djlx =#{djlx}
+		</if>
+		order by fxsj desc
+	</select>
+	
+	
+	<!-- 首页证书监管地图服务-->
+	<select id="queryPageForZsjgMainMAP1" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select aa.sid,
+		       nvl(bb.ysy, 0) ysy,
+		       nvl(cc.yfq, 0) yfq,
+		       nvl((dd.gyzzs - ysy - yfq), 0) wsy
+		  from (select substr(xzqdm, 1, length(${qxdm}) + 2) sid
+		          from dic_xzq
+		         where xzqdm like ${qxdm}||'%'
+		           and jb = '县'
+		         group by substr(xzqdm, 1, length(${qxdm}) + 2)) aa
+		  left join (select substr(qxdm, 1, length(${qxdm}) + 2) qxdm,
+		                    nvl(count(*), 0) ysy
+		               from ZSXX
+		              where zszt = '1'
+		                and qxdm like ${qxdm}||'%'
+		              group by substr(qxdm, 1, length(${qxdm}) + 2)) bb
+		    on aa.sid = bb.qxdm
+		  left join (select substr(qxdm, 1, length(${qxdm}) + 2) qxdm,
+		                    nvl(count(*), 0) yfq
+		               from ZSXX
+		              where zszt = '2'
+		                and qxdm like ${qxdm}||'%'
+		              group by substr(qxdm, 1, length(${qxdm}) + 2)) cc
+		    on aa.sid = cc.qxdm
+		  left join (select substr(qxdm, 1, length(${qxdm}) + 2) qxdm,
+		                    nvl(sum(JFSL), 0) gyzzs
+		               from ZSYZXX
+		              where qxdm like ${qxdm}||'%'
+		              group by substr(qxdm, 1, length(${qxdm}) + 2)) dd
+		    on aa.sid = dd.qxdm
+	</select>
+	
+	<update id="updateRepInfo" parameterType="java.util.Map">
+		update BDCDJ_CHECK set clqk='已反馈' ,fkry=#{repPerson}
+		where ywh in (${ywhStr})
+	</update>
+	
+	<!-- 查询舆情信息 -->
+	<select id="queryPageYQXX" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select * from BDCDJ_YQGL 
+		where 1=1
+		<if test="keyword!=null and keyword!=''">
+			and keyword like '%'||#{keyword}||'%'
+		</if>
+		<if test="type!=null and type!=''">
+			and type =#{type}
+		</if>
+		<if test="source!=null and source!=''">
+			and source like '%'||#{source}||'%'
+		</if>
+		order by listorder
+	</select>
+	
+	<select id="queryTest1" resultMap="BaseResultMap" parameterType="java.util.Map">
+	select bigtext,bizxmldata from jh_hj_fkqk where bizmsgid='441802161022146375' and id='1'
+	</select>
+	
+	<!--查询关键字  -->
+	<select id="queryKeyWord" resultMap="BaseResultMap" parameterType="java.util.Map">
+	select *
+	  from (select count(*) value, keyword
+	          from BDCDJ_YQGL
+	         group by keyword
+	         order by value desc
+
+	        )
+	  <![CDATA[
+		 where rownum < 6
+	   ]]>
+	
+	
+	</select>
+	<!-- 根据报文ID查询报文反馈的信息 -->
+	<select id="queryRepInfo" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select 
+			srepxmldata,grepxmldata
+		 from JH_HJ_FKQK where bizmsgid=#{bizmsgid}
+	</select>
+	<!-- 查询业务信息 -->
+	<select id="queryPageBusinessInfo" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select YWBSID,
+			YWH,DJLX,BDCQZH,BDCDYH,ZSXLH,ZL,FZRQ,QXMC
+		 from BDCDJ_DJB where 1=1
+		 <if test="cityChoice!=null and cityChoice!='' and cityChoice!='广东省'">
+			and QXDM in (select d.xzqdm from DIC_XZQ d where d.sid in 
+			( select t.xzqdm from DIC_XZQ t where t.jb='市' and t.xzqmc=#{cityChoice})
+			union all
+			select d.xzqdm from DIC_XZQ d where d.jb='县' and d.xzqmc=#{cityChoice})
+		</if>
+		 <if test="ywh!=null and ywh!=''">
+			and YWH like '%'||#{ywh}||'%'
+		</if>
+		<if test="bdcdyh!=null and bdcdyh!=''">
+			and BDCDYH like '%'||#{bdcdyh}||'%'
+		</if>
+		<if test="zsxlh!=null and zsxlh!=''">
+			and ZSXLH like '%'||#{zsxlh}||'%'
+		</if>
+		<if test="djlx!=null and djlx!=''">
+			and DJLX =#{djlx}
+		</if>
+		order by case when ywh='201608300527' then 0 else 1 end
+	</select>
+	<!-- 根据业务ID查询其上下手业务 -->
+	<select id="queryDJBBusiness" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select ywid,ywh,cqzh,bdcdyh,B.itemname djlx,djsj
+		 from 
+		(select YWBSID ywid,YWH ywh,BDCQZH cqzh,BDCDYH bdcdyh,djlx,djsj from TDSYQ
+		union 
+		select YWBSID ywid,YWH ywh,BDCQZH cqzh,BDCDYH bdcdyh,djlx,djsj from JSYDSYQ
+		union 
+		select YWBSID ywid,YWH ywh,BDCQZH cqzh,BDCDYH bdcdyh,djlx,djsj from FDCQ2
+		union 
+		select YWBSID ywid,YWH ywh,N'' cqzh,BDCDYH bdcdyh,N'' djlx,djsj from FDCQ3
+		union 
+		select YWBSID ywid,YWH ywh,BDCQZH cqzh,BDCDYH bdcdyh,djlx,djsj from HYSYQ
+		union 
+		select YWBSID ywid,YWH ywh,BDCQZH cqzh,BDCDYH bdcdyh,djlx,djsj from GJZWSYQ
+		union 
+		select YWBSID ywid,YWH ywh,BDCQZH cqzh,BDCDYH bdcdyh,djlx,djsj from NYDSYQ
+		union 
+		select YWBSID ywid,YWH ywh,BDCQZH cqzh,BDCDYH bdcdyh,djlx,djsj from LQ
+		union 
+		select T.YWBSID ywid,T.YWH ywh,T.BDCQZH cqzh,F.BDCDYH bdcdyh,t.djlx,t.djsj from FDCQ1 t
+		left join FDCQXM F ON T.YWBSID=F.FDCQBSID
+		union 
+		select YWBSID ywid,YWH ywh,BDCQZH cqzh,BDCDYH bdcdyh,djlx,djsj from JSYDSYQ_HIS
+		union 
+		select YWBSID ywid,YWH ywh,BDCQZH cqzh,BDCDYH bdcdyh,djlx,djsj from FDCQ2_HIS) A
+		left join (select itemname,itemval from DIC_ITEM  where diccode=(SELECT diccode FROM DIC_MAIN WHERE DICNAME='登记类型'  and rownum=1)) B
+		on A.djlx=B.itemval
+		where A.ywid in 
+		(
+		select yywid as ywid from QLBHGX where ywid=#{djb_id}
+		union
+		select ywid as ywid from QLBHGX where yywid=#{djb_id}
+		) or A.ywid=#{djb_id}
+		order by A.djsj
+	</select>
+	<!-- 根据业务ID查询其上下手业务 -->
+	<select id="query_V_YWJG_JBXX" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select * from V_YWJG_JBXX
+		where YWID=#{ywid}
+	</select>
+	<!-- 根据业务ID查询房地产权的相关信息 -->
+	<select id="query_V_HOUSE_DETAIL" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select * from V_HOUSE_DETAIL
+		where ywbsid=#{ywid}
+	</select>
+	
+	<!-- 数据编辑  -->
+	<!-- 效能监管/工作进展/信息维护 数据编辑 -->
+	<update id="testUpdate"  parameterType="java.util.Map">
+	  <!--  update gzjz
+	        set flag =#{true}, sm = #{explain},wcsj=to_date(#{time},'YYYY-MM-DD') 
+	       where qxdm = #{cityCode}
+	        and lx_code = #{lx_code} -->    
+	     update gzjz
+			   set sm   = decode(lx_code,
+			                     'RYHZDW',  --人员划转到位
+			                     #{RYHZDWSM}, --人员划转到位说明
+			                     'SJZHJK',--数据整合建库
+			                     #{SJZHJKSM},
+			                     'XTSJGZ',--系统升级改造
+			                     #{XTSJGZSM},
+			                     'YWLCZZ',--业务流程再造
+			                     #{YWLCZZSM},
+			                     'ZLYJ',--资料移交
+			                     #{ZLYJSM},
+			                     'BFXZ',--颁发新证
+			                     #{BFXZSM},
+			                     'CKSZ',--窗口设置
+			                     #{CKSZSM},
+			                     'JRGJPT',--接入国家平台
+			                     #{JRGJPTSM},
+			                     sm),
+			       flag = decode(lx_code,
+			                     'RYHZDW',--人员划转到位
+			                     #{RYHZDWflag},--是否划转到位
+			                     'SJZHJK',--数据整合建库
+			                     #{SJZHJKflag},
+			                     'XTSJGZ',--系统升级改造
+			                     #{XTSJGZflag},
+			                     'YWLCZZ',--业务流程再造
+			                     #{YWLCZZflag},
+			                     'ZLYJ',--资料移交
+			                     #{ZLYJflag},
+			                     'BFXZ',--颁发新证
+			                     #{BFXZflag},
+			                     'CKSZ',--窗口设置
+			                     #{CKSZflag},
+			                     'JRGJPT',--接入国家平台
+			                     #{JRGJPTflag},
+			                     flag),
+			       wcsj = decode(lx_code,
+			                     'RYHZDW',
+			                     to_date(#{time}, 'yyyy-mm-dd'),
+			                     'SJZHJK',
+			                     to_date(#{time}, 'yyyy-mm-dd'),
+			                     'XTSJGZ',
+			                     to_date(#{time}, 'yyyy-mm-dd'),
+			                     'YWLCZZ',
+			                     to_date(#{time}, 'yyyy-mm-dd'),
+			                     'ZLYJ',
+			                     to_date(#{time}, 'yyyy-mm-dd'),
+			                     'BFXZ',
+			                     to_date(#{time}, 'yyyy-mm-dd'),
+			                     'CKSZ',
+			                     to_date(#{time}, 'yyyy-mm-dd'),
+			                     'JRGJPT',	
+			                     to_date(#{time}, 'yyyy-mm-dd'),
+			                     wcsj)
+			 where qxdm = #{cityCode}
+	        
+    </update>	
+
+</mapper>

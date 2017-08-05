@@ -1,0 +1,44 @@
+
+/*Ä¬ÈÏÀ¶É«tabÒ³Ç©*/
+.g-tab{
+    height:28px;
+    line-height: 28px; 
+    border-bottom: 2px solid #3498db;
+}
+
+.g-tab div{
+    float: left;
+    padding: 0 18px;
+    margin-right: 3px;
+    text-align: center;
+    color: #333;
+    font-size: 12px;
+    cursor:pointer;
+    background-color: #e2e2e2;}
+.g-tab .g-tabitem-focus{
+    color: #fff;
+    background-color: #3498db;}
+
+
+/*³ÈÉ«tabÒ³Ç©*/
+.g-tab-o{
+    height:30px;
+    line-height: 28px; 
+    border-bottom: 2px solid #fd9106;
+}
+.g-tab-o div{
+    float: left;
+    padding: 0 18px;
+    margin-right: 3px;
+    text-align: center;
+    color: #333;
+    font-size: 12px;
+    border-top:2px solid #dadada;
+    border-left: 2px solid #dadada;
+    border-right: 2px solid #dadada;
+    cursor:pointer;
+    background-color: #F9F9F9;}
+.g-tab-o .g-tabitem-o-focus{
+    border-bottom: 3px solid #fff;
+    color: #fd9106;
+    background-color: #fff;}

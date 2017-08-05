@@ -1,0 +1,44 @@
+.container {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	width: 100%;
+	padding: 0 10%;
+}
+
+.filterDiv {
+	width: 100%;
+	height: 50px;
+	padding-top: 20px;
+	text-align: right;
+}
+
+.box-panel .box-title {
+	width: 100%;
+	color: #464646;
+	font-size: 1.2rem;
+	padding-bottom: 1rem;
+}
+
+.box-panel .box-inner {
+	border: 2px solid #EAEAEA;
+	overflow: hidden;
+	padding: 0
+}
+
+.tipMsg {
+	padding: 8px 0;
+	text-align: center;
+	font-size: 1.1rem;
+}
+
+.tipMsg b {
+	font-size: 1.8rem;
+	padding: 0 8px;
+	color: #00B62D;
+	
+}
+
+.tipMsg b:first-child {
+	color: #FF7F27 !important;
+}

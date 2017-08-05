@@ -1,0 +1,234 @@
+/* 数据仓库 主页面 */
+.col-fix-padding{
+	padding-right: 0px;
+}
+.main-left-div {
+	width: 100%;
+	height: 90%;
+	overflow:auto;
+	border-right-color: rgb(225, 225, 225);
+	border-right-style: solid;
+	border-right-width: 1px;
+}
+.main-catalog-oper {
+	min-width: 120px;
+	padding-top: 5px !important; 
+	padding-bottom: 5px !important;
+}
+.main-catalog-oper li{
+	width: 80px !important;
+}
+.main-catalog-oper li a {
+	padding-right: 10px;
+	padding-left: 10px;
+	height: 26px;
+}
+.tags-content{	
+	width:100%;
+	height:10%;
+	blackgroud-color:rgb(225, 225, 225);
+}
+.main-content{	
+	width:100%;
+	height:100%;
+	blackgroud-color:rgb(225, 225, 225);	
+}
+
+/* 向导 */
+.wizard-container{
+	padding-left: 15px;
+}
+.wizard-container hr{
+	width:100%;
+	height:3px;
+	margin: 10 0 10 0;
+}
+
+/* 编辑目录 */
+.catalog-edit-guide-navbar{
+	margin-bottom: 0px;
+	min-height: 35px
+}
+.catalog-edit-guide-nav li a{
+	padding-bottom: 3px;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 3px;
+}
+.catalog-edit-guide-content-step1{
+	min-height: 450px
+}
+.catalog-edit-guide-footer{
+	min-height: 60px;
+	padding-top:15px;
+	background-color: rgb(245, 245, 245);
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-top-color: rgb(229, 229, 229);
+}
+.catalog-edit-guide-tag{
+	min-height: 250px;
+	overflow-y:auto;
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgb(229, 229, 229);
+}
+.catalog-edit-guide-tag-dropdown-value{
+	min-width: 100px !important;
+}
+.catalog-edit-guide-tag-group{
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 3px;
+}
+.catalog-edit-guide-tag-group .row{
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgb(229, 229, 229);
+	padding-bottom: 3px;
+	padding-top: 3px;
+}
+.catalog-edit-guide-tag-group .col-xs-1{
+	padding-top: 6px;
+}
+.catalog-edit-guide-tag-group select{
+    margin-left: 4px;
+}
+.catalog-edit-guide-tag-group-new{
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 3px;
+}
+.catalog-edit-guide-tag-group-new .row{
+	border-style: dashed;
+	border-width: 1px;
+	border-color: rgb(229, 229, 229);
+	padding-bottom: 3px;
+	padding-top: 3px;
+	text-align:center;
+}
+.catalog-edit-guide-tag-group-new select{
+    margin-left: 4px;
+}
+select[disabled]{
+  cursor: not-allowed;
+}
+.catalog-edit-guide-tag-group-show{
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 3px;
+}
+.catalog-edit-guide-tag-group-show .row{
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgb(229, 229, 229);
+	padding-bottom: 3px;
+	padding-top: 3px;
+}
+
+/* 数据注册 */
+.resource-register-data-container{
+	min-height: 300px;
+}
+.resource-register-data-container-tree{
+	height: 250px;
+	overflow-y:auto;
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgb(229, 229, 229);
+	margin-top: 3px;
+}
+.resource-register-data-container-tree-Selected{
+	height: 350px;
+	width:100%;
+	overflow:auto;
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgb(229, 229, 229);
+	margin-top: 3px;
+}
+.resource-register-metadata-container{
+	height: 430px;
+	width:100%;
+	overflow:auto;
+}
+.resource-register-metadata{
+	height: 360px;
+	width:100%;
+	overflow:auto;
+}
+.resource-register-metadata-tag-container{
+	min-height: 335px;
+	overflow-y:auto;
+}
+.resource-register-metadata-tags{
+	min-height: 200px;
+	overflow-y:auto;
+	margin-top: 35px;
+	padding-top: 10px;
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-top-color: rgb(229, 229, 229);
+}
+.resource-register-metadata-baseinfo{
+	margin-top: 10px;
+}
+.resource-register-metadata-detail{
+	margin-top: 10px;
+}
+.resource-register-metadata .row{
+	margin-left: 0px;
+    margin-right: 0px;
+}
+
+
+.resource-other-guide-res{
+	min-height: 300px;
+	overflow-y:auto;
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgb(229, 229, 229);
+}
+.resource-other-guide-group-new{
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 3px;
+}
+.resource-other-guide-group-new .row{
+	border-style: dashed;
+	border-width: 1px;
+	border-color: rgb(229, 229, 229);
+	padding-bottom: 3px;
+	padding-top: 3px;
+	text-align:center;
+}
+.resource-other-guide-group{
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 3px;
+}
+
+
+
+/* 弹窗 */
+.geo-modal-header{
+	background-color: #2d91df !important;
+	color: white !important;
+}
+.geo-modal-filter-tags{
+	min-height: 100px;
+	overflow-y:auto;
+}
+.geo-modal-metadata{
+	height: 430px;
+	overflow-y:auto;
+}
+.geo-modal-metadata iframe{
+	height: 100%;
+	width:100%;
+}
+
+/* 系统设置 编辑页面 */
+.system-edit{
+	margin:0px 15px;
+}

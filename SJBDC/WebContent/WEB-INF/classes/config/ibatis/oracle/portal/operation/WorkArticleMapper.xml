@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geostar.gtgh.portal.core.dao.WorkArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.geostar.gtgh.portal.core.entity.WorkArticle" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="LRR" property="lrr" jdbcType="VARCHAR" />
+    <result column="LRSJ" property="lrsj" jdbcType="DATE" />
+    <result column="BT" property="bt" jdbcType="VARCHAR" />
+    <result column="LX" property="lx" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.geostar.gtgh.portal.core.entity.WorkArticle" extends="BaseResultMap" >
+    <result column="RR" property="rr" jdbcType="CLOB" />
+  </resultMap>
+
+ 
+  <sql id="Base_Column_List" >
+    ID, LRR, LRSJ, BT, LX
+  </sql>
+  <sql id="Blob_Column_List" >
+    RR
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from WORK_ARTICLE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from WORK_ARTICLE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.geostar.gtgh.portal.core.entity.WorkArticle" >
+    insert into WORK_ARTICLE (ID, LRR, LRSJ, BT, 
+      LX, RR)
+    values (#{id,jdbcType=VARCHAR}, #{lrr,jdbcType=VARCHAR}, #{lrsj,jdbcType=DATE}, #{bt,jdbcType=VARCHAR}, 
+      #{lx,jdbcType=INTEGER}, #{rr,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.geostar.gtgh.portal.core.entity.WorkArticle" >
+    insert into WORK_ARTICLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="lrr != null" >
+        LRR,
+      </if>
+      <if test="lrsj != null" >
+        LRSJ,
+      </if>
+      <if test="bt != null" >
+        BT,
+      </if>
+      <if test="lx != null" >
+        LX,
+      </if>
+      <if test="rr != null" >
+        RR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="lrr != null" >
+        #{lrr,jdbcType=VARCHAR},
+      </if>
+      <if test="lrsj != null" >
+        #{lrsj,jdbcType=DATE},
+      </if>
+      <if test="bt != null" >
+        #{bt,jdbcType=VARCHAR},
+      </if>
+      <if test="lx != null" >
+        #{lx,jdbcType=INTEGER},
+      </if>
+      <if test="rr != null" >
+        #{rr,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.geostar.gtgh.portal.core.entity.WorkArticle" >
+    update WORK_ARTICLE
+    <set >
+      <if test="lrr != null" >
+        LRR = #{lrr,jdbcType=VARCHAR},
+      </if>
+      <if test="lrsj != null" >
+        LRSJ = #{lrsj,jdbcType=DATE},
+      </if>
+      <if test="bt != null" >
+        BT = #{bt,jdbcType=VARCHAR},
+      </if>
+      <if test="lx != null" >
+        LX = #{lx,jdbcType=INTEGER},
+      </if>
+      <if test="rr != null" >
+        RR = #{rr,jdbcType=CLOB},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.geostar.gtgh.portal.core.entity.WorkArticle" >
+    update WORK_ARTICLE
+    set LRR = #{lrr,jdbcType=VARCHAR},
+      LRSJ = #{lrsj,jdbcType=DATE},
+      BT = #{bt,jdbcType=VARCHAR},
+      LX = #{lx,jdbcType=INTEGER},
+      RR = #{rr,jdbcType=CLOB}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.geostar.gtgh.portal.core.entity.WorkArticle" >
+    update WORK_ARTICLE
+    set LRR = #{lrr,jdbcType=VARCHAR},
+      LRSJ = #{lrsj,jdbcType=DATE},
+      BT = #{bt,jdbcType=VARCHAR},
+      LX = #{lx,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

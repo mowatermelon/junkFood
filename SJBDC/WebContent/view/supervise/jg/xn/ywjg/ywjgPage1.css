@@ -1,0 +1,48 @@
+.filterDiv {
+    padding: 8px 0;
+    text-align: right;
+}
+
+.box-panel .box-title {
+    color: #464646;
+    font-size: 1.2rem;
+    padding-bottom: 1rem;
+}
+
+.box-panel .box-inner {
+    border: 2px solid #EAEAEA;
+    overflow: hidden;
+    padding: 0
+}
+
+.box-inner .left-inner-panel {
+    width: 30%;
+    float: left;
+    height: 100%;
+    border-right: 2px solid #EAEAEA;
+}
+
+.box-inner .right-inner-panel {
+    width: 70%;
+    float: left;
+    height:100%
+}
+
+.box-inner .box-inner-title {
+    display: block;
+    padding: 10px 0;
+    color: #5C5C5C;
+}
+
+.left-inner-panel > .row {
+    height: 100%;
+    margin: 0;
+}
+
+.box-inner .half-box {
+    height: 50%;
+}
+
+.box-inner .half-box:first-child {
+    border-bottom: 2px solid #EAEAEA;
+}

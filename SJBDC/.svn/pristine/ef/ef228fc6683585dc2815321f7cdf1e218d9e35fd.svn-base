@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+<!--BigShow（djzs-登记指数）-->
+	<setting name="BigshowDjzs">
+		<fields>
+			<field name="XZQDM" label="行政区名称" unit="个"></field>
+			<field name="CJTS_SPF" label="交付套数" unit="件"></field>	
+		</fields>
+		<data>
+			<code>XZQDM</code>
+			<keys>
+				<key>XZQMC</key>
+				<key>CJTS_SPF</key>
+			</keys>
+		</data>
+	</setting>
+	
+<!--BigShow（hjzs-汇交总数）-->
+	<setting name="BigshowHjzs">
+		<fields>
+			<field name="CITYCODE" label="行政区名称" unit="个"></field>
+			<field name="HJZS" label="汇交总数" unit="件"></field>	
+		</fields>
+		<data>
+			<code>CITYCODE</code>
+			<keys>
+				<key>CITYNAME</key>
+				<key>HJZS</key>
+			</keys>
+		</data>
+	</setting>
+	<!-- 数据汇交map1 广东省各市增量数据/实时数据汇交 （省市切换） -->
+	<setting name="sjhjmap1">
+		<fields>		
+			<field name="HJZS" label="汇交总数" unit="个"></field>
+			<field name="RKZS" label="入库总数" unit="个"></field>
+			<field name="SBZS" label="上报总数" unit="个"></field>
+		</fields>
+		<data>
+			<code>PID</code>
+			<keys>
+				<key>HJZS</key>
+				<key>RKZS</key>
+				<key>SBZS</key>
+			</keys>
+		</data>
+	</setting>
+
+	<!--业务监管map1（省市切换） -->
+	<setting name="ywjgmap1">
+		<fields>
+			<field name="201" label="时序异常" unit="个"></field>
+			<field name="202" label="超期办证" unit="个"></field>
+			<field name="203" label="逻辑异常" unit="个"></field>
+			<field name="204" label="其它异常" unit="个"></field>
+			<field name="205" label="证书异常" unit="个"></field>
+		</fields>
+		<data>
+			<code>SID</code>
+			<keys>
+				<key>201</key>
+				<key>202</key>
+				<key>203</key>
+				<key>204</key>
+				<key>205</key>
+			</keys>
+		</data>
+	</setting>
+
+
+	<!--证书监管map1（省市切换） -->
+	<setting name="zsjgmainmap1">
+		<fields>
+			<field name="YSY" label="已使用" unit="张"></field>
+			<field name="YFQ" label="已废弃" unit="张"></field>
+			<field name="WSY" label="未使用" unit="张"></field>
+		</fields>
+		<data>
+			<code>SID</code>
+			<keys>
+				<key>2</key>
+				<key>1</key>
+				<key>4</key>
+			</keys>
+		</data>
+	</setting>
+	
+    
+	
+</settings>

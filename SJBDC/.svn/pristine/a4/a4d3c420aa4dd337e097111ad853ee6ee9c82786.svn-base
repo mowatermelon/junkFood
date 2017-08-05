@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>地市工作进展</title>
+    <link type="text/css" rel="stylesheet"
+          href="../../../../Script/plugins/bootstrap/css/bootstrap.min.css">
+    <script type="application/javascript" src="../../../../Script/jquery.js"></script>
+    <script type="application/javascript"
+            src="../../../../Script/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <link type="text/css" rel="stylesheet"
+          href="../../../../Common/css/index.css">
+    <style>
+        .container {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        td {
+            border: 1px solid #aaa;
+            padding: 8px 0;
+            text-align: center;
+        }
+
+        .table-title {
+            font-weight: 700;
+            font-size: 1.2rem !important;
+        }
+
+        .nav-tabs a {
+            color: #aaa;
+            font-size: 1rem;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="table1">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <table>
+                        <tr>
+                            <td style="width: 100%" colspan="5" class="table-title">基本信息</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 25%">业务编号</td>
+                            <td style="width: 25%">201608300527</td>
+                            <td style="width: 25%">申请人;</td>
+                            <td style="width: 25%">李秋萍</td>
+
+
+                        </tr>
+                        <tr>
+                            <td>行政区划</td>
+                            <td>广东省清远市清城区</td>
+                            <td>业务类型</td>
+                            <td>转移登记</td>
+
+
+                        </tr>
+                        <tr>
+                            <td>申请人单号</td>
+                            <td>201608300527</td>
+                            <td>受理人员;</td>
+                            <td>李思茵</td>
+
+                        </tr>
+                        <tr>
+                            <td>受理时间</td>
+                            <td>2016-08-30</td>
+                            <td>审核时间</td>
+                            <td></td>
+
+
+                        </tr>
+                        <tr>
+                            <td>审核人员</td>
+                            <td></td>
+                            <td>区号</td>
+                            <td>0763</td>
+                        </tr>
+
+                        <tr>
+                            <td>证书序列号</td>
+                            <td colspan="3"></td>
+
+                        </tr>
+                        <tr>
+                            <td>状态</td>
+                            	<td>现势</td>
+                            	<td>查封状态</td>
+                            	<td>未查封</td>
+                        </tr>
+						<tr>
+							
+                            	<td>抵押状态</td>
+                            	<td>未抵押</td>
+                            	<td>异议状态</td>
+                            <td >无异议</td>
+						</tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>

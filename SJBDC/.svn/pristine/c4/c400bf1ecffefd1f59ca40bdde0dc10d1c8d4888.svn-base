@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>GeoJS_Demo</title>
+</head>
+<body>
+    <button type="button" id="btn_openWindow">
+        GeoJS.common.openWindow('GeoJS_Demo.htm', 200, 200, 0, 0)</button>
+    <br />
+    <button type="button" id="btn_queryURLString">
+        GeoJS.common.queryURLString('b', window.newwin)</button>
+    <br />
+    <button type="button" id="btn_showMDDialog">
+        GeoJS.common.showMDDialog('GeoJS_Demo.htm', null, 200, 200)</button>
+    <br />
+    <button type="button" id="btn_showMDLDialog">
+        GeoJS.common.showMDLDialog('GeoJS_Demo.htm', null, 200, 200)</button>
+    <br />
+    <br />
+</body>
+</html>
+<script src="GeoJS.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var wr = function (str) { document.write(str); },
+        rr = function (str) { document.write('<span style="color:Red;">' + str + '</span>'); },
+        br = function (i) { i = i || 1; Number.prototype._times.call(i, function () { wr('<br/>'); }); },
+        sp = function () { wr('&nbsp;'._repeat(4)); },
+        byid = function (id) { return document.getElementById(id); },
+        openWindow_click = function () {
+            window.newwin = GeoJS.common.openWindow('GeoJS_Demo.htm?a=1&b=2&c=3', 200, 200, 0, 0);
+        },
+        showMDDialog_click = function () {
+            GeoJS.common.showMDDialog('GeoJS_Demo.htm', null, 200, 200);
+        },
+        showMDLDialog_click = function () {
+            GeoJS.common.showMDLDialog('GeoJS_Demo.htm', null, 200, 200);
+        },
+        queryURLString_click = function () {
+            if (!window.newwin || window.newwin.closed) {
+                alert('请先点击第一个按钮打开窗口！');
+            } else {
+                alert('b:' + GeoJS.common.queryURLString('b', window.newwin));
+            }
+        };
+
+    //事件绑定
+    GeoJS.event.bind(byid('btn_openWindow'), 'click', openWindow_click);
+    GeoJS.event.bind(byid('btn_showMDDialog'), 'click', showMDDialog_click);
+    GeoJS.event.bind(byid('btn_showMDLDialog'), 'click', showMDLDialog_click);
+    GeoJS.event.bind(byid('btn_queryURLString'), 'click', queryURLString_click);
+
+
+    //Number.prototype._times
+    rr('//Number.prototype._times   执行指定次数的 fun 动作'); br();
+    (5)._times(function (i) {
+        wr('(5)._times(fun);'); sp();
+    });
+    br(2);
+
+    //String.prototype._ltrim
+    rr('//String.prototype._ltrim   去掉字符串左边的空白字符'); br();
+    wr('   dd   '._ltrim().replace(/\s/g, '*'));    //'dd***'
+    br(2);
+
+
+    //String.prototype._rtrim
+    rr('//String.prototype._rtrim   去掉字符串右边的空白字符'); br();
+    wr('   dd   '._rtrim().replace(/\s/g, '*'));    //'***dd'
+    br(2);
+
+
+    //String.prototype._trim
+    rr('//String.prototype._trim   去掉字符串左右两边的空白字符'); br();
+    wr('   dd   '._trim().replace(/\s/g, '*'));     //'dd'
+    br(2);
+
+
+
+    //String.prototype._repeat
+    rr('//String.prototype._repeat   将字符串重复 num 次返回新的字符串'); br();
+    wr('A* '._repeat(5));
+    br(2);
+
+
+
+    var arr = [
+        { num: 1, val: 'a' },
+        { num: 2, val: 'b' },
+        { num: 3, val: 'c' },
+        { num: 4, val: 'd' },
+        { num: 5, val: 'e' },
+        { num: 6, val: 'f' },
+        { num: 7, val: 'g' },
+        { num: 8, val: 'h' },
+        { num: 9, val: 'c' }
+    ];
+
+    //Array.prototype._eachRead
+    rr('//Array.prototype._eachRead'); br();
+    arr._eachRead(function (i, o) {
+        wr(o['num'] * o.num); sp();
+    }); //1    4    9    16    25    36    49    64
+    br(2);
+
+
+    //Array.prototype._eachRead
+    rr('//Array.prototype._eachRead'); br();
+    arr._eachRead(function (i, o) {
+        wr(o['num'] * o.num); sp();
+    }, function (i, o) {
+        return o.num == 2 ? [1] : null;
+    }); //1    9    16    25    36    49    64
+    br(2);
+
+
+    //Array.prototype._eachRead
+    rr('//Array.prototype._eachRead'); br();
+    arr._eachRead(function (i, o) {
+        wr(o['num'] * o.num); sp();
+    }, function (i, o) {
+        return o.num == 2 ? [0, 1] : null;
+    }); //1
+    br(2);
+
+
+    //Array.prototype._eachRead
+    rr('//Array.prototype._eachRead'); br();
+    arr._eachRead(function (i, o) {
+        wr(o['num'] * o.num); sp();
+    }, function (i, o) {
+        return o.num == 3 ? [0, 0, 1] : null;
+    }); //1    4
+    br(2);
+
+
+
+    //Array.prototype._indexOf
+    rr('//Array.prototype._indexOf("c", fun)'); br();
+    wr(arr._indexOf('c', function (i, it) { return it['val']; }));
+    br(2);
+
+
+
+    //Array.prototype._lastIndexOf
+    rr('//Array.prototype._lastIndexOf("c", fun)'); br();
+    wr(arr._lastIndexOf('c', function (i, it) { return it['val']; }));
+    br(2);
+
+
+
+    //Array.prototype._new
+    rr('//Array.prototype._new'); br();
+    wr(arr._new(function (i, it) { return it['val'] }));
+    br(2);
+
+
+    //Array.prototype._new
+    rr('//Array.prototype._new'); br();
+    wr(arr._new(function (i, it) { return it['val'] }, function (i, it) { return i > 1; }));
+    br(2);
+
+
+
+    //Array.prototype._join
+    rr('//Array.prototype._join'); br();
+    wr(arr._join('*', function (i, o) { return o.val; }));  //a*b*c*d*e*f*g*h
+    br(2);
+
+
+    //Array.prototype._uniq
+    rr('//Array.prototype._uniq'); br();
+    wr(GeoJS.json.stringify(arr._uniq(function (i, o) { return o['val']; })));
+    br(2);
+
+
+
+
+    //Array.prototype._select(fun)
+    rr('//Array.prototype._select(fun)'); br();
+    wr(GeoJS.json.stringify(
+        arr._select(function (i, o) {
+            return o['num'] > 2;
+        })
+    ));
+    br(2);
+
+
+    //Array.prototype._select(fun, count)
+    rr('//Array.prototype._select(fun, 2)'); br();
+    wr(GeoJS.json.stringify(
+        arr._select(function (i, o) {
+            return o['num'] > 2;
+        }, 2)
+    ));
+    br(2);
+
+
+
+    //Array.prototype._eachWrite
+    rr('//Array.prototype._eachWrite'); br();
+    wr(GeoJS.json.stringify(
+        arr._eachWrite(function (i, o) {
+            o.num = String.prototype._repeat.call(o['num'], 2);
+            o.val = o['val']._repeat(3);
+            return o;
+        })
+    ));
+    br(2);
+
+
+
+    //GeoJS.common.range
+    rr('//GeoJS.common.range(1, 1000, 2)'); br();
+    wr(GeoJS.common.range(1, 1000, 2));
+    br(2);
+
+</script>

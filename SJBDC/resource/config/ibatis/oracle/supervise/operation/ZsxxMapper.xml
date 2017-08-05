@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geostar.gtgh.portal.core.dao.ZsxxMapper">
+	<resultMap id="BaseResultMap" type="com.geostar.gtgh.portal.core.entity.Zsxx">
+	 <id column="ID" property="id" jdbcType="NVARCHAR" />
+		<result column="YWBSID" property="ywbsid" jdbcType="NVARCHAR" />
+		<result column="ZSBH" property="zsbh" jdbcType="NVARCHAR" />
+		<result column="ZSXLH" property="zsxlh" jdbcType="NVARCHAR" />
+		<result column="ZSZT" property="zszt" jdbcType="NVARCHAR" />
+		<result column="LRR" property="lrr" jdbcType="NVARCHAR" />
+		<result column="LRRQ" property="lrrq" jdbcType="DATE" />
+		<result column="FZR" property="fzr" jdbcType="NVARCHAR" />
+		<result column="FZRQ" property="fzrq" jdbcType="DATE" />
+		<result column="LZR" property="lzr" jdbcType="NVARCHAR" />
+		<result column="ZSLX" property="zslx" jdbcType="NVARCHAR" />
+		<result column="FQR" property="fqr" jdbcType="NVARCHAR" />
+		<result column="FQRQ" property="fqrq" jdbcType="DATE" />
+		<result column="FQYY" property="fqyy" jdbcType="NVARCHAR" />
+		<result column="BZ" property="bz" jdbcType="NVARCHAR" />
+		<result column="QXDM" property="qxdm" jdbcType="NVARCHAR" />
+		<result column="SJRKSJ" property="sjrksj" jdbcType="DATE" />
+		<result column="PCND" property="pcnd" jdbcType="NVARCHAR" />
+		<result column="PCFLID" property="pcflid" jdbcType="NVARCHAR" />
+		<result column="PQXDM" property="pqxdm" jdbcType="NVARCHAR" />
+	</resultMap>
+	<insert id="insert" parameterType="com.geostar.gtgh.portal.core.entity.Zsxx">
+		insert into BDCDJ_ZS_XX (id,YWBSID, ZSBH, ZSXLH,
+		ZSZT, LRR, LRRQ, FZR,
+		FZRQ, LZR, ZSLX, FQR,
+		FQRQ, FQYY, BZ, QXDM,
+		SJRKSJ, PCND, PCFLID, PQXDM
+		)
+		values (#{id,jdbcType=NVARCHAR},#{ywbsid,jdbcType=NVARCHAR}, #{zsbh,jdbcType=NVARCHAR},
+		#{zsxlh,jdbcType=NVARCHAR},
+		#{zszt,jdbcType=NVARCHAR}, #{lrr,jdbcType=NVARCHAR}, #{lrrq,jdbcType=DATE},
+		#{fzr,jdbcType=NVARCHAR},
+		#{fzrq,jdbcType=DATE}, #{lzr,jdbcType=NVARCHAR}, #{zslx,jdbcType=NVARCHAR},
+		#{fqr,jdbcType=NVARCHAR},
+		#{fqrq,jdbcType=DATE}, #{fqyy,jdbcType=NVARCHAR}, #{bz,jdbcType=NVARCHAR},
+		#{qxdm,jdbcType=NVARCHAR},
+		#{sjrksj,jdbcType=DATE}, #{pcnd,jdbcType=NVARCHAR}, #{pcflid,jdbcType=NVARCHAR},
+		#{pqxdm,jdbcType=NVARCHAR}
+		)
+	</insert>
+
+	<!-- 根据参数查询是否包含已经使用的证书 -->
+	<select id="countZSXX" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*) from bdcdj_zs_xx
+		where ZSZT=1
+		<if test="pcflid!=null and pcflid!=''">
+			and pcflid=#{pcflid}
+		</if>
+	</select>
+
+	<!-- 根据条件删除证书信息，这里必须要传参数 -->
+	<delete id="deleteZSXX" parameterType="java.util.Map">
+		delete from bdcdj_zs_xx
+		where ZSZT=1
+		<if test="pcflid!=null and pcflid!=''">
+			and pcflid=#{pcflid}
+		</if>
+	</delete>
+	
+	
+	<update id="updateByPrimaryKey" parameterType="com.geostar.gtgh.portal.core.entity.Zsxx" >
+    update BDCDJ_ZS_XX
+    set YWBSID = #{ywbsid,jdbcType=NVARCHAR},
+      ZSBH = #{zsbh,jdbcType=NVARCHAR},
+      ZSXLH = #{zsxlh,jdbcType=NVARCHAR},
+      ZSZT = #{zszt,jdbcType=NVARCHAR},
+      LRR = #{lrr,jdbcType=NVARCHAR},
+      LRRQ = #{lrrq,jdbcType=DATE},
+      FZR = #{fzr,jdbcType=NVARCHAR},
+      FZRQ = #{fzrq,jdbcType=DATE},
+      LZR = #{lzr,jdbcType=NVARCHAR},
+      ZSLX = #{zslx,jdbcType=NVARCHAR},
+      FQR = #{fqr,jdbcType=NVARCHAR},
+      FQRQ = #{fqrq,jdbcType=DATE},
+      FQYY = #{fqyy,jdbcType=NVARCHAR},
+      BZ = #{bz,jdbcType=NVARCHAR},
+      QXDM = #{qxdm,jdbcType=NVARCHAR},
+      SJRKSJ = #{sjrksj,jdbcType=DATE},
+      PCND = #{pcnd,jdbcType=NVARCHAR},
+      PCFLID = #{pcflid,jdbcType=NVARCHAR},
+      PQXDM = #{pqxdm,jdbcType=NVARCHAR}
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Object" >
+    select 
+    *
+    from BDCDJ_ZS_XX
+    where ID = #{id,jdbcType=NVARCHAR}
+  </select>
+</mapper>

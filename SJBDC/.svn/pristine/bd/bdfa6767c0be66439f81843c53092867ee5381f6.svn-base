@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="JgXnYwjgQueryMapper">
+<resultMap id="BaseResultMap" type="java.util.Map" ></resultMap>
+	<!-- 查询异常总量 首页 -->
+	<select id="queryYCZLForIndex" resultMap="BaseResultMap" parameterType="java.util.Map">
+		 select * from (select ycdm, count(*) value
+           from bdcdj_check t
+          where 1 = 1  
+          <if test="cityCode!=null and cityCode!=null">
+         	  and (t.qxdm=#{cityCode}  or pqxdm=#{cityCode}   )
+          </if>
+          <if test = "starttime!=null and starttime!='' and endtime !=null and endtime!=''">
+		         and t.sjrksj between to_date(#{starttime}, 'YYYY-MM-DD') and to_date(#{endtime}, 'YYYY-MM-DD')
+		 </if>
+          group by ycdm) pivot(sum(value) for ycdm in(201,202,203,204,205))
+	</select>
+	<!-- 查询地图服务 -->
+	<select id="queryMapForIndex" resultMap="BaseResultMap" parameterType="java.util.Map">
+	
+		<choose>
+			<when test="cityCode!=null and cityCode!=''">				
+				select tt.*, x.qxdm sid
+				  from dic_xzq x
+				  left join (select *
+				               from (select ycdm, t.qxdm sid, count(*) value
+				                       from bdcdj_check t
+				                      where 1 = 1
+				                      <if test = "starttime!=null and starttime!='' and endtime !=null and endtime!=''">
+							         	and t.sjrksj between to_date(#{starttime}, 'YYYY-MM-DD') and to_date(#{endtime}, 'YYYY-MM-DD')
+									 </if>
+				                      group by ycdm, qxdm) pivot(sum(value) for ycdm in(201,
+				                                                                        202,
+				                                                                        203,
+				                                                                        204,
+				                                                                        205))) tt
+				    on x.qxdm = tt.sid
+				where x.pqxdm=#{cityCode}
+								
+			</when>
+			<otherwise>
+			     select s.QXDM sid,tt.* from dic_v_xzq_s s left join (
+				 select *
+				   from (select ycdm, t.pqxdm, count(*) value
+				           from bdcdj_check t
+				          where 1 = 1
+				         <if test = "starttime!=null and starttime!='' and endtime !=null and endtime!=''">
+							         and t.sjrksj between to_date(#{starttime}, 'YYYY-MM-DD') and to_date(#{endtime}, 'YYYY-MM-DD')
+							 </if>
+				          group by ycdm, pqxdm) pivot(sum(value) for ycdm in(201,
+				                                                             202,
+				                                                             203,
+				                                                             204,
+				                                                             205))
+				                                                             )tt on s.QXDM=tt.pqxdm
+			    
+
+			
+			</otherwise>
+		</choose>
+	
+	</select>
+	
+	<!-- 查询业务监管——宗地不动产单元  上下级历史关系(sxjgx)  参数 id 表示的是宗地代码/自然幢号/户不动产单元号-->
+	<select id="queryMapForZdjbxx_sxjgx" resultMap="BaseResultMap" parameterType="java.util.Map">
+	<choose>
+			<when test="id!=null and id!=''">
+       select d.yywid as ywbsid, d.ybdcdyh as bdcdyh, c.ywh, c.djlx, 1 as flag
+          from (select a.yywid, a.bhsj, a.ybdcdyh
+                  from (
+                    select b.ywbsid from JG_BDCDYB_UNION_V a 
+                    right join JG_DJB_UNION_V b
+                    on a.ywbsid=b.bdcdybsid
+                    where a.ywid=#{id}
+                          and b.qszt = 1
+                        ) b
+                  left join QLBHGX a
+                    on a.ywid = b.ywbsid) d,
+               (select * from JG_DJB_UNION_V where djlx in(100,200,300,500,700)) c
+         where c.ywbsid = d.yywid	
+         
+         union all
+         
+         select d.ywid as ywbsid, d.bdcdyh as bdcdyh, c.ywh, c.djlx, 2 as flag
+          from (select a.ywid, a.bdcdyh, a.bhsj, a.ybdcdyh
+                  from (
+                       select b.ywbsid from JG_BDCDYB_UNION_V a 
+                       right join JG_DJB_UNION_V b
+                       on a.ywbsid=b.bdcdybsid
+                       where a.ywid=#{id}
+                             and b.qszt = 1     
+                           ) b
+                  left join QLBHGX a
+                    on a.yywid = b.ywbsid) d,
+               (select * from JG_DJB_UNION_V where djlx in(100,200,300,500,700)) c
+         where c.ywbsid = d.ywid
+         union all
+         select b.ywbsid,b.bdcdyh,b.ywh,b.djlx,flag from 
+         (select ywbsid from JG_BDCDYB_UNION_V a where ywid =#{id}) a
+         left join 
+         (select ywbsid,bdcdyh,ywh,bdcdybsid,djlx,0 as flag from JG_DJB_UNION_V b 
+                                 where djlx in (100,200,300,500,700) 
+			                     and b.qszt = 1
+                                  ) b
+         on a.ywbsid=b.bdcdybsid
+         
+        </when>
+        <otherwise>
+        select d.yywid as ywbsid, d.ybdcdyh as bdcdyh, c.ywh, c.djlx, 1 as flag
+          from (select a.yywid,a.ybdcdyh
+                  from  QLBHGX a where ywid=#{ywbsid} ) d,
+               (select * from JG_DJB_UNION_V where djlx in(100,200,300,500,700)) c
+         where c.ywbsid = d.yywid
+         
+         union all
+         
+         select d.ywid as ywbsid, d.ybdcdyh as bdcdyh, c.ywh, c.djlx, 2 as flag
+          from (select a.ywid,a.ybdcdyh
+                  from  QLBHGX a where yywid=#{ywbsid} ) d,
+               (select * from JG_DJB_UNION_V where djlx in(100,200,300,500,700)) c
+         where c.ywbsid = d.ywid		
+         
+         union all
+         
+        select ywbsid,bdcdyh,ywh,djlx,0 as flag from JG_DJB_UNION_V b 
+                                 where  ywbsid=#{ywbsid}
+        </otherwise>
+        </choose>	
+	</select>
+	
+	<!-- 查询业务监管——宗地权利信息1（宗地权利信息） 参数：宗地不动产单元号-->	
+	<select id="queryMapForZd_qlxx1" resultMap="BaseResultMap" parameterType="java.util.Map">
+			select * from ZDJBXX_ATT  where ywbsid=#{ywbsid}
+			 union all
+			 select * from ZDJBXX_ATT_HIS  where ywbsid=#{ywbsid}
+	</select>
+	
+	<!-- 查询业务监管——宗地权利2（宗地权利信息） 参数：宗地不动产单元号-->	
+	<select id="queryMapForZd_qlxx2" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select zdbsid,bhyy,bhnr,djsj,dbr from ZDBHQK where zdbsid=#{ywbsid} 
+	</select>
+
+	<!-- 查询业务监管——逻辑幢基本信息（幢的基本信息） 参数：id 自然幢号-->
+	<select id="queryMapForLjz_jbxx" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select * from LJZ a where a.zrzh=#{id}	
+	</select>
+			
+	<!-- 查询业务监管——新树结构 参数：item 宗地代码 字符串-->
+	<select id="queryMapForNew_tree1" resultMap="BaseResultMap" parameterType="java.util.Map">
+			select to_char(pid) pid,to_char(id) id,to_char(id) name,to_char(name) lx from
+			 (select 0 as pid from dual)
+			 left join
+			 (select zddm as id,'zd' as name from  ZDJBXX_ATT t 
+			 where zddm in (
+			 select REGEXP_SUBSTR(#{item}, '[^,]+', 1,rownum) as zddm from dual
+			 <![CDATA[ CONNECT BY ROWNUM <= ]]> 
+             LENGTH (#{item}) - LENGTH 
+            (REPLACE (#{item}, ',', ''))+1
+			 ))
+			 on 1=1
+			 union all
+			 select to_char(pid) pid,to_char(id)id ,to_char(id) name,to_char(name) lx  from 
+			 (select zddm as pid,zddm,'z' as name from ZDJBXX_ATT  
+			 where zddm in (select REGEXP_SUBSTR(#{item}, '[^,]+', 1,rownum) as zddm from dual 
+            <![CDATA[ CONNECT BY ROWNUM <= ]]>
+             LENGTH (#{item}) - LENGTH 
+             (REPLACE (#{item}, ',', ''))+1)) a
+			 left join 
+			 (select zrzh as id,zddm from ZRZ_ATT) b
+			 on a.zddm=b.zddm
+			 union all
+			select to_char(pid) pid,to_char(id) id,to_char(id) name,to_char(name) lx from 
+			 (select zddm from ZDJBXX_ATT  
+			 where zddm in (
+			 select REGEXP_SUBSTR(#{item}, '[^,]+', 1,rownum) as zddm from dual 
+            <![CDATA[ CONNECT BY ROWNUM <= ]]>
+             LENGTH (#{item}) - LENGTH 
+             (REPLACE (#{item}, ',', ''))+1
+			 )) a
+			 left join 
+			 (select zrzh as pid,zrzh,zddm,'h' as name from ZRZ_ATT) b
+			 on a.zddm=b.zddm
+			 left join 
+			 (select zrzh,bdcdyh as id from h) c
+			 on c.zrzh=b.zrzh
+	</select>	
+	
+	<!-- 查询业务监管——自然幢基本信息（幢的基本信息） 参数：id 自然幢号-->
+	<select id="queryMapForZrz_jbxx" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select * from ZRZ_ATT where  zrzh=#{id}
+	</select>
+	
+	<!-- 查询业务监管——宗地基本信息页面 左侧目录树 查自然幢号（参数id 宗地代码）-->
+	<select id="queryMapForZdjbxx_z" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select zrzh from zrz_att where zddm=#{id}
+	</select>
+	
+	<!-- 查询业务监管——宗地基本信息页面 左侧目录树 查户BDCDYH（参数：id幢自然号） -->
+	<select id="queryMapForZdjbxx_h" resultMap="BaseResultMap" parameterType="java.util.Map">
+			select bdcdyh from h where zrzh=#{id}
+	</select>
+  <!-- 查询业务监管——房屋、户（权利信息）参数：房屋/户YWBSID -->
+	<select id="queryMapForFw_qlxx" resultMap="BaseResultMap" parameterType="java.util.Map">
+				select s.*,t.* from
+				 (select * from dual)
+				 left join
+				 (select a.YWH,a.QLLX ,a.DJLX,a.DJYY,a.TDSYQR,a.DYTDMJ,a.FTTDMJ,a.TDSYQSSJ,a.TDSYJSSJ,a.FDCJYJG,
+				 a.GHYT,a.FWXZ,a.jzmj,a.zyjzmj,a.ftjzmj from JG_DJB_UNION_FW_V a where a.YWBSID=#{YWBSID}) s on 1=1
+				 left join 
+				 (select b.QLRLX,b.QLRMC,b.ZJZL,b.ZJH from QLR b where GLYWBSID=#{YWBSID}) t
+				on 1=1 				
+	</select>
+	
+	<!-- 查询业务监管——宗地（登记信息） -->
+	<select id="queryMapForZd_djxx" resultMap="BaseResultMap" parameterType="java.util.Map">
+			select a.*, b.*, c.*, d.*
+			  from 
+			  (select * from dual)
+			  left join
+			  (select t.ywh,
+			               t.djdl,
+			               t.djxl,
+			               t.sqzsbs,
+			               t.sqfbcz,
+			               t.slry,
+			               t.slsj,
+			               t.qxdm
+			          from SLSQ t
+			         where t.glywbsid = #{YWBSID}) a
+			    on 1=1
+			  left join (select t.qlrmc, t.zjzl, t.zjh
+			               from QLR t
+			              where t.glywbsid = #{YWBSID}) b
+			    on 1 = 1
+			  left join (select t.jdmc, t.shyj, t.shryxm, t.shjssj
+			               from SH t
+			              where t.glywbsid = #{YWBSID}) c
+			    on 1 = 1
+			  left join (select t.szzh, t.ysxlh
+			               from SZ t
+			              where glywbsid = #{YWBSID}) d
+			    on 1 = 1
+	</select>
+	
+	 <!-- 查询其他权利信息 -->
+	<select id="queryMapForQtqlxx" resultMap="BaseResultMap" parameterType="java.util.Map">
+			  select a.ywid, --业务ID
+			       a.yywh, --原业务ID
+			       a.djlx, --登记类型
+			       b.ywh, --原业务号
+			       
+			       b.cflx, --查封类型
+			       b.cffw, --查封范围
+			       b.CFJG, --查封机关
+			       b.CFWH, --查封文号
+			       b.CFQSSJ, --查封起始时间
+			       b.CFJSSJ, --查封结束时间
+			       
+			       null as djsj, --登记时间
+			       
+			       null as dyfs, --抵押方式
+			       null as dybdclx, --抵押类型：抵押不动产类型
+			       null as qlrmc, --抵押人(更改)
+			       null as bdcdjzmh, --抵押证明号：不动产登记证明号
+			       null as djyy, --登记原因
+			       
+			       null as dbr, --登簿人
+			       null as djjg, --登记机构
+			       null as yysx --异议事项
+			  from (select t.ywid, t.yywh, t.djlx
+			          from QLBHGX t
+			         where DJLX in ('800')
+			           and t.YYWID =#{YWBSID}) a
+			  left join (select t.ywh,
+			                    t.cflx,
+			                    t.cffw,
+			                    t.CFJG,
+			                    t.CFWH,
+			                    t.CFQSSJ,
+			                    t.CFJSSJ
+			               from CFDJ t
+			              where t.ywbsid = #{YWBSID}) b
+			    on 1 = 1
+			
+			union all
+			
+			select a.ywid, --业务ID
+			       a.yywh, --原业务ID
+			       a.djlx, --登记类型
+			       b.ywh, --原业务号
+			       
+			       null as cflx, --查封类型
+			       null as cffw, --查封范围
+			       null as CFJG, --查封机关
+			       null as CFWH, --查封文号
+			       null as CFQSSJ, --查封起始时间
+			       null as CFJSSJ, --查封结束时间
+			       
+			       b.djsj, --登记时间
+			       
+			       b.dyfs, --抵押方式
+			       b.dybdclx, --抵押类型：抵押不动产类型
+			       b.dyr as qlrmc, --抵押人(更改)
+			       b.bdcdjzmh, --抵押证明号：不动产登记证明号
+			       b.djyy, --登记原因
+			       
+			       null as dbr, --登簿人
+			       null as djjg, --登记机构
+			       null as yysx --异议事项
+			
+			  from (select t.ywid, t.yywh, t.djlx
+			          from QLBHGX t
+			         where DJLX in ('900')
+			           and t.YYWID = #{YWBSID}) a
+			  left join (select t.YWH ,
+			                    t.DYFS ,
+			                    t.DYBDCLX,
+			                    t.DYR,
+			                    t.BDCDJZMH,
+			                    t.DJSJ,
+			                    t.DJYY
+			               from DYAQ t
+			              where t.ywbsid = #{YWBSID}) b
+			    on 1 = 1
+			union all
+			
+			select a.ywid, --业务ID
+			       a.yywh, --原业务ID
+			       a.djlx, --登记类型
+			       b.ywh, --原业务号
+			       
+			       null as cflx, --查封类型
+			       null as cffw, --查封范围
+			       null as CFJG, --查封机关
+			       null as CFWH, --查封文号
+			       null as CFQSSJ, --查封起始时间
+			       null as CFJSSJ, --查封结束时间
+			       
+			       b.djsj, --登记时间
+			          
+			       null as dyfs, --抵押方式
+			       null as dybdclx, --抵押类型：抵押不动产类型
+			       null as qlrmc, --抵押人(更改)
+			       null as djyy, --登记原因
+			       
+			       b.dbr, --登簿人
+			       b.BDCDJZMH, --异议证明号：不动产登记证明号
+			       b.djjg, --登记机构
+			       b.yysx --异议事项
+			  from (select t.ywid, t.yywh, t.djlx
+			          from QLBHGX t
+			         where DJLX in ('600')
+			           and t.YYWID = #{YWBSID}) a
+			  left join (select t.YWH, t.DBR, t.BDCDJZMH, t.DJJG, t.DJSJ, t.YYSX
+			               from YYDJ t
+			              where t.ywbsid = #{YWBSID}) b
+			    on 1 = 1
+		
+	</select>
+	
+	<!-- 查询业务统计模块 -->
+	<select id="queryYWTJ" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<choose>
+			<when test="cityCode!=null and cityCode!=''">
+				 select s.QXMC, t.*
+					  from dic_v_xzq_x s
+					  left join (select qxdm,
+					                    sum(t.ywl) ywl,
+					                    sum(t.scdj) scdj,
+					                    sum(zydj) zydj,
+					                    sum(t.BGDJ) bgdj,
+					                    sum(t.ZXDJ) zxdj,
+					                    sum(t.GZDJ) gzdj,
+					                    sum(t.yydj) yydj,
+					                    sum(t.YGDJ) ygdj,
+					                    sum(t.CFDJ) cfdj,
+					                    sum(t.QTDJ) qtdj
+					               from jg_ywl_union_v t
+					               <if test="startDate!=null and endDate!=null and startDate!='' and endDate!=''">
+										where  t.tjsj between to_date(#{startDate}, 'YYYY-MM-DD') and to_date(#{endDate}, 'YYYY-MM-DD')
+								  </if>
+					              group by qxdm) t
+					    on s.QXDM = t.QXDM
+					    
+					    where s.PQXDM=#{cityCode}
+					 order by to_number(s.id)
+			</when>
+			<otherwise>
+				select s.QXMC, t.*
+				  from dic_v_xzq_s s
+				  left join (select qxdm,
+				                    sum(t.ywl) ywl,
+				                    sum(t.scdj) scdj,
+				                    sum(zydj) zydj,
+				                    sum(t.BGDJ) bgdj,
+				                    sum(t.ZXDJ) zxdj,
+				                    sum(t.GZDJ) gzdj,
+				                    sum(t.yydj) yydj,
+				                    sum(t.YGDJ) ygdj,
+				                    sum(t.CFDJ) cfdj,
+				                    sum(t.QTDJ) qtdj
+				               from jg_ywl_union_v t
+				               <if test="startDate!=null and endDate!=null and startDate!='' and endDate!=''">
+									where  t.tjsj between to_date(#{startDate}, 'YYYY-MM-DD') and to_date(#{endDate}, 'YYYY-MM-DD')
+							   </if>
+				              group by qxdm) t
+				    on s.QXDM = (substr(t.QXDM, 0, 4) || '00')
+				 order by to_number(s.id)
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 查询业务异常信息，按区域 -->
+	<select id="queryYCByYZQ" resultMap="BaseResultMap" parameterType="java.util.Map">
+	 	  <choose>
+	 	  	<when test="cityCode!=null and cityCode!=''">	 	  		   
+		           select s.QXMC,tt.*
+		           from dic_v_xzq_x s
+		           left join (select *
+		                        from (select t.qxdm, t.ycdm, count(*) value
+		                                from bdcdj_check t
+		                                 where 1=1
+		                                <if test="startDate!=null and endDate!=null and startDate!='' and endDate!=''">
+											and t.sjrksj between to_date(#{startDate}, 'YYYY-MM-DD') and to_date(#{endDate}, 'YYYY-MM-DD')
+										</if>
+		                               group by t.qxdm, t.ycdm) pivot(sum(value) for ycdm in(201,202,203,204,205))) tt
+		             on s.QXDM = tt.qxdm
+		             where s.PQXDM=#{cityCode}
+		              order by to_number(s.ID)
+	 	  	</when>
+	 	  	<otherwise>
+	 	  		select s.QXMC,tt.*
+		           from dic_v_xzq_s s
+		           left join (select *
+		                        from (select t.pqxdm, t.ycdm, count(*) value
+		                                from bdcdj_check t
+		                                where 1=1
+		                                <if test="startDate!=null and endDate!=null and startDate!='' and endDate!=''">
+											and t.sjrksj between to_date(#{startDate}, 'YYYY-MM-DD') and to_date(#{endDate}, 'YYYY-MM-DD')
+										</if>
+		                               group by t.pqxdm, t.ycdm) pivot(sum(value) for ycdm in(201, 202,203,204,205))) tt
+		             on s.QXDM = tt.pqxdm
+		              order by to_number(s.ID)
+	 	  	</otherwise>
+	 	  </choose>
+		   
+	</select>
+	<!-- 查询异常趋势 -->
+	<select id="queryYCBySJ" resultMap="BaseResultMap" parameterType="java.util.Map">
+		   select *
+		     from (select to_char(t.sjrksj, 'yyyy-MM-dd') sjrksj,
+		                  ycdm,
+		                  count(*) value
+		             from bdcdj_check t
+		            where 1 = 1
+		            <if test="startDate!=null and endDate!=null and startDate!='' and endDate!=''">
+							and t.sjrksj between to_date(#{startDate}, 'YYYY-MM-DD') and to_date(#{endDate}, 'YYYY-MM-DD')
+					</if>
+					<if test="cityCode!=null and cityCode!=''">
+						   and (t.pqxdm=#{cityCode} or t.qxdm=#{cityCode})
+					</if>
+		            group by to_char(t.sjrksj, 'yyyy-MM-dd'), ycdm) pivot(sum(value) for ycdm in(201,202,203,204,205))
+		    order by sjrksj
+	</select>
+	
+	
+	<!-- 查询业务信息分页信息 -->
+	<select id="queryPageBusinessInfo" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select YWBSID,
+			YWH,DJLX,BDCQZH,BDCDYH,ZSXLH,ZL,FZRQ,QXMC
+		 from BDCDJ_DJB where 1=1
+		 
+		 <if test="ywh!=null and ywh!=''">
+			and YWH like '%'||#{ywh}||'%'
+		</if>
+		<if test="bdcdyh!=null and bdcdyh!=''">
+			and BDCDYH like '%'||#{bdcdyh}||'%'
+		</if>
+		<if test="zsxlh!=null and zsxlh!=''">
+			and ZSXLH like '%'||#{zsxlh}||'%'
+		</if>
+		<if test="djlx!=null and djlx!=''">
+			and DJLX =#{djlx}
+		</if>
+		
+	</select>
+	
+	
+	<!-- 查询异常业务信息  -->
+	<select id="queryPageBusExc" resultMap="BaseResultMap" parameterType="java.util.Map">
+		
+		select ywbsid,bdcdyh, ywh, djlx, ycsm,  djjg, fxsj, clqk, fkry,(select k.xzqmc from DIC_XZQ k where k.xzqdm=b.qxdm) as QXMC,c.zdmc ycdm
+       		from BDCDJ_CHECK b,bdcdj_code c
+ 		 where  1=1    
+     	and b.ycdm=c.zdid
+		<if test="cityCode !=null and cityCode!=''">
+			and (b.qxdm=#{cityCode} or b.pqxdm=#{cityCode})
+		</if>
+		<if test="ywh !=null and ywh!=''">
+			and b.ywh like '%'||#{ywh}||'%'
+		</if>
+		<if test="djlx !=null and djlx!=''">
+			and b.djlx =#{djlx}
+		</if>
+		<if test="ycdm !=null and ycdm!=''">
+			and b.ycdm =#{ycdm}
+		</if>
+		<if test="startDate !=null and startDate!='' and endDate!='' and endDate!=null">
+			and b.sjrksj between(to_date(#{startDate},'yyyy-MM-dd')) and (to_date(#{endDate},'yyyy-MM-dd'))  
+		</if>
+		order by b.fxsj desc
+	</select>
+</mapper>

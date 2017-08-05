@@ -1,0 +1,1 @@
+<script src="${base }view/Script/plugins/echarts/echarts-all2.js?v=${v }"></script>

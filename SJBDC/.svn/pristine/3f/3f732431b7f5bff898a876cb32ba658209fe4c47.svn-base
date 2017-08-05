@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BigShowYwjgQueryMapper">
+	<resultMap id="BaseResultMap" type="java.util.Map"></resultMap>
+		<!--big ywjg 异常总量 首页-->
+	<select id="queryYCZLForIndex" resultMap="BaseResultMap" parameterType="java.util.Map">
+		 select * from (select ycdm, count(*) value
+           from bdcdj_check t
+          where 1 = 1  
+          <if test="cityCode!=null and cityCode!=null">
+         	  and (t.qxdm=#{cityCode}  or pqxdm=#{cityCode} )
+          </if>
+          <if test = "starttime!=null and starttime!='' and endtime !=null and endtime!=''">
+		        and t.sjrksj between to_date(#{starttime}, 'YYYY-MM-DD') and to_date(#{endtime}, 'YYYY-MM-DD')
+		 </if>
+          group by ycdm) pivot(sum(value) for ycdm in(201,202,203,204,205))
+	</select>
+	
+	<!-- 查询办理情况（9大登记）模块 -->
+	<select id="queryYWblqk" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<choose>
+			<when test="cityCode!=null and cityCode!=''">
+				 select s.QXMC, t.*
+					  from dic_v_xzq_x s
+					  left join (select qxdm,
+					                    sum(t.ywl) ywl,
+					                    sum(t.scdj) scdj,
+					                    sum(zydj) zydj,
+					                    sum(t.BGDJ) bgdj,
+					                    sum(t.ZXDJ) zxdj,
+					                    sum(t.GZDJ) gzdj,
+					                    sum(t.yydj) yydj,
+					                    sum(t.YGDJ) ygdj,
+					                    sum(t.CFDJ) cfdj,
+					                    sum(t.QTDJ) qtdj
+					               from jg_ywl_union_v t
+					               <if test="startDate!=null and endDate!=null and startDate!='' and endDate!=''">
+										where  t.tjsj between to_date(#{startDate}, 'YYYY-MM-DD') and to_date(#{endDate}, 'YYYY-MM-DD')
+								  </if>
+					              group by qxdm) t
+					    on s.QXDM = t.QXDM
+					    
+					    where s.PQXDM=#{cityCode}
+					 order by to_number(s.id)
+			</when>
+			<otherwise>
+				select s.QXMC, t.*
+				  from dic_v_xzq_s s
+				  left join (select qxdm,
+				                    sum(t.ywl) ywl,
+				                    sum(t.scdj) scdj,
+				                    sum(zydj) zydj,
+				                    sum(t.BGDJ) bgdj,
+				                    sum(t.ZXDJ) zxdj,
+				                    sum(t.GZDJ) gzdj,
+				                    sum(t.yydj) yydj,
+				                    sum(t.YGDJ) ygdj,
+				                    sum(t.CFDJ) cfdj,
+				                    sum(t.QTDJ) qtdj
+				               from jg_ywl_union_v t
+				               <if test="startDate!=null and endDate!=null and startDate!='' and endDate!=''">
+									where  t.tjsj between to_date(#{startDate}, 'YYYY-MM-DD') and to_date(#{endDate}, 'YYYY-MM-DD')
+							   </if>
+				              group by qxdm) t
+				    on s.QXDM = (substr(t.QXDM, 0, 4) || '00')
+				 order by to_number(s.id)
+			</otherwise>
+		</choose>
+	</select>
+	
+	  <!--查询企业印制绩效-->   
+	<select id="queryQYYZJX" resultMap="BaseResultMap" parameterType="java.util.Map">		 
+		 select y.yzqy, avg(nt.yzdf) yzdf, avg(nt.ycdf) ycdf
+		  from bdcdj_zs_qy y,
+		       (select t.id,
+		               CASE
+		                 WHEN ((sum(t.lzsl) / sum(t.jfsl) / 0.01)) > 1 THEN
+		                  (50 - (sum(t.lzsl) / sum(t.jfsl) / 0.01))
+                     else
+                      50
+                   end yzdf,           
+                   (50 -
+                   (select pc.ycjfts from bdcdj_zs_pc pc where pc.ywbsid = t.id)) ycdf,
+                   (select pc.qyid from bdcdj_zs_pc pc where pc.ywbsid = t.id) qyid
+              from (select f.jfsl,
+                           p.ywbsid id,
+                           (select count(*)
+                              from bdcdj_zs_xx x
+                             where x.zszt = 3
+                               and x.pcflid = f.ywbsid) lzsl
+                      from bdcdj_zs_pc p, bdcdj_zs_pcfl f
+                     where f.pcid = p.ywbsid                    
+                       <if test="year!=null and year!=''">
+		                 	and p.pcnd=#{year}
+		                 </if>                     
+                     ) t
+             group by t.id) nt
+     where y.ywbsid = nt.qyid
+     group by y.yzqy
+	</select>
+	<!--业务受理  （业务受理总量，业务异常总量，平均效能）-->
+	<select id="queryYWsl" resultMap="BaseResultMap" parameterType="java.util.Map">	
+			select ywzl,
+			       yczl,
+			       <if test="startDate!=null and startDate!=''">
+			        ywzl / (select to_date(#{startDate}, 'yy-MM-dd') -
+			                      to_date(#{endDate}, 'yy-MM-dd')
+			                 from dual) as pjxn
+			       </if>
+			  from (select sum(ywl) as ywzl from JG_YWL_UNION_V 
+			  where 1=1 
+			  <if test="startDate!=null and  startDate!=''">
+			 and tjsj between (to_date(#{startDate}, 'yyyy/mm/dd'))
+			 </if>
+			 <if test="endDate!=null and  endDate!=''">
+			  and (to_date(#{endDate}, 'yyyy/mm/dd'))
+			  </if>
+			  ),
+			       (select count(1) yczl from bdcdj_check 
+			       where 1=1
+			       <if test="startDate!=null and  startDate!=''">
+			        and fxsj between (to_date(#{startDate}, 'yyyy/mm/dd'))
+			       </if>
+			       <if test="endDate!=null and  endDate!=''">
+			       and (to_date(#{endDate}, 'yyyy/mm/dd'))
+			       </if>
+			         ) 
+       </select>
+       
+       
+         <!-- 证书监管 已使用 已废弃 未使用 --> 
+         <select id="queryZSjg" resultMap="BaseResultMap" parameterType="java.util.Map">	
+			  select gyzzs,
+			           yfq,
+			           ysy,
+			           (gyzzs - yfq - ysy) wsy
+			    from (select nvl(count(*), 0) ysy from ZSXX where zszt = '1'),
+			         (select nvl(count(*), 0) yfq from ZSXX where zszt = '2'),
+			         (select nvl(sum(JFSL), 0) gyzzs from ZSYZXX)
+       </select>
+       
+</mapper>

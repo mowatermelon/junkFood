@@ -1,0 +1,73 @@
+﻿@charset "UTF-8";
+/*
+Name:用户自定义控件样式文件
+Author:chengderen
+Note:2014-09-24
+*/
+
+/*最外层的容器*/
+.mainContainer
+{
+    margin:0;
+    padding:0;
+   /* border:solid 1px #dadada;*/
+}
+
+/*选项卡中标题列表*/
+.tabMenu
+{
+    height: 37px;
+    line-height: 37px;
+    /*background: url('../../../images/formTab.gif') repeat-x;*/
+    width: 100%;
+   /* border-top: solid 1px #dadada;
+    border-right: 1px solid #dadada;
+    border-left: 1px solid #dadada;*/
+   border-bottom: 1px solid #dadada;
+   background-color:#fafafa;
+    list-style: none;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+/*选项卡中标题列表子项*/
+.tabMenu li
+{
+  display:block;
+  float:left;
+  padding:0 15px;
+  height:37px;
+  
+  font-size:12px;
+  line-height:37px;
+  color:#666;
+  border-right:1px solid #dadada;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+/*选中选项卡中标题，更改其样式*/
+.tabMenu .status{
+    font-weight:bold;
+    margin-top:-1px;
+    border-top:2px solid #42b7ed;
+    line-height:37px;
+    color:#000000;
+    background:#fff;
+}
+
+/*选项卡内容容器*/
+.tabContainer
+{
+    position:relative;
+   /* border:solid 1px red;*/
+    margin-top:2px;
+    border:solid 1px #dadada;
+}
+
+.tabContainer-content
+{
+    width:100%;
+    height:100%;
+}

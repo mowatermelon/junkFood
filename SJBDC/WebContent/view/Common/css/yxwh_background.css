@@ -1,0 +1,32 @@
+
+.base-header {
+    background: #399BFF;
+}
+/* //婢舵挳鍎撮弽鍥暯閼冲本娅欓懝锟�*/
+.base-header .base-title {
+   /*  background: #3186DC; */
+}
+/* //閸掑洦宕查崥鍕嚋娑擃厼绺鹃惃鍕瘻闁筋喛鍎楅弲顖濆 */
+.base-header .base-tabs-btn {
+	color: #FFFF33;
+	border-right: 1px solid #5BADFF;
+    background: #5BADFF; 
+}
+/* //闁銆嶉崡陇鍎楅弲顖濆 */
+
+.main .base-left-nav {
+    background: #3D464D;
+}
+/* //闁銆嶉崡陇顤嗛柅澶夎厬閸氬酣顤侀懝锟�*/
+.sidebar-nav .select-title {
+     background: #3D464D; 
+}
+.base-header .base-hide-btn{
+	border-right: 1px solid #65A6FF;
+}
+.sidebar-trans li {
+	color:#EEF5F8;
+}
+.sidebar-trans .hover-item {
+    background: #3D464D;
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>证书查询详细信息</title>
+    <link type="text/css" rel="stylesheet"
+          href="../../../../Script/plugins/bootstrap/css/bootstrap.min.css">
+    <script type="application/javascript" src="../../../../Script/jquery.js"></script>
+    <script type="application/javascript"
+            src="../../../../Script/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="application/javascript"
+            src="../../../../Common/js/util.js"></script>
+    <script type="application/javascript"
+            src="detail.js"></script>
+    <link type="text/css" rel="stylesheet"
+          href="../../../../Common/css/index.css">
+    <style>
+        .container {
+            width: 100%;
+            margin: 0;
+            padding: 0 20%;
+            padding-top:5%;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        td {
+            border: 1px solid #aaa;
+            padding: 8px 0;
+            text-align: center;
+        }
+
+        .table-title {
+            font-weight: 700;
+            font-size: 1.2rem !important;
+        }
+
+        .nav-tabs a {
+            color: #aaa;
+            font-size: 1rem;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div id="myTab" class="tab-content">
+        <div class="tab-pane fade in active" id="table1">
+            <div class="row">
+                <div class="col-xs-12">
+                    <table>
+                        <tr>
+                            <td style="width: 100%" colspan="4" class="table-title">证书、证明详细信息</td>
+                        </tr>     
+                        <tr>
+                            <td style="width: 25%">证书号</td>
+                            <td style="width: 25%" id="ZSBH"></td>
+                            <td style="width: 25%">证书工本号</td>
+                            <td style="width: 25%" id="ZSXLH"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%">证书类型</td>
+                            <td style="width: 25%" id="ZSLX"></td>
+                            <td style="width: 25%" >印制企业</td>
+                            <td style="width: 25%" id="YZQY"></td>
+                        </tr>
+                        <tr>
+                        	<td style="width: 25%" >交付批次</td>
+                            <td style="width: 25%" id="JFPC"></td>
+                            <td style="width: 25%" >交付日期</td>
+                            <td style="width: 25%" id="JFRQ"></td>
+                        </tr>     
+                        <tr>
+                            <td style="width: 25%" >备案机构</td>
+                            <td style="width: 25%" id="LRR"></td>
+                            <td style="width: 25%" >备案日期</td>
+                            <td style="width: 25%" id="LRRQ"></td>
+                        </tr>
+                        <tr>
+                             <td style="width: 25%" >发证人</td>
+                            <td style="width: 25%" id="FZR"></td>
+                            <td style="width: 25%" >发证日期</td>
+                            <td style="width: 25%" id="FZRQ"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%" >领证人</td>
+                            <td style="width: 25%" id="LZR"></td>
+                            <td style="width: 25%" >领证日期</td>
+                            <td style="width: 25%" id="LZRQ"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%" >废弃日期</td>
+                            <td style="width: 25%" id="FQRQ"></td>
+                            <td style="width: 25%" >废弃说明</td>
+                            <td style="width: 25%" id="FQYY"></td>
+                        </tr>  
+                        <tr>
+                            <td style="width: 25%" >回收日期</td>
+                            <td style="width: 25%" id="HSRQ"></td>
+                            <td style="width: 25%" >回收原因</td>
+                            <td style="width: 25%" id="HSYY"></td>
+                        </tr>  
+                        <tr style="height:100px;">
+                            <td style="width: 25%" >备注</td>
+                            <td style="width: 25%" colspan="3" id=BZ></td>
+           
+                        </tr>       
+                    </table>
+                </div>
+            </div>
+        </div>
+        <h3 style="height:50px;line-height:50px;">附件</h3>
+        <div style="width:100%;height:600px;margin-top:30px;" id="iframeDiv">
+        <iframe style="width:100%;height:100%;" src="../../../../documentFile/zsjgPDF/example.pdf"></iframe>
+        </div>
+</div>
+
+</div>
+</body>
+</html>

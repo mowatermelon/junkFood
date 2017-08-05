@@ -1,0 +1,57 @@
+﻿/*
+创建人：chengderen
+创建时间：2014.10.21
+*/
+
+/*背景样式*/
+.dataNavigation-bg
+{
+    /*border:solid 1px red;*/
+}
+
+/*层内容样式*/
+.dataNavigation-content
+{
+    position: absolute;
+    margin: 0 auto;
+    width: 97px;
+    height: 27px;
+    text-align: center;
+   /* border:solid 2px yellow;*/
+}
+
+/*链接样式*/
+.dataNavigation-a
+{
+    line-height: 27px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #444;
+}
+
+/*调试环境下容器布局*/
+.dataNavigation-debug
+{
+    position: absolute;
+    width: 90px;
+    z-index: 100;
+    background-color: #FFFFFF;
+    top: 0px;
+    left: 0px;
+    border:solid 1px #ccc;
+    filter:ALPHA(opacity=10);
+    opacity:0.8;
+}
+
+/*列表*/
+.dataNavigation-debug-list
+{
+    list-style-type: none;
+}
+
+/*列表下子元素*/
+.dataNavigation-debug-list li
+{
+    line-height: 30px;
+    display: block;
+}

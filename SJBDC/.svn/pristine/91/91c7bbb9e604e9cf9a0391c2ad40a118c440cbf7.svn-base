@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BigShowSjjhQueryMapper">
+<resultMap id="BaseResultMap" type="java.util.Map" ></resultMap>	
+	<!-- big 大屏展示 数据交换首页 -->
+	<select id="queryTotalJhsj" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select sum(hjzs) hjzs,sum(sbzs) sbzs,sum(rkzs) rkzs from jh_ztqk
+		where 1=1
+		<if test="cityCode!=null and cityCode!=''">
+		  and (pxzqdm=#{cityCode} or xzqdm=#{cityCode})
+		</if>
+		 <if test = "startDate!=null and startDate!='' and endDate !=null and endDate!=''">
+		         and TJSJ between to_date(#{startDate}, 'YYYY-MM-DD') and to_date(#{endDate}, 'YYYY-MM-DD')
+		 </if>
+		 <if test="code!=null and code!=''">
+			  and pxzqdm like '${code}%' or xzqdm like '${code}%' 
+		 </if>
+	</select>
+	<!-- big 首页 地图服务 （汇交总数-hjzs） -->
+	<select id="queryMapHjzs" resultMap="BaseResultMap" parameterType="java.util.Map">
+	   <choose>
+	      <when test="cityCode!=null and cityCode!=''">
+	        select sum(hjzs) hjzs,
+	        xzqdm cityCode,
+	        xzqmc cityName
+	        from JH_HJ_ZTQK where pxzqdm=#{cityCode}
+	        <if test="startDate!=null and startDate!='' and endDate!=null and endDate!=''">
+	        and tjsj between to_date(#{startDate},'yyyy-MM-dd') and to_date(#{endDate},'yyyy-MM-dd') 
+	        </if>
+	        <if test="code!=null and code!=''">
+			  and pxzqdm like '${code}%'
+		    </if>
+	         group by xzqdm,xzqmc
+	      </when>
+	       <otherwise>
+	       select sum(hjzs) hjzs,
+	       pxzqdm cityCode,
+	       pxzqmc cityName
+	       from JH_HJ_ZTQK 
+	       where 1=1
+	       <if test="startDate!=null and startDate!='' and endDate!=null and endDate!=''">
+	        and tjsj between to_date(#{startDate},'yyyy-MM-dd') and to_date(#{endDate},'yyyy-MM-dd') 
+	        </if>
+	        <if test="code!=null and code!=''">
+			  and pxzqdm like '${code}%'
+		    </if>
+	        group by pxzqdm,pxzqmc
+	      </otherwise>
+	   </choose>
+	</select>
+	
+	<!-- 数据交换首页  接入情况  百分比 -->
+	<select id="queryPercenForSJJH" resultMap="BaseResultMap" parameterType="java.util.Map">
+	    select count(*) value from (
+		select xzqmc from jh_ztqk t where hjzs>0 
+		<if test="cityCode!=null and cityCode!=''">
+			and t.pxzqdm=#{cityCode}
+		</if>
+		<if test="code!=null and code!=''">
+			  and t.pxzqdm like '${code}%'
+		</if>
+		 group by t.xzqmc)
+		union all
+		select count(*) value from dic_v_xzq_x x
+		where  1=1
+		<if test="cityCode!=null and cityCode!=''">
+			 and x.PQXDM=#{cityCode}
+		</if> 
+		<if test="code!=null and code!=''">
+			  and x.pqxdm like '${code}%'
+		</if>
+	</select>
+	<!--汇交排行 (汇交成功数量和失败数量) -->
+	<select id="queryHJph" resultMap="BaseResultMap" parameterType="java.util.Map">
+	 <choose>
+      <when test="cityCode!=null and cityCode!=''">
+           select sum(hjcgsl) as HJsuccess,
+			       sum(hjycsl) as HJfail,
+			       sum(hjzs) hjzs,
+			       xzqdm as cityCode,
+			       xzqmc as cityName
+			  from JH_HJ_ZTQK
+			 where pxzqdm = #{cityCode}
+			 and pxzqdm!=440000
+			 <if test="startDate!=null and  startDate!=''">
+			 and tjsj between (to_date(#{startDate}, 'yyyy-mm-dd'))
+			 </if>
+			 <if test="endDate!=null and  endDate!=''">
+			  and (to_date(#{endDate}, 'yyyy-mm-dd'))
+			  </if>
+			  <if test="code!=null and code!=''">
+			  and pxzqdm like '${code}%'
+		     </if>
+			 group by xzqdm,xzqmc
+			 order by hjzs desc
+			 </when>
+			 <otherwise>
+			select sum(hjcgsl) as HJsuccess,
+			       sum(hjycsl) as HJfail,
+			       sum(hjzs) hjzs,
+			       pxzqdm as cityCode,
+			       pxzqmc as cityName
+			  from JH_HJ_ZTQK
+			 where 1=1
+			 and pxzqdm!=440000
+			 <if test="startDate!=null and  startDate!=''">
+			 and tjsj between (to_date(#{startDate}, 'yyyy-mm-dd'))
+			 </if>
+			 <if test="endDate!=null and  endDate!=''">
+			  and (to_date(#{endDate}, 'yyyy-mm-dd'))
+			  </if>
+			  <if test="code!=null and code!=''">
+			  and pxzqdm like '${code}%'
+		     </if>
+			 group by pxzqdm,pxzqmc
+			 order by hjzs desc
+			 </otherwise>
+			 </choose>
+	</select>
+	
+	<!-- 查询上报详情（上报成功数量和异常数量）-->
+    <select id="querySBxq" resultMap="BaseResultMap" parameterType="java.util.Map">
+            <choose>
+            <when test="cityCode!=null and cityCode!=''">
+            select * from (	
+			select 
+			       sum(sbcgsl) as SBsuccess,
+			       sum(sbycsl) as SBfail,
+			       sum(sbzs) sbzs,
+			       xzqdm as cityCode,
+			       xzqmc as cityName
+			  from JH_SB_ZTQK
+			 where pxzqdm = ${cityCode}
+			 <if test="startDate!=null and  startDate!=''">
+			 and tjsj between (to_date(#{startDate}, 'yyyy-mm-dd'))
+			 </if>
+			 <if test="endDate!=null and  endDate!=''">
+			  and (to_date(#{endDate}, 'yyyy-mm-dd'))
+			  </if>
+			  <if test="code!=null and code!=''">
+			  and xzqdm like '${code}%'
+		     </if>
+			 group by xzqdm,xzqmc
+			 order by sbzs desc	
+			 )
+			  <![CDATA[
+			 WHERE rownum<6
+			 ]]>
+			 </when>
+            <otherwise>
+            select * from (
+			select 
+			       sum(sbcgsl) as SBsuccess,
+			       sum(sbycsl) as SBfail,
+			       sum(sbzs) sbzs,
+			       pxzqdm as cityCode,
+			       pxzqmc as cityName
+			  from JH_SB_ZTQK
+			 where 1=1
+			 and pxzqdm!=440000
+			 <if test="startDate!=null and  startDate!=''">
+			 and tjsj between (to_date(#{startDate}, 'yyyy-mm-dd'))
+			 </if>
+			 <if test="endDate!=null and  endDate!=''">
+			  and (to_date(#{endDate}, 'yyyy-mm-dd'))
+			  </if>
+			  <if test="code!=null and code!=''">
+			  and pxzqdm like '${code}%'
+		     </if>
+			 group by pxzqdm,pxzqmc
+			 order by sbzs desc
+			 ) 
+			 <![CDATA[
+			 WHERE rownum<6
+			 ]]>
+			 </otherwise>
+			 </choose>	
+	</select>
+</mapper>

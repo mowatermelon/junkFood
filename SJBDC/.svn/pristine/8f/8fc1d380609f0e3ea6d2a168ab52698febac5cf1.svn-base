@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="JgXnSjjhQueryMapper">
+<resultMap id="BaseResultMap" type="java.util.Map" ></resultMap>	
+	<!-- big 大屏展示 数据交换首页 -->
+	<select id="queryTotalJhsj" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select sum(hjzs) hjzs,sum(sbzs) sbzs,sum(rkzs) rkzs from jh_ztqk
+		where 1=1
+		<if test="cityCode!=null and cityCode!=''">
+		  and (pxzqdm=#{cityCode} or xzqdm=#{cityCode})
+		</if>
+		 <if test = "starttime!=null and starttime!='' and endtime !=null and endtime!=''">
+		         and TJSJ between to_date(#{starttime}, 'YYYY-MM-DD') and to_date(#{endtime}, 'YYYY-MM-DD')
+		 </if>
+	</select>
+	
+</mapper>

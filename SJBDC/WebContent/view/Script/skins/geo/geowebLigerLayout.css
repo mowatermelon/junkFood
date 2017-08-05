@@ -1,0 +1,52 @@
+﻿/*
+创建人：chengderen
+创建时间：2014.10.15
+*/
+
+/*隐藏标题栏*/
+.l-layout-header
+{
+    display: none;
+}
+
+/*去掉顶部布局的边框*/
+.l-layout-topext
+{
+    border: none;
+    z-index: 99999;
+    overflow: inherit;
+    border-top: solid 1px #ccc;
+    border-right: solid 1px #ccc;
+}
+
+/*将滚动条置为初始化状态*/
+.l-layout-content
+{
+    overflow: inherit;
+}
+
+
+.l-layout-centerext
+{
+    border: none;
+    /*border-top:solid 1px #ccc;*/
+    border-right: solid 1px #ccc;
+    border-bottom: solid 1px #ccc;
+}
+
+/*去掉左边布局的边框*/
+.l-layout-left
+{
+   overflow:inherit;
+}
+
+
+
+/*容器*/
+.geowebLigerLayout
+{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+

@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SjjhQueryMapper">
+<resultMap id="BaseResultMap" type="java.util.Map" ></resultMap>
+
+	<!-- 数据交换首页接入情况百分比 -->
+	<select id="queryPercenForSJJH" resultMap="BaseResultMap" parameterType="java.util.Map">
+	    select count(*) value from (
+		select xzqmc from jh_ztqk t where hjzs>0 
+		<if test="cityCode!=null and cityCode!=''">
+			and t.pxzqdm=#{cityCode}
+		</if>
+		 group by t.xzqmc) 
+		union all
+		select count(*) value from dic_v_xzq_x x
+		
+		<if test="cityCode!=null and cityCode!=''">
+			where x.PQXDM=#{cityCode}
+		</if>
+		 
+	</select>
+	
+	<!-- 用于交换中心首页查询警告信息SQL -->
+	<select id="queryPageForJHLOG" resultMap="BaseResultMap" parameterType="java.util.Map">
+	
+		select t.qxdm, t.fklx, t.ywh, t.fksj
+		  from JH_HJ_FKQK t, dic_v_xzq_x x
+		 where t.zt = 0
+		   and t.qxdm = x.xzqmc
+		      
+		   <if test="pqxdm!=null and pqxdm!=''">
+		     and x.pqxdm = #{pqxdm}
+			</if>
+		
+		order by t.fksj desc
+	</select>
+	
+	
+	<!-- 查询首页数据汇交今日汇交，今日上报，今日入库数据 -->
+	<!--  <select id="queryPanel" resultMap="BaseResultMap" parameterType="java.util.Map">
+		 select sum(hJYCSL) as hJYCSL,
+		       sum(HJCGSL) as HJCGSL,
+		       sum(HJZS) as HJZS,
+		       sum(SBYCSL) as SBYCSL,
+		       sum(SBYCSL) as SBYCSL,
+		       sum(SBCGSL) as SBCGSL,
+		       sum(SBZS) as SBZS,
+		       sum(RKZS) as RKZS,
+		       sum(RKYCSL) as RKYCSL
+		  from jh_ztqk
+		where 1=1
+		 <if test="pxzqdm!=null and pxzqdm!=''">
+		  and pxzqdm = #{pxzqdm}
+		 </if>
+
+		<if test="startDate !=null and startDate!='' and endData!='' and endDate!=null">
+			and TJSJ between(to_date(#{startDate},'yyyy/mm/dd')) and (to_date(#{endDate},'yyyy/mm/dd'))  
+		</if>
+		
+	</select>  -->
+	
+	<!-- 查询首页数据汇交今日汇交，今日上报，今日入库数据 -->
+	 <select id="queryPanel" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select sum(zs) zs, sum(ycsl) ycsl, sum(cgsl) cgsl, sum(total) total
+		  from (select t.hjzs zs,
+		               t.hjycsl ycsl,
+		               t.hjcgsl cgsl,
+		               CASE
+		                 WHEN t.hjzs > 0 then
+		                  1
+		                 else
+		                  0
+		               end total
+		          from jh_ztqk t
+		         where 1 = 1
+		          <if test="startDate !=null and startDate!='' and endData!='' and endDate!=null">
+					and t.TJSJ between(to_date(#{startDate},'yyyy/mm/dd')) and (to_date(#{endDate},'yyyy/mm/dd'))  
+				  </if>
+				  <if test="cityCode!=null and cityCode!=''">
+				   and t.pxzqdm = #{cityCode}
+				  </if>
+				  )
+		union all
+		select sum(zs) zs, sum(ycsl) ycsl, sum(cgsl) cgsl, sum(total) total
+		  from (select t.sbzs zs,
+		               t.sbycsl ycsl,
+		               t.sbcgsl cgsl,
+		               CASE
+		                 WHEN t.sbzs > 0 then
+		                  1
+		                 else
+		                  0
+		               end total
+		          from jh_ztqk t
+		         where 1 = 1
+		          <if test="startDate !=null and startDate!='' and endData!='' and endDate!=null">
+					and t.TJSJ between(to_date(#{startDate},'yyyy/mm/dd')) and (to_date(#{endDate},'yyyy/mm/dd'))  
+				  </if>
+				  <if test="cityCode!=null and cityCode!=''">
+				    and t.pxzqdm = #{cityCode}
+				  </if>
+		)
+	</select> 
+	
+	<!-- 查询首页表格数据 -->
+	<select id="queryIndexTable" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<choose>
+			<when test="cityCode!=null and cityCode!=''">
+			select t.xzqdm,
+			       t.xzqmc qxmc,
+			       sum(t.hjzs) hjzs,
+			       sum(t.sbzs) sbzs,
+			       sum(t.hjycsl) hjycsl,
+			       sum(t.sbycsl) sbycsl,
+			        sum(t.sbwfkzs) sbwfkzs
+			  from jh_ztqk t
+			  where t.pxzqdm=#{cityCode}
+			 group by t.xzqdm, t.xzqmc
+			 order by to_number(t.xzqdm)
+			</when>
+			<otherwise>
+				select t.pxzqdm,
+			       t.pxzqmc qxmc,
+			       sum(t.hjzs) hjzs,
+			       sum(t.sbzs) sbzs,
+			       sum(t.hjycsl) hjycsl,
+			       sum(t.sbycsl) sbycsl,
+			        sum(t.sbwfkzs) sbwfkzs
+			  from jh_ztqk t
+			 group by t.pxzqdm, t.pxzqmc
+			 order by to_number(t.pxzqdm)
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	<!-- 查询数据上报数据 交换中心 -->
+	<select id="querySJSB" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select 
+		  <choose>
+		  	<when test="type!=null and type=='week'">
+		  		  t.year||'年第'||t.weeks||'周' tjsj,
+		  	</when>
+		  	<when test="type!=null and type=='month'">
+		  		  t.year||'年第'||t.month||'月' tjsj,
+		  	</when>
+		  	<when test="type!=null and type=='quarter'">
+		  		  t.year||'年第'||t.quarter||'季' tjsj,
+		  	</when>
+		  	<otherwise>
+		  		  to_char(t.tjsj, 'MM-dd') tjsj,
+		  	</otherwise>
+		  </choose>
+		  sum(t.sbzs) sbzs,
+		  sum(t.sbwfkzs) sbwfkzs,
+		  sum(t.sbcgsl) sbcgsl,
+		  sum(t.sbycsl) sbycsl,
+		  sum(t.sjjycw) sjjycw,
+		  sum(t.cfsb)  cfsb,
+		  sum(t.txwfgm) txwfgm,
+		  sum(t.jsqmcw) jsqmcw,
+		  sum(t.tsxx) tsxx,
+		  (sum(t.zxjycw)+sum(t.zxjmcw)) qtyc
+	
+		from JH_sb_ZTQK t
+		where 1=1
+		<if test="startDate !=null and startDate!='' and endData!='' and endDate!=null">
+			and t.TJSJ between(to_date(#{startDate},'yyyy/mm/dd')) and (to_date(#{endDate},'yyyy/mm/dd'))  
+		</if>
+		<if test="cityCode!=null and cityCode!=''">
+			and (t.XZQDM = #{cityCode} or t.PXZQDM = #{cityCode})
+		</if>
+		
+		<choose>
+		  	<when test="type!=null and type=='week'">
+		  		group by t.month,t.weeks,t.year
+		  	</when>
+		  	<when test="type!=null and type=='month'">
+		  		group by t.month,t.year
+		  	</when>
+		  	<when test="type!=null and type=='quarter'">
+		  		group by t.quarter,t.year
+		  	</when>
+		  	<otherwise>
+		  		group by to_char(t.tjsj, 'MM-dd'), year
+		  	</otherwise>
+		</choose>
+		 order by year,tjsj  
+
+	</select>
+	
+	
+	<!-- 查询数据汇交数据 交换中心 -->
+	<select id="querySJHJ" resultMap="BaseResultMap" parameterType="java.util.Map">
+			select 
+		  <choose>
+		  	<when test="type!=null and type=='week'">
+		  		  t.year||'年第'||t.weeks||'周' tjsj,
+		  	</when>
+		  	<when test="type!=null and type=='month'">
+		  		  t.year||'年第'||t.month||'月' tjsj,
+		  	</when>
+		  	<when test="type!=null and type=='quarter'">
+		  		  t.year||'年第'||t.quarter||'季' tjsj,
+		  	</when>
+		  	<otherwise>
+		  		  to_char(t.tjsj, 'MM-dd') tjsj,
+		  	</otherwise>
+		  </choose>
+		     sum(t.hjzs) hjzs,
+			 sum(t.hjcgsl) hjcgsl,
+			 sum(t.hjycsl) hjycsl,
+			 sum(t.hjwfksl) hjwfksl,
+			 sum(t.Bwhq) Bwhq,
+			 sum(t.fksj) fksj,
+			 sum(t.sjrk) sjrk,
+			 sum(t.sjjycw) sjjycw,
+			 (sum(t.zxjycw)+sum(t.zxjmcw)) qtyc,
+			 sum(t.txwfgm) txwfgm,
+			 sum(t.cfsb) cfsb,
+			 sum(t.jsqmcw) jsqmcw,
+			 sum(t.tsxx) tsxx
+		 from jh_hj_ztqk t
+		where 1=1
+		<if test="startDate !=null and startDate!='' and endData!='' and endDate!=null">
+			and t.TJSJ between(to_date(#{startDate},'yyyy/mm/dd')) and (to_date(#{endDate},'yyyy/mm/dd'))  
+		</if>
+		<if test="cityCode!=null and cityCode!=''">
+			and (t.XZQDM = #{cityCode} or t.PXZQDM = #{cityCode})
+		</if>
+		
+		<choose>
+		  	<when test="type!=null and type=='week'">
+		  		group by t.month,t.weeks,t.year
+		  	</when>
+		  	<when test="type!=null and type=='month'">
+		  		group by t.month,t.year
+		  	</when>
+		  	<when test="type!=null and type=='quarter'">
+		  		group by t.quarter,t.year
+		  	</when>
+		  	<otherwise>
+		  		group by to_char(t.tjsj, 'MM-dd') ,year
+		  	</otherwise>
+		</choose>
+		order by year,tjsj  
+	</select>
+	
+	
+	<!-- 查询汇交详情数据 -->
+	<select id="queryPageSJHJ" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<choose>
+			<when test="queryType!=null and queryType==0">
+			select 
+               t.pxzqmc,
+               t.xzqmc,
+               sum(t.hjzs)hjzs,
+               sum(t.hjcgsl)hjcgsl,
+               sum(t.hjycsl)hjycsl,
+               sum(t.bwhq)bwhq,
+               sum(t.fksj)fksj,
+               sum(t.sjrk)sjrk,
+               sum(t.sjjycw)sjjycw,
+               (sum(t.zxjycw) + sum(t.zxjmcw)) qtyc,
+               sum(t.tsxx)tsxx,
+               sum(t.txwfgm)txwfgm,
+                sum(t.cfsb)cfsb,
+                 sum(t.jsqmcw) jsqmcw
+          from jh_hj_ztqk t
+           where hjzs > 0
+           <if test="startDate !=null and startDate!='' and endData!='' and endDate!=null">
+				and t.TJSJ between(to_date(#{startDate},'yyyy/mm/dd')) and (to_date(#{endDate},'yyyy/mm/dd'))  
+		   </if>
+		   <if test="cityCode!=null and cityCode!=''">
+				and t.XZQDM = #{cityCode}
+		   </if>
+           group by t.pxzqmc,t.xzqmc,t.xzqdm
+         order by t.xzqdm
+			</when>
+			<otherwise>
+				select t.tjsj,
+				       t.pxzqmc,
+				       t.xzqmc,
+				       t.hjzs,
+				       t.hjcgsl,
+				       t.hjycsl,
+				       t.bwhq,
+				       t.fksj,
+				       t.sjrk,
+				       t.sjjycw,
+				       (t.zxjycw + t.zxjmcw) qtyc,
+				       t.tsxx,
+				       t.txwfgm,
+				        t.cfsb,
+		       			t.jsqmcw
+				  from jh_hj_ztqk t
+				   where hjzs > 0
+				  <if test="startDate !=null and startDate!='' and endData!='' and endDate!=null">
+					 and t.TJSJ between(to_date(#{startDate},'yyyy/mm/dd')) and (to_date(#{endDate},'yyyy/mm/dd'))  
+				  </if>
+				  <if test="cityCode!=null and cityCode!=''">
+					 and t.XZQDM = #{cityCode}
+				  </if>
+				 order by t.xzqdm
+			</otherwise>
+		</choose>	
+			
+	</select>
+	
+	<!-- 查询上报详情数据 -->
+	<select id="queryPageSJSB" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<choose>
+			<when test="queryType!=null and queryType==0">
+				select 
+		           t.pxzqmc,
+		           t.xzqmc,
+		           sum(t.sbzs) sbzs,
+		           sum(t.sbycsl) sbycsl,
+		           sum(t.sbwfkzs ) sbwfkzs,
+		           sum(t.sbcgsl) sbcgsl,
+		           sum(t.sjjycw) sjjycw,
+		           (sum(t.zxjycw) + sum(t.zxjmcw) + sum(t.cfsb)) qtyc,
+		           sum(t.jsqmcw)jsqmcw,
+		           sum(t.tsxx)tsxx,
+		           sum(t.cfsb)cfsb,
+		           sum(t.txwfgm) txwfgm
+		      from jh_sb_ztqk t
+		     where t.sbzs > 0
+		     <if test="startDate !=null and startDate!='' and endData!='' and endDate!=null">
+				and t.TJSJ between(to_date(#{startDate},'yyyy/mm/dd')) and (to_date(#{endDate},'yyyy/mm/dd'))  
+			 </if>
+			 <if test="cityCode!=null and cityCode!=''">
+				and t.XZQDM = #{cityCode}
+			 </if>
+		     group by t.xzqmc,t.pxzqmc,t.xzqdm
+       		 order by t.xzqdm
+			</when>
+			<otherwise>
+				select t.tjsj,
+				       t.pxzqmc,
+				       t.xzqmc,
+				       t.sbzs,
+				       t.sbycsl,
+				       t.sbwfkzs,
+				       t.sbcgsl,
+				       t.sjjycw,
+				       (t.zxjycw + t.zxjmcw + t.cfsb) qtyc,
+				       t.jsqmcw,
+				       t.tsxx,
+				       t.cfsb,
+				       t.txwfgm
+				  from jh_sb_ztqk t
+				 where t.sbzs > 0
+				  <if test="startDate !=null and startDate!='' and endData!='' and endDate!=null">
+					 and t.TJSJ between(to_date(#{startDate},'yyyy/mm/dd')) and (to_date(#{endDate},'yyyy/mm/dd'))  
+				  </if>
+				  <if test="cityCode!=null and cityCode!=''">
+					 and t.XZQDM = #{cityCode}
+				  </if>
+				 order by t.xzqdm
+			</otherwise>
+		</choose>
+			
+	</select>
+	<!-- 查询区域信息  地图数据-->
+	<select id="queryQxxx" resultMap="BaseResultMap" parameterType="java.util.Map">
+	<choose>
+		<when test="cityCode!=null and cityCode!=''">
+			select  s.QXMC,s.x,s.y,s.qxdm from dic_v_xzq_x s
+			where s.pqxdm=#{cityCode}
+		</when>
+		<otherwise>
+			select s.QXMC,s.x,s.y,s.qxdm from dic_v_xzq_s s
+		</otherwise>
+	</choose>
+	
+	</select>
+	
+	<!-- 查询地图已接入数据 -->
+	<select id="queryJRSJ" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select d.x,d.y,d.QXMC,(select qxmc from dic_v_xzq_s s where s.QXDM=d.pqxdm) pqxmc
+		  from dic_v_xzq_x d,
+		       (select xzqdm from jh_ztqk where hjzs > 0 group by xzqdm) t
+		 where d.qxdm = t.xzqdm
+	</select>
+	
+	<!-- 根据报文ID查询报文反馈的信息 -->
+	<select id="queryRepInfo" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select 
+			srepxmldata,grepxmldata
+		 from JH_HJ_FKQK where bizmsgid=#{bizmsgid}
+	</select>
+	
+	
+	<!-- 查询反馈报文数据 -->
+	<select id="queryXMLDATA" resultMap="BaseResultMap" parameterType="java.util.Map">
+		 select
+		 <if test="flag !=null and flag==0">
+			bizxmldata
+		</if>
+		<if test="flag !=null and flag==1">
+			extxmldata
+		</if>
+		<if test="flag !=null and flag==2">
+			srepxmldata
+		</if>
+		<if test="flag !=null and flag==3">
+			grepxmldata
+		</if>
+		   from JH_HJ_FKQK
+		where rownum=1
+		<if test="bizmsgid !=null and bizmsgid!=''">
+			and BIZMSGID =#{bizmsgid} 
+		</if>
+	</select>
+</mapper>

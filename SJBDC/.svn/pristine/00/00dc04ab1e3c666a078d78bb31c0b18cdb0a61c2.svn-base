@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>综合监管导航栏</title>
+<link type="text/css" rel="stylesheet"
+	href="../../Script/plugins/bootstrap/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="head.css">
+<script type="application/javascript" src="../../Script/jquery.js"></script>
+<script type="application/javascript"
+	src="../../Script/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="application/javascript" src="queryHead.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="headContainer">
+			<ul class="headTab">
+			</ul>
+		</div>
+		<div class="iframeContainer ">
+			<iframe src="../../exchange/fkbwcx.jsp" frameborder="0" id="iframePage"
+				class="iframePage"></iframe>
+		</div>
+	</div>
+</body>
+</html>

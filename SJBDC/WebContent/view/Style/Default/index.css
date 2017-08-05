@@ -1,0 +1,25 @@
+﻿body{ overflow:hidden;}
+body,div 
+{
+    border:0; padding:0; margin:0; font-size:12px;
+} 
+/*大框架*/
+#content{ background-color:#D4E8A9; overflow:hidden; min-width:960px;}
+/*上中下*/
+#header{ height:60px; width:100%; clear:both; background-image:url(images/main_01.jpg); background-attachment: scroll; background-repeat: no-repeat; background-position-x: left; background-position-y: center; background-color: transparent;}
+#center{clear:both; width:100%}
+#footer{ height:24px; width:100%; background-image:url('images/main_47.gif')}
+/*中部左右*/
+#center #left{ background-color:#fff; width: 175px;  min-width:175px; float:left; border:1px solid green;}
+#div_TreeContent{overflow:auto; width:100%;}
+#center #right{  min-width:758px; overflow:auto; margin:0px; padding:5px;}
+#rightCentent{ background-color:#fff; border:1px solid green; -moz-border-radius: 5px;-khtml-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;}
+#DemoContext{border: none; width: 100%;}
+
+#msgTitle{ height:26px; background-image:url(images/main_21.gif);}
+#msgContent{ clear:both; min-height:80px; background-image:url("images/main_23.gif"); background-repeat: repeat-x; text-align:center;}
+.imgclass{ float:left; color:#43860c; text-align:center; margin:3px; width:50px; font-size:1em; line-height:30px; cursor:pointer;}
+#msgLine{line-height: 4px; height:4px; background-image: url("images/main_38.gif");}
+#maintop{ width:100%; margin:0 auto; overflow:auto; _display:inline-block; min-height:30px; line-height:30px; background:-moz-linear-gradient(top, #D4E8A9, #fff;);}
+#mainTitle{ width:200px; float:left; padding-left:20px; font-size:1.2em; font-weight:bold;}
+#btnCommand{ margin-left:0px; padding-right:20px; text-align:right;}

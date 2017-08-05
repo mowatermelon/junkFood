@@ -1,0 +1,51 @@
+.box-panel .box-title {
+    color: #464646;
+    font-size: 1.2rem;
+    padding: 1rem 0px;
+}
+.container{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+    margin:0px;
+    padding: 10px 10% 0px 10%;
+}
+.border0{
+	border:1px solid #dedede;
+}
+
+.changeDiv{
+	width:100%;
+	text-align:center;
+}
+.changeDiv tbody tr td{
+	height:40px;
+}
+.modal-header{
+	height:50px;
+	line-height:50px;
+	background:#2175de;
+	
+}
+.inner-box{
+	height:50px;
+	width:100%
+}
+
+.form-control{
+	padding-left:5px;
+	
+}
+.modal-body{
+	height:520px;
+	overflow-y: scroll;
+	margin-bottom:10px;
+}
+.modal-body::-webkit-scrollbar {
+		  width: 5px;
+	}
+	
+.modal-body::-webkit-scrollbar-thumb {
+		  background-color: rgba(0, 0, 0, 0.2); 
+	}

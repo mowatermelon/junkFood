@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ProtalQueryMapper">
+	<resultMap id="BaseResultMap" type="java.util.Map"></resultMap>
+
+	<!-- 查询问题回复数据，最近三条数据 -->
+	<select id="queryPageAnswer" resultMap="BaseResultMap" parameterType="java.util.Map">
+
+		select w.ywbsid,
+		w.content,
+		w.createtime,
+		        <![CDATA[
+		       (select a.content
+		          from work_answer a
+		         where a.pid = w.ywbsid
+		           and rownum < 2) acontent,
+		       (select a.createtime
+		          from work_answer a
+		         where a.pid = w.ywbsid
+		           and rownum < 2) atime,
+		            ]]>
+		(select count(*) from work_answer a where a.pid = w.ywbsid) total
+		from
+		work_answer w
+		where w.pid = '0'
+
+		<if test="content!=null and content!=''">
+			and w.content like '%'|| #{content} ||'%'
+		</if>
+		order by w.createtime desc
+
+
+
+	</select>
+	<!-- 查询通知公告，工作简报，法律法规列表数据 -->
+	<select id="queryPageArticleList" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select t.bt,t.lrsj,t.id from work_article t
+		where 1=1
+		<if test="bt!=null and bt!=''">
+			and t.bt like '%'||#{bt}||'%'
+		</if>
+		<if test="lx!=null and lx!=''">
+			and t.lx=#{lx}
+		</if>
+	</select>
+	<!-- 根据id查询通知公告，工作简报，法律法规内容 -->
+	<select id="queryArticleClob" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select * from work_article t
+		where 1=1
+		<if test="bt!=null and bt!=''">
+			and t.bt=#{bt}
+		</if>
+		<if test="lx!=null and lx!=''">
+			and t.lx=#{lx}
+		</if>
+		<if test="id!=null and id!=''">
+			and t.id=#{id}
+		</if>
+	</select>
+
+	<!-- 查询对应的所有回复信息 -->
+	<select id="queryReply" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select (select w.content from work_answer w where t.pid=w.ywbsid) wcontent,t.* from work_answer t where 1=1
+		<if test="pid!=null and pid!=''">
+			and t.pid=#{pid}
+		</if>
+	</select>
+	
+
+	<!-- 查询首页所有的数据 -->
+	<select id="queryIndexMsg" resultMap="BaseResultMap" parameterType="java.util.Map">
+
+		 
+			select id, lrsj, bt, lx
+			  from work_article t
+			 where t.bt like '%'|| #{bt} ||'%'
+			    <if test="rownum!=null and rownum!=''">
+			   	 <![CDATA[
+			  		 and rownum < ${rownum}
+				 ]]>
+			   </if>
+			   and lx = 1
+			union all
+			select id, lrsj, bt, lx
+			  from work_article t
+			 where t.bt like '%'|| #{bt} ||'%'
+			    <if test="rownum!=null and rownum!=''">
+			   	 <![CDATA[
+			  		 and rownum < ${rownum}
+				 ]]>
+			   </if>
+			   and lx = 2
+			union all
+			select id, lrsj, bt, lx
+			  from work_article t
+			 where t.bt like '%'|| #{bt} ||'%'
+			   <if test="rownum!=null and rownum!=''">
+			   	 <![CDATA[
+			  		 and rownum < ${rownum}
+				 ]]>
+			   </if>
+			   and lx = 3
+			union all
+			select t.ywbsid id, t.createtime lrsj, t.content bt, 4 lx
+			  from work_answer t
+			 where t.content like '%'|| #{bt} ||'%'
+			   and t.pid = '0'     
+			   <if test="rownum!=null and rownum!=''">
+			   	 <![CDATA[
+			  		 and rownum < ${rownum}
+				 ]]>
+			   </if>
+			   
+	</select>
+</mapper>

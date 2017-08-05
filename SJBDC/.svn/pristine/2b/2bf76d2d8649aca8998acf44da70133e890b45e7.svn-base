@@ -1,0 +1,57 @@
+.title-area, .filter-plugin-area {
+    width: 50%;
+    float: left;
+}
+
+.title-area .box-title {
+    color: #464646;
+    font-size: 1.2rem;
+    margin-top: 4px;
+}
+
+.title-area {
+    text-align: left;
+}
+
+.filter-plugin-area {
+    text-align: right;
+}
+
+.filter-plugin-area .province-area, .filter-plugin-area .date-picker-area {
+    display: inline-block;
+}
+
+.filter-plugin-area .date-picker-area {
+    border: none;
+    border-radius: 0;
+    background: #fff;
+    display: inline-block
+}
+
+.date-picker-area .date-box {
+    width: 200px !important;
+}
+
+.filter-plugin-area .arrow-down {
+    width: 0;
+    height: 0;
+    border-top: 6px solid #bcbcbc;
+    border-right: 3px solid transparent;
+    border-left: 3px solid transparent;
+    position: absolute;
+    top: 12px;
+    right: 8px;
+}
+
+.filter-plugin-area .plugin-box {
+    display: inline-block;
+    color: #565656;
+    text-align: left;
+    width: 80px;
+    padding: 0 8px;
+    position: relative;
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #CECECE
+}

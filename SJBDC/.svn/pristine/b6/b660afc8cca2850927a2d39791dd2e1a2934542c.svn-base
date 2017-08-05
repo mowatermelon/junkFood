@@ -1,0 +1,353 @@
+﻿/*
+    我是万恶的分割线------------------------------以下是菜单的CSS-----------------------------------
+    */
+/*
+创建人：蔡健
+创建时间：2014.4.8
+*/
+.span_main, .span_main_chg, .span_other
+{
+    text-align: left;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+   
+}
+
+.span_main
+{
+    color: #666;
+    height: 50px;
+    line-height: 53px;
+    background-color: #eaedf2;
+}
+
+.span_main_chg
+{
+    color: #fafafa;
+    height: 48px;
+    line-height: 53px;
+    background-color: #2CABDD;
+}
+
+.span_other
+{
+    height: 50px;
+    line-height: 44px;
+    color: #666;
+    font-weight: 100;
+    font-size: 14px;
+    background-color: #eaedf2;
+}
+
+.leftMenu
+{
+    width: 188px;
+    height: 100%;
+    background-color: #eaedf2;
+   
+}
+
+.point
+{
+    font-weight:bold;
+    margin-left:25px;
+    margin-top:10px;
+}
+
+    .leftMenu .status
+    {
+        color: #0574b9;
+        font-weight: bold;
+        background-color: #FFF;
+    }
+
+    .leftMenu .status_main
+    {
+       height:50px;
+        color: #fafafa;
+        background-color: #eaedf2;
+    }
+
+.fh_sel, .fh_unsel
+{
+    padding-left: 10px;
+}
+
+.fh_sel
+{
+    color: #FFFFFF;
+}
+
+.fh_unsel
+{
+    color: #B5B5B5;
+}
+/*
+    我是万恶的分割线------------------------------以上是菜单的CSS-----------------------------------
+    */
+
+
+
+/*
+    我是万恶的分割线------------------------------以下是主界面菜单的CSS-----------------------------------
+    */
+
+#divShortCut
+{
+    float: right;
+    text-align: right;
+    padding: 0;
+}
+
+.span2
+{
+    top: 0;
+    left: 0;
+}
+
+.row-fluid [class*="span"]
+{
+    display: block;
+    float: left;
+    width: 100%;
+    min-height: 30px;
+    margin-left: 0px;
+    *margin-left: 0px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.row-fluid .span2
+{
+    width: 16.66666666666667%;
+    *width: 16.61347517730496%;
+}
+
+.shortcut-button
+{
+    margin: 0;
+}
+
+#divShortCut a:hover, a:link, a:visited
+{
+    text-decoration: none;
+}
+
+/*
+    我是万恶的分割线------------------------------以上是主界面菜单的CSS-----------------------------------
+    */
+/*
+    我是万恶的分割线------------------------------以上是横向菜单的CSS-----------------------------------
+    */
+/*nav*/
+ol, ul
+{
+    list-style: none;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td
+{
+    margin: 0;
+    padding: 0;
+}
+
+.nav
+{
+    float: left;
+    height: 42px;
+    background: url('Images/nav-bg.gif') repeat-x;
+    width: 100%;
+}
+
+    .nav li
+    {
+        float: left;
+        padding-right: 1px;
+        background: url('Images/nav-line.gif') no-repeat right 0;
+    }
+
+        .nav li a
+        {
+            display: block;
+            padding: 0 30px;
+            margin-top: 1px;
+            height: 41px;
+            line-height: 41px;
+            font-family: "微软雅黑";
+            font-size: 16px;
+            color: #fff;
+        }
+
+            .nav li a:hover
+            {
+                text-decoration: none;
+                color: #fbec42;
+                background: url('Images/nav-hover.gif') repeat-x;
+            }
+
+    .nav .status a
+    {
+        color: #fff !important;
+        background: url('Images/nav-status.gif') repeat-x !important;
+    }
+
+
+/*
+    我是万恶的分割线------------------------------以上是横向菜单的CSS-----------------------------------
+    */
+
+
+/*
+    我是万恶的分割线------------------------------以下是菜单2的CSS-----------------------------------
+    */
+
+/*  line 27, ../sass/screen.scss */ /*123*/
+.vgroup
+{
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-box;
+    display: box;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -ms-box-orient: vertical;
+    box-orient: vertical;
+}
+
+
+
+/* line 141, ../sass/screen.scss */
+#statSubMenuDiv
+{
+    width: 186px;
+    background-color: #ffffff;
+    height: 100%;
+}
+
+
+
+.menu2_subaero
+{
+    background-image: url("Images/bg_sub.png");
+    width: 100%;
+    height: 100%;
+    color: Black;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+div.menu2_subaero:hover
+{
+    background-image: url("Images/bg_sub_hover.png");
+    width: 100%;
+    height: 100%;
+    color: #52a1c1;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+div.menu2_selected
+{
+    background-image: url("Images/bg_sub_selected.png");
+    width: 100%;
+    height: 100%;
+    color: #dde003;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#imgBtnUp
+{
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-image: url("Images/btnUp.png");
+}
+
+#imgBtnDown
+{
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-image: url("Images/btnDown.png");
+}
+
+#imgBtnUp, #imgBtnDown
+{
+    width: 183px;
+    height: 23px;
+}
+
+/*
+    我是万恶的分割线------------------------------以上是菜单2的CSS-----------------------------------
+    */
+
+/*
+    我是万恶的分割线------------------------------以下是菜单2_top的CSS-----------------------------------
+    */
+
+/*  line 27, ../sass/screen.scss */ /*123*/
+
+
+
+#statSubMenuDiv_top
+{
+    background-color: #ffffff;
+}
+
+
+
+.menu2_subaero_top
+{ /*123*/
+    background-image: url("Images/bg_sub.png");
+    color: Black;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+div.menu2_subaero_top:hover
+{
+    background-image: url("Images/bg_sub_hover.png");
+    width: 100%;
+    height: 100%;
+    color: #52a1c1;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+div.menu2_selected_top
+{ /*123*/
+    background-image: url("Images/bg_sub_selected.png");
+    color: #dde003;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+#imgBtnUp_top
+{
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-image: url("Images/btnLeft.png");
+}
+
+#imgBtnDown_top
+{
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-image: url("Images/btnRight.png");
+}
+
+#imgBtnUp_top, #imgBtnDown_top
+{
+    width: 23px;
+    height: 110px;
+}
+/*
+    我是万恶的分割线------------------------------以上是菜单2_top的CSS-----------------------------------
+    */

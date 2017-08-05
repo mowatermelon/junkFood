@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geostar.gtgh.portal.core.dao.GzjlMapper" >
+  <resultMap id="BaseResultMap" type="com.geostar.gtgh.portal.core.entity.Gzjlrelease" >
+    <result column="DESCRIPTION" property="description" jdbcType="NVARCHAR" />
+    <result column="CREATEUSER" property="createuser" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMap1" type="com.geostar.gtgh.portal.core.entity.Gzjlprovidesolution" >
+	    <result column="REPLY" property="reply" jdbcType="NVARCHAR" />		
+	    <result column="QUESTIONID" property="questionid" jdbcType="NVARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="java.util.Map"></resultMap>
+ <!--  1发布问题 ：release  -->
+  <insert id="insertGzjlrelease" parameterType="com.geostar.gtgh.portal.core.entity.Gzjlrelease" >
+    insert into WORK_QUESTION
+    <trim prefix="(" suffix=")" suffixOverrides="," >     
+        id, 
+      <if test="description != null" >
+        description,
+      </if>
+      createtime,
+      <if test="createuser != null" >
+        createuser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      (select sys_guid() from dual),
+      <if test="description != null" >
+        #{description,jdbcType=NVARCHAR},
+      </if>
+      sysdate,
+      <if test="createuser != null" >
+        #{createuser,jdbcType=NVARCHAR}, 
+      </if>     
+    </trim>
+  </insert>
+ <!--  2回复问题 ：providesolution -->
+  <insert id="insertGzjlprovidesolution" parameterType="com.geostar.gtgh.portal.core.entity.Gzjlprovidesolution" >
+    insert into WORK_REPLY
+    <trim prefix="(" suffix=")" suffixOverrides="," >     
+        id,
+      <if test="questionid != null" >
+         createuser,
+      </if>   
+      <if test="questionid != null" >
+        questionid,
+      </if>
+      createtime,
+      <if test="reply != null" >
+        reply,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      (select sys_guid() from dual),
+      <if test="questionid != null" >
+        (select createuser from WORK_QUESTION where id=#{questionid,jdbcType=NVARCHAR}),
+      </if>
+      <if test="questionid != null" >
+        #{questionid,jdbcType=NVARCHAR},
+      </if>
+      sysdate,
+      <if test="reply != null" >
+        #{reply,jdbcType=NVARCHAR},
+      </if>     
+    </trim>
+  </insert>
+  <!-- 3显示全部的问题 -->
+	<select id="queryPageGzjlshow" resultMap="BaseResultMap2" parameterType="java.util.Map">
+		select aa.*,dd.*, a.sum
+		  from (select id, description, createtime questiontime from WORK_QUESTION order by createtime desc) aa
+		  left join (select aaa.*, bbb.reply, bbb.createtime
+		               from (select max(id) answerid, questionid
+		                       from (select id, time1, cc.questionid, reply
+		                               from (select max(createtime) time1, questionid
+		                                       from WORK_REPLY
+		                                      group by questionid) cc,
+		                                    WORK_REPLY dd
+		                              where cc.time1 = dd.createtime
+		                                and dd.questionid = cc.questionid)
+		                      group by questionid) aaa,
+		                    WORK_REPLY bbb
+		              where aaa.answerid = bbb.id
+		                and aaa.questionid = bbb.questionid) dd
+		    on aa.id = dd.questionid
+		  left join (select count(1) sum, questionid
+		               from WORK_REPLY
+		              group by questionid) a
+		    on aa.id = a.questionid
+		 order by  aa.questiontime desc
+  	</select>
+  	<!-- 4模糊查询问题和主题 search -->
+	<select id="queryPageGzjlsearch" resultMap="BaseResultMap2" parameterType="java.util.Map">
+		select aa.*, dd.*, a.sum
+		  from (select id, description, createtime questiontime from WORK_QUESTION where 1=1 
+		         <if test="description!=null and description!=''">
+		         and description like '%'||#{description}||'%'
+		         </if>) aa
+		  left join (select aaa.*, bbb.reply, bbb.createtime
+		               from (select max(id) answerid, questionid
+		                       from (select id, time1, cc.questionid, reply
+		                               from (select max(createtime) time1, questionid
+		                                       from WORK_REPLY
+		                                      group by questionid) cc,
+		                                    WORK_REPLY dd
+		                              where cc.time1 = dd.createtime
+		                                and dd.questionid = cc.questionid)
+		                      group by questionid) aaa,
+		                    WORK_REPLY bbb
+		              where aaa.answerid = bbb.id
+		                and aaa.questionid = bbb.questionid) dd
+		    on aa.id = dd.questionid
+		  left join (select count(1) sum, questionid
+		               from WORK_REPLY 
+		               where 1=1 
+		         <if test="description!=null and description!=''">
+		         and questionid IN (select id from WORK_QUESTION where description like '%'||#{description}||'%')
+		         </if>
+		         group by questionid) a
+		    on aa.id = a.questionid
+		 order by dd.createtime, aa.questiontime desc
+	</select>
+	<!-- 5 显示最近3条的问题 -->
+	<select id="Gzjlrecent" resultMap="BaseResultMap2" parameterType="java.util.Map">
+		select aa.*,dd.id answerid,dd.reply, a.sum
+		  from (select id, description, createtime  from WORK_QUESTION order by createtime desc) aa
+		  left join (select aaa.*, bbb.reply
+		               from (select max(id) id, questionid
+		                       from (select id, time1, cc.questionid, reply
+		                               from (select max(createtime) time1, questionid
+		                                       from WORK_REPLY
+		                                      group by questionid) cc,
+		                                    WORK_REPLY dd
+		                              where cc.time1 = dd.createtime
+		                                and dd.questionid = cc.questionid)
+		                      group by questionid) aaa,
+		                    WORK_REPLY bbb
+		              where aaa.id = bbb.id
+		                and aaa.questionid = bbb.questionid) dd
+		    on aa.id = dd.questionid
+		  left join (select count(1) sum, questionid
+		               from WORK_REPLY
+		              group by questionid) a
+		    on aa.id = a.questionid		
+		 where 1=1 and 
+		 <![CDATA[rownum <= 3]]>
+		  order by aa.createtime desc
+	</select>
+	<!-- 6显示问题及对应的所有回复 showdetails -->
+	<select id="Gzjlshowdetails" resultMap="BaseResultMap2" parameterType="java.util.Map">
+		select aa.*, bb.reply,cc.sum
+		  from (select id, description
+		           from work_question
+		          where 1=1
+		          <if test="id!=null and id!=''">
+		          and id = #{id}
+		          </if>
+		          ) aa
+		  left join WORK_REPLY bb
+		    on aa.id = bb.questionid
+		   left join (select questionid, count(1) sum from WORK_REPLY
+		          where 1=1
+		          <if test="id!=null and id!=''">
+		          and questionid = #{id}
+		          </if>
+		           group by questionid) cc
+		          on aa.id = cc.questionid
+	</select>
+</mapper>

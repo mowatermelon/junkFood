@@ -1,0 +1,97 @@
+@CHARSET "UTF-8";
+
+.base-container {
+	width: 100%;
+	overflow-y: hidden;
+	padding: 0 10px;
+}
+
+.container-header {
+	background: #F3F3F3;
+	position: relative;
+}
+
+.table-box table {
+	font-size: .9rem;
+}
+
+.base-container .query-box {
+	border: 1px solid #DBDBDB;
+	position: relative;
+	padding: 10px 0;
+	overflow: hidden;
+	margin: 10px 0;
+}
+
+.query-box .inner-box {
+	position: relative;
+	overflow: hidden;
+	float: left;
+	padding: 13px 10px;
+}
+
+.arrow-down:after {
+	content: '';
+	width: 0;
+	height: 0;
+	border-top: 6px solid #565656;
+	border-right: 3px solid transparent;
+	border-left: 3px solid transparent;
+	position: absolute;
+	top: 28px;
+	right: 16px;
+}
+.query-box .check-box{
+
+}
+.check-box label{
+	font-weight: normal;
+	padding: 0 8px;
+	display: inline-block;
+	margin-top: 5px;
+}
+.check-box label span{
+	margin: 0 5px;
+}
+.inner-box .data-box-title {
+	color: #333333;
+	padding: 0 12px;
+	float: left;
+	margin-top: 6px;
+}
+
+.inner-box .data-box-text-area {
+	float: left;
+	width: 180px;
+	border: 1px solid #DBDBDB;
+	height: 32px;
+	position: relative;
+	padding: 0px 8px;
+}
+
+.inner-box .city-area {
+	width: 120px;
+}
+
+.inner-box .date-range {
+	width: 210px;
+}
+
+.query-box a {
+	display: block;
+	background: #03A2D9;
+	padding: 5px 30px;
+	float: left;
+	margin: 0px 15px;
+	color: #fff;
+	font-weight: 700;
+}
+
+.fix-table .fixed-table-header {
+	background: #D1F3FF !important;
+	font-size: 1rem !important;
+}
+
+.fix-table .table-striped>tbody>tr:nth-of-type(2n) {
+	background-color: #EEFCFF !important;
+}

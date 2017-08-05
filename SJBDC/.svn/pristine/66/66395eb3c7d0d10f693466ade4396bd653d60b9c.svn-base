@@ -1,0 +1,82 @@
+
+
+/*自适应表单*/
+
+
+.g-txtbox
+{
+    float: left;
+    margin: 6px 0 8px 10px;
+    width: 252px;
+    height: 24px;
+    line-height: 24px;
+    /*overflow: hidden;*/
+}
+
+    .g-txtbox label
+    {
+        float: left;
+    }
+    .g-txtbox input
+    {
+        float: left;
+    }
+
+    .g-txtbox select
+    {
+        padding: 0px 3px;
+        width: 158px;
+        height: 22px;
+        border: 1px solid #bebebe;
+    }
+
+    .g-txtbox .row1
+    {
+        width: 94px;
+    }
+
+    .g-txtbox .row1_btn
+    {
+        float: left;
+        margin-left: 4px;
+        width: 52px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0;
+        border: none;
+        background: #0aa0ed;
+        color: #fff;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    .g-txtbox .row2
+    {
+        width: 59px;
+    }
+
+    .g-txtbox .row2_text
+    {
+        display: block;
+        float: left;
+        padding: 0 5px;
+    }
+
+.g-submit
+{
+    clear: both;
+}
+
+.g-search
+{
+    float: right;
+    width: 98px;
+    height: 24px;
+    line-height: 24px;
+    padding: 0;
+    border: none;
+    background: #0aa0ed;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+}

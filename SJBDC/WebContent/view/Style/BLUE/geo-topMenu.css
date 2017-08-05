@@ -1,0 +1,45 @@
+/*
+Name:Global V1.0
+Author:Mouxsi
+Note:2015-07-24
+顶部主菜单样式
+*/
+
+
+.g-head{
+	height: 76px;
+	background-color: #0874b9;
+}
+.g-logo-top{
+	display:block;
+	float: left;
+	margin: 17px 0 0 17px;
+	width: 438px;
+	height: 42px;
+	background: url('../../Images/projectImage/logo_zhjg.png');
+}
+
+.g-mt{
+	float: right;
+}
+.g-mt li{
+	float: left;
+}
+.g-mt li a{
+    float: left;
+	display: block;
+	padding-top: 44px;
+	width: 112px;
+	height: 32px;
+	color: #fff;
+	text-decoration: none;
+	font-size: 14px;
+	text-align: center;
+}
+.g-mt .mt-focus{background-color:#05578c;}
+
+
+
+
+
+

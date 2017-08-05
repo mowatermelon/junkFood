@@ -1,0 +1,275 @@
+<!DOCTYPE>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="../../../../Script/plugins/bootstrap/css/bootstrap.min.css">
+    <script type="application/javascript" src="../../../../Script/jquery.js"></script>
+    <script type="application/javascript" src="../../../../Script/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../../../Common/css/index.css">
+    <style>
+        .nav-tabs li {
+            width: 20%;
+            text-align: center;
+            border: none;
+        }
+
+        .nav-tabs a {
+            color: #868686;
+            font-size: 1.2rem;
+            font-weight: normal;
+        }
+
+        .nav-tabs .active a {
+            border: none !important;
+            border-bottom: 2px solid #FF7E20 !important;
+            color: #FF7E20 !important;
+            font-weight: bold !important;
+        }
+
+        .nav-tabs li:hover {
+            border: none;
+        }
+
+        .nav-tabs a:hover {
+            background: #fff !important;
+            border: none !important;
+        }
+
+        .tab-content .inner-box {
+            padding: 0px 15px
+        }
+
+        .inner-box .table-title {
+            border-left: 5px solid #318AFE;
+            padding-left: 10px;
+            margin: 20px 0;
+            color: #808080;
+            font-size: 1.2rem;
+            font-weight: 100;
+        }
+
+        .tab-content .table-box {
+            width: 100%;
+        }
+
+        .table-box td:nth-child(2n+1) {
+            background: #EBF3F6;
+            color: #969999;
+        }
+
+        .table-box td {
+            text-align: center;
+            padding: 7px 0;
+            font-size: .95rem;
+            border: 1px solid #d8d8d8;
+        }
+
+        .left-time-line {
+            background: #EFEFEF;
+        }
+
+        .left-time-line .time-line-box {
+            padding: 50px 0;
+        }
+
+        .time-line-box .line-child-box {
+            background: #fff;
+            padding: 40px 10px 20px 10px;
+            color: #616161;
+            position: relative;
+            margin-top: 60px;
+            box-shadow: 0 0 2px 2px #E3E3E3;
+        }
+
+        .time-line-box .line-child-box:first-child {
+            margin-top: 0px;
+        }
+
+        .time-line-box .text-icon {
+            display: block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            position: absolute;
+            background: #318AFE;
+            color: #fff;
+            border-radius: 50px;
+            text-align: center;
+            left: 50%;
+            margin-left: -25px;
+            top: -25px;
+            box-shadow: 0 0 0px 5px #EFEFEF;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .time-line-box .active-box {
+            color: #FF6B01 !important;
+            box-shadow: 0 0 2px 2px #F2BD97;
+        }
+
+        .active-box .text-icon {
+            background: #FF6B01 !important;
+        }
+
+        .left-time-line:before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            margin-left: 1px;
+            width: 2px;
+            background: #d2d2d2;
+            height: 100%;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <div class="col-xs-3 left-time-line">
+        <div class="time-line-box">
+            <div class="line-child-box">
+                <div class="text-icon">
+                    <span>上级</span>
+                </div>
+                <p>业务登记号：2016019283</p>
+
+                <p>转移登记</p>
+            </div>
+            <div class="line-child-box active-box">
+                <div class="text-icon">
+                    <span>当前</span>
+                </div>
+                <p>业务登记号：2016019283</p>
+
+                <p>转移登记</p>
+            </div>
+            <div class="line-child-box">
+                <div class="text-icon">
+                    <span>下级</span>
+                </div>
+                <p>业务登记号：2016019283</p>
+
+                <p>转移登记</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-9">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="#tab1" data-toggle="tab">
+                    登记类型
+                </a>
+            </li>
+            <li>
+                <a href="#tab2" data-toggle="tab">
+                    权利类型
+                </a>
+            </li>
+            <li>
+                <a href="#tab3" data-toggle="tab3">
+                    其它类型
+                </a>
+            </li>
+            <li>
+                <a href="#tab4" data-toggle="tab">
+                    档案信息
+                </a>
+            </li>
+            <li>
+                <a href="#tab5" data-toggle="tab">
+                    图形信息
+                </a>
+            </li>
+
+
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="tab1">
+                <div class="inner-box">
+                    <div class="table-title">申请</div>
+                    <table class="table-box">
+                        <tr>
+                            <td style="width:20%">业务号</td>
+                            <td style="width:30%">&nbsp;</td>
+                            <td style="width:20%">登记类型</td>
+                            <td style="width:30%">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>业务号</td>
+                            <td>&nbsp;</td>
+                            <td>登记类型</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>业务号</td>
+                            <td>&nbsp;</td>
+                            <td>登记类型</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>业务号</td>
+                            <td>&nbsp;</td>
+                            <td>登记类型</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>业务号</td>
+                            <td>&nbsp;</td>
+                            <td>登记类型</td>
+                            <td>&nbsp;</td>
+                        </tr>
+
+                    </table>
+
+                    <div class="table-title">审批信息</div>
+                    <table class="table-box">
+                        <tr>
+                            <td style="width:20%">业务号</td>
+                            <td style="width:30%">&nbsp;</td>
+                            <td style="width:20%">登记类型</td>
+                            <td style="width:30%">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>业务号</td>
+                            <td>&nbsp;</td>
+                            <td>登记类型</td>
+                            <td>&nbsp;</td>
+                        </tr>
+
+
+                    </table>
+
+                    <div class="table-title">缮证信息</div>
+                    <table class="table-box">
+                        <tr>
+                            <td style="width:20%">业务号</td>
+                            <td style="width:30%">&nbsp;</td>
+                            <td style="width:20%">登记类型</td>
+                            <td style="width:30%">&nbsp;</td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade in active" id="tab2">
+
+            </div>
+            <div class="tab-pane fade in active" id="tab3">
+
+            </div>
+            <div class="tab-pane fade in active" id="tab4">
+
+            </div>
+            <div class="tab-pane fade in active" id="tab5">
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

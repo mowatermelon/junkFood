@@ -1,0 +1,165 @@
+{
+    "YXWH": {
+        "titleSrc": "/SJBDC/view/Common/images/titles/YXWH.png",
+        "menu": [
+            {
+                "name": "概要",
+                "src": "/SJBDC/view/maintenance/index.jsp",
+                "icon": "glyphicon glyphicon-home",
+                "child": []
+            },
+            {
+                "name": "数据融合管理",
+                "icon": "glyphicon glyphicon-globe",
+                "child": [
+                    {
+                        "name": "融合监控",
+                        "src": "/SJBDC/view/maintenance/dfs/modular/index.jsp"
+                    },
+                    {
+                        "name": "融合方案",
+                        "src": "/SJBDC/view/maintenance/dfs/modular/schema/schemaManage.jsp"
+                    },
+                    {
+                        "name": "融合任务",
+                        "src": "/SJBDC/view/maintenance/dfs/modular/task/taskManager.jsp"
+                    },
+                    {
+                        "name": "节点管理",
+                        "src": "/SJBDC/view/maintenance/dfs/modular/node/nodeManage.jsp"
+                    }
+                ]
+            },
+            {
+                "name": "数据服务管理",
+                "icon": "glyphicon glyphicon-globe",
+                "child": [
+                    {
+                        "name": "服务管理",
+                        "src": "/ServiceMgr/geoapp/searchSM.shtml?FORM=BDC"
+                    }, 
+                    {
+                        "name": "服务监控",
+                        "src": "/ServiceMgr/geoapp/searchSMA.shtml?FORM=BDC"
+                    },
+                    {
+                        "name": "节点监控",
+                        "src": "/ServiceMgr/geoapp/searchAllShowNMA.shtml?params.mode=pic&FORM=BDC"
+                    },{
+                        "name": "服务源管理",
+                        "src": "/ServiceMgr/geoapp/searchCP.shtml?FORM=BDC"
+                    }
+                ]
+            },
+            {
+                "name": "数据资源管理",
+                "icon": "glyphicon glyphicon-globe",
+                "child": [
+                    {
+                        "name": "数据注册",
+                        "src": "/DataCenter/home_welcomeclient"
+                    },
+                   
+                     {
+                        "name": "数据源管理",
+                        "src": "/DataCenter/dataSource_queryDataSourceList"
+                    },
+                     {
+                        "name": "标签库管理",
+                        "src": "/DataCenter/tagEnum_queryTagEnumList"
+                    },{
+                        "name": "数据组织",
+                        "src": "http://19.16.104.158/JSViewer/index.html?config=cfg/bdc_gd/config_yzt_sjgl.json&ticket=&service="
+                    }
+                    
+                ]
+            },
+            {
+                "name": "日志管理",
+                "icon": "glyphicon glyphicon-globe",
+                "child": [
+                    {
+                        "name": "数据融合日志",
+                        "src": "/SJBDC/view/maintenance/dfs/modular/log/taskExecuteLog.jsp"
+                    },
+                    {
+                        "name": "数据服务日志",
+                        "src": "/ServiceMgr/geoapp/searchSML.shtml?FORM=BDC"
+                    },
+                    {
+                        "name": "数据资源日志",
+                        "src": "/DataCenter/log_operation"
+                    }
+                ]
+            },
+            {
+                "name": "用户权限管理",
+                "icon": "glyphicon glyphicon-globe",
+                "child": [
+                    {
+                        "name": "用户管理",
+                        "src": "/SJBDC/user/user_list.action?type=DataServiceCenter"
+                    },
+                    {
+                        "name": "机构管理",
+                        "src": "/SJBDC/user/org_list.action?type=DataServiceCenter"
+                    },
+                    {
+                        "name": "角色管理",
+                        "src": "/SJBDC/user/role_list.action?type=DataServiceCenter"
+                    },
+                    {
+                        "name": "权限管理",
+                        "src": "/SJBDC/user/perm_list.action?type=DataServiceCenter"
+                    }
+                ]
+            }
+        ]
+    },
+    "SJJH": {
+        "titleSrc": "/SJBDC/view/Common/images/titles/SJJH.png",
+        "menu": [
+            {
+                "name": "首页",
+                "src": "/SJBDC/view/exchange/index.jsp",
+                "icon": "glyphicon glyphicon-home",
+                "child": []
+            },
+            {
+                "name": "汇交总体情况",
+                "src": "/SJBDC/view/exchange/sjhj.jsp",
+                "icon": "glyphicon glyphicon-sort",
+                "child": []
+            },{
+                "name": "数据汇交详情",
+                "src": "/SJBDC/view/exchange/jhxq.jsp",
+                "icon": "glyphicon glyphicon-th-list",
+                "child": []
+            },
+            {
+                "name": "上报总体情况",
+                "src": "/SJBDC/view/exchange/sjsb.jsp",
+                "icon": "glyphicon glyphicon-open",
+                "child": []
+            },{
+                "name": "数据上报详情",
+                "src": "/SJBDC/view/exchange/sbxq.jsp",
+                "icon": "glyphicon glyphicon-list-alt",
+                "child": []
+            },
+            
+            {
+                "name": "存量数据汇交",
+                "src": "/SJBDC/view/exchange/clsjhj.jsp",
+                "icon": "glyphicon glyphicon-random",
+                "child": []
+            },
+            {
+                "name": "反馈数据信息",
+                "src": "/SJBDC/view/exchange/fkxx.jsp",
+                "icon": "glyphicon glyphicon-tasks",
+                "child": []
+            }
+        ]
+    }
+}

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:sec="http://www.springframework.org/schema/security" xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    <sec:http pattern="/view/dwpt/map/**" security="none"/>
+   <!--  <sec:http pattern="/*Controller/*" security="none"/> -->
+    <sec:http pattern="/view/Common/json/**" security="none"/>
+    <!-- <sec:http pattern="/view/supervise/**" security="none"/> -->
+    <sec:http pattern="/view/Script/**" security="none"/>
+    <sec:http pattern="/view/images/**" security="none"/>
+    <sec:http pattern="/view/Style/**" security="none"/>
+    <sec:http pattern="/view/portal/*.js" security="none"/>
+    <sec:http pattern="/view/portal/*.css" security="none"/>
+    <sec:http pattern="/view/dwms/include/**" security="none"/>
+    <sec:http pattern="/mvc/portal_**" security="none"/>
+    <sec:http pattern="/view/test/**" security="none"/>
+	<sec:http pattern="/view/dwms/theme/default/**" security="none"/>
+	<sec:http pattern="/css/**" security="none"/>
+	<sec:http pattern="/fe-lib/**" security="none"/>
+	<sec:http pattern="/js/**" security="none"/>
+	<sec:http pattern="/img/**" security="none"/>
+	<sec:http pattern="/inc/**" security="none"/>
+	<sec:http pattern="/**/css/**" security="none"/>
+	<sec:http pattern="/**/img/**" security="none"/>
+	<sec:http pattern="/**/images/**" security="none"/>
+	<sec:http pattern="/**/js/**" security="none"/>
+	<sec:http pattern="/**/**/css/**" security="none"/>
+	<sec:http pattern="/**/**/img/**" security="none"/>
+	<sec:http pattern="/**/**/images/**" security="none"/>
+	<sec:http pattern="/**/**/js/**" security="none"/>
+	<sec:http pattern="/**/**/**/css/**" security="none"/>
+	<sec:http pattern="/**/**/**/img/**" security="none"/>
+	<sec:http pattern="/**/**/**/images/**" security="none"/>
+	<sec:http pattern="/**/**/**/js/**" security="none"/>
+	<sec:http entry-point-ref="casProcessingFilterEntryPoint" access-denied-page="/view/usersys/inc/accessDeny.jsp" >
+<!-- 		<sec:intercept-url pattern="/css/**" access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+<!-- 		<sec:intercept-url pattern="/fe-lib/**" access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+<!-- 		<sec:intercept-url pattern="/home/**" access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+<!-- 		<sec:intercept-url pattern="/img/**" access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+<!-- 		<sec:intercept-url pattern="/inc/**" access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+<!-- 		<sec:intercept-url pattern="/**/css/**" access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+<!-- 		<sec:intercept-url pattern="/**/img/**" access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+<!-- 		<sec:intercept-url pattern="/**/images/**" access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+<!-- 		<sec:intercept-url pattern="/**/js/**" access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+<!-- 		<sec:intercept-url pattern="/**/**/css/**" access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+<!-- 		<sec:intercept-url pattern=/**/**/img/** access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+<!-- 		<sec:intercept-url pattern="/**/**/images/**" access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+<!-- 		<sec:intercept-url pattern="/**/**/js/**" access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+<!-- 		<sec:intercept-url pattern="/**/**/**/css/**" access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+<!-- 		<sec:intercept-url pattern="/**/**/**/img/**" access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+<!-- 		<sec:intercept-url pattern="/**/**/**/images/**" access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+<!-- 		<sec:intercept-url pattern="/**/**/**/js/**" access="IS_AUTHENTICATED_ANONYMOUSLY, IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_REMEMBERED"/> -->
+		<sec:logout invalidate-session="true" logout-success-url="${cas.logoutUrl}" />
+		<sec:custom-filter ref="customFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+		<sec:custom-filter ref="casAuthenticationFilter" after="CAS_FILTER" />
+	</sec:http>
+	
+
+	<!-- 一个自定义的filter，必须包含authenticationManager,
+		accessDecisionManager,securityMetadataSource三个属性，我们的所有控制将在这三个类中实现  -->
+	<bean id="customFilter" class="com.geostar.gfstack.usersystem.security.CustomFilterSecurityInterceptor">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<!-- 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源     -->
+		<property name="accessDecisionManager" ref="customAccessDecisionManager" />
+		<property name="securityMetadataSource" ref="customSecurityMetadataSource" />
+	</bean>
+
+	<bean id="customAccessDecisionManager" class="com.geostar.gfstack.usersystem.security.CustomAccessDecisionManager">
+	</bean>
+
+	<bean id="customSecurityMetadataSource" class="com.geostar.gfstack.usersystem.security.CustomInvocationSecurityMetadataSourceService">
+	</bean>
+
+	<sec:authentication-manager alias="authenticationManager">
+		<sec:authentication-provider ref="casAuthenticationProvider" />
+	</sec:authentication-manager>
+
+	<bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+
+	<bean id="casAuthenticationFilter" class="org.springframework.security.cas.web.CasAuthenticationFilter">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="authenticationFailureHandler">
+			<bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+				<property name="defaultFailureUrl" value="/view/usersys/inc/accessDeny.jsp" />
+			</bean>
+		</property>
+		<property name="authenticationSuccessHandler">
+			<bean class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+				<property name="defaultTargetUrl" value="/" />
+			</bean>
+		</property>
+		<property name="proxyGrantingTicketStorage" ref="proxyGrantingTicketStorage" />
+		<property name="proxyReceptorUrl" value="/user/receptor" />
+	</bean>
+
+	<bean id="casProcessingFilterEntryPoint" class="org.springframework.security.cas.web.CasAuthenticationEntryPoint">
+		<property name="loginUrl" value="${cas.loginUrl}" />
+		<property name="serviceProperties" ref="serviceProperties" />
+	</bean>
+
+	<bean id="casAuthenticationProvider" class="org.springframework.security.cas.authentication.CasAuthenticationProvider">
+		<property name="userDetailsService" ref="customUserDetailsService" />
+		<property name="serviceProperties" ref="serviceProperties" />
+		<property name="ticketValidator">
+			<bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
+				<constructor-arg index="0" value="${cas.url}" />
+				<property name="proxyGrantingTicketStorage" ref="proxyGrantingTicketStorage" />
+
+			</bean>
+		</property>
+		<property name="key" value="an_id_for_this_auth_provider_only" />
+	</bean>
+
+	<bean id="proxyGrantingTicketStorage" class="org.jasig.cas.client.proxy.ProxyGrantingTicketStorageImpl" />
+
+	<bean id="serviceProperties" class="org.springframework.security.cas.ServiceProperties">
+		<property name="service" value="${cas.toService}" />
+		<property name="sendRenew" value="false" />
+	</bean>
+	
+<!-- 	<sec:jdbc-user-service id="jdbcUserService" data-source-ref="dataSource"  -->
+<!--     users-by-username-query="select USER_LOGIN_NAME as username,USER_PASSWORD as password,1 -->
+<!--      from sec_user  -->
+<!--      where USER_LOGIN_NAME=?" -->
+<!--      authorities-by-username-query="select u.USER_LOGIN_NAME as username,r.role_name as authority  -->
+<!--     from sec_user u -->
+<!--                  join sec_ref_user_role ur on u.user_id=ur.user_id  -->
+<!--                  join sec_role r on r.role_id=ur.role_id  -->
+<!--                  where u.USER_LOGIN_NAME=?"/> -->
+
+	<bean id="customUserDetailsService" class="com.geostar.gfstack.usersystem.security.CustomUserDetailsService">
+	</bean>
+</beans>
